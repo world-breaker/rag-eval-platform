@@ -1,0 +1,27 @@
+[
+  {
+    "question": "什么是Transformer的自注意力机制？",
+    "relevant_sources": ["transformer.txt"],
+    "reference_answer": "自注意力机制让每个token关注序列中的所有其他token，计算公式为Attention(Q,K,V)=softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长导致梯度消失。"
+  },
+  {
+    "question": "LoRA微调的原理是什么？",
+    "relevant_sources": ["finetuning.txt"],
+    "reference_answer": "LoRA在权重矩阵旁添加低秩分解矩阵A和B，公式为h=Wx+(α/r)BAx，只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。"
+  },
+  {
+    "question": "RAG系统如何优化延迟？",
+    "relevant_sources": ["rag_guide.txt"],
+    "reference_answer": "优化策略包括：embedding缓存（文档不变不重算）、IVF+PQ索引替代暴力搜索、减少top_k、换用小embedding模型、模型量化到INT4、使用vLLM推理加速、流式输出。"
+  },
+  {
+    "question": "模型量化的基本原理是什么？",
+    "relevant_sources": ["quantization.txt"],
+    "reference_answer": "量化将浮点参数转为低位整数。scale=(max-min)/15，quantized=round((value-min)/scale)。推理时反量化：value≈quantized×scale+min。NF4针对正态分布优化采样点分布。"
+  },
+  {
+    "question": "深度学习是什么？",
+    "relevant_sources": ["ai_intro.txt"],
+    "reference_answer": "深度学习是机器学习的一个子领域，使用多层神经网络来学习数据的层次化表示。它是机器学习的核心方法之一，通过从数据中学习模式来完成特定任务。"
+  }
+]

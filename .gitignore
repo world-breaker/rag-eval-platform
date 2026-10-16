@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 虚拟环境 / 本地环境变量
+.venv/
+venv/
+.env
+
+# 本地数据缓存（embedding 向量缓存，运行时可再生成）
+data/embedding_cache/
+data/chroma_db/
+
+# 本地下载的模型（如有）
+models/
+
+# 内部笔记（不随公开仓库发布，本地保留）
+看代码指南.md
+
+# 日志
+*.log
+
+# IDE / 系统文件
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

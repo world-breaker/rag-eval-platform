@@ -1,0 +1,22 @@
+# RAG 知识库问答 + 评测平台 依赖
+
+# 核心
+torch>=2.0.0
+transformers>=4.40.0
+sentence-transformers>=2.7.0
+
+# 向量存储（未使用：当前检索为内存中的 NumPy 余弦实现，见 src/retrieval.py）
+# 规模上量后接入向量库时再启用：
+# chromadb>=0.4.0
+
+# 界面
+gradio>=4.0.0
+
+# 工具
+numpy>=1.24.0
+pyyaml>=6.0
+requests>=2.28.0
+
+# 可选：API 加速
+# accelerate>=0.28.0
+# bitsandbytes>=0.43.0

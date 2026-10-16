@@ -1,0 +1,54 @@
+# RAG 知识库问答 + 评测平台 配置文件
+
+# ====== 文档处理 ======
+chunking:
+  strategy: "fixed_size"       # fixed_size | semantic | recursive
+  chunk_size: 512              # 字符数
+  chunk_overlap: 50            # 重叠字符数，防止切断语义
+  separators: ["\n\n", "\n", "。", ".", "！", "？", "，", " ", ""]
+
+# ====== Embedding 模型 ======
+embedding:
+  model_name: "BAAI/bge-small-zh-v1.5"   # 中文小模型，512维
+  device: "cuda"                           # GPU 加速 embedding
+  batch_size: 64                       # 批大小（显存足够时可调大）
+  cache_dir: "./data/embedding_cache"      # 离线缓存，文档不变不重算
+
+# ====== 检索 ======
+retrieval:
+  top_k: 5
+  similarity_threshold: 0.3    # 余弦相似度低于此值的文档丢弃
+  # 向量库预留位：当前实现为内存中的 NumPy 余弦检索（见 src/retrieval.py），
+  # 小规模知识库零依赖足够；规模上量后可平滑切换到 Faiss / Chroma 等方案。
+  vector_store: "numpy"        # numpy（内置实现）| chromadb（预留，尚未接入代码）
+  persist_dir: "./data/chroma_db"   # 仅 vector_store=chromadb 时使用（预留）
+
+# ====== 生成 ======
+generation:
+  model_name: "Qwen/Qwen2.5-1.5B-Instruct"  # 本地模型
+  device: "cuda"                              # 有 GPU 时用 CUDA 推理（无 GPU 改 "cpu"）
+  max_new_tokens: 512
+  temperature: 0.3             # RAG 场景要低温度
+  top_p: 0.9
+  use_api: false               # true 则用 API 而非本地模型
+  api_base: "http://localhost:11434/v1"  # Ollama 兼容 API
+  api_model: "qwen2.5:1.5b"
+
+# ====== 评测 ======
+evaluation:
+  # 检索质量
+  retrieval_metrics: ["recall@3", "recall@5", "precision@3", "mrr"]
+  # 生成质量（LLM-as-Judge）
+  judge_model: "Qwen/Qwen2.5-1.5B-Instruct"  # 用同款模型自评
+  judge_dimensions: ["faithfulness", "relevance", "completeness"]
+  # 传统指标
+  traditional_metrics: ["bleu", "rouge_l"]
+  # 评测数据集
+  test_data_path: "./data/sample/test_qa.json"
+
+# ====== 应用 ======
+app:
+  title: "RAG 知识库问答 + 评测平台"
+  host: "0.0.0.0"
+  port: 7860
+  share: false                 # 生成公网链接（Gradio）

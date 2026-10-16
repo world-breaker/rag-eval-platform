@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  rag-platform:
+    build: .
+    ports:
+      - "7860:7860"
+    volumes:
+      # 挂载数据目录（持久化 embedding 缓存）
+      - ./data:/app/data
+      # 挂载模型缓存（复用已有模型，不重复下载）
+      - ${HOME}/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
