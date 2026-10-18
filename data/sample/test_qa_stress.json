@@ -1,0 +1,10 @@
+[
+  {"question": "QTAG-A1 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A1.txt"], "reference_answer": "记录标识码 QTAG-A1，核心内容：量化用低位整数表示权重以压缩模型、加快推理。"},
+  {"question": "QTAG-A3 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A3.txt"], "reference_answer": "记录标识码 QTAG-A3，核心内容：量化用低位整数表达权重，缩减体积、提升推理效率。"},
+  {"question": "QTAG-A5 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A5.txt"], "reference_answer": "记录标识码 QTAG-A5，核心内容：量化借助低位整数表示权重，压缩模型与加速推理。"},
+  {"question": "QTAG-A7 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A7.txt"], "reference_answer": "记录标识码 QTAG-A7，核心内容：量化以低位整数表达权重，保精度同时让模型更小更快。"},
+  {"question": "QTAG-A2 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A2.txt"], "reference_answer": "记录标识码 QTAG-A2，核心内容：量化用低位整数表示权重，使模型更小更快。"},
+  {"question": "QTAG-A4 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A4.txt"], "reference_answer": "记录标识码 QTAG-A4，核心内容：量化把权重改用低位整数存储，压缩体积、加快推理。"},
+  {"question": "QTAG-A6 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A6.txt"], "reference_answer": "记录标识码 QTAG-A6，核心内容：量化以低位整数保存权重，缩小尺寸、提高推理速度。"},
+  {"question": "QTAG-A8 这条记录的内容是什么？", "relevant_sources": ["quant_dup_A8.txt"], "reference_answer": "记录标识码 QTAG-A8，核心内容：量化采用低位整数保存权重，压缩规模并改善推理延迟。"}
+]

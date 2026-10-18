@@ -1,0 +1,72 @@
+[
+  {
+    "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+    "relevant_sources": ["transformer.txt"],
+    "reference_answer": "Q、K 做点积后维度 d_k 越大，点积数值的方差越大，不经过缩放直接 softmax 会让梯度趋于饱和/消失。除以 √d_k 把点积的方差拉回稳定区间，使 softmax 梯度保持健康。"
+  },
+  {
+    "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+    "relevant_sources": ["finetuning.txt"],
+    "reference_answer": "LoRA 在原始权重 W 旁添加低秩分解矩阵 A、B，前向为 h = Wx + (α/r)BAx，只训练 A 和 B。典型配置 r=8、α=16，可训练参数仅占总量的 0.3% 左右。"
+  },
+  {
+    "question": "NF4量化格式为什么对正态分布的权重更友好？",
+    "relevant_sources": ["quantization.txt"],
+    "reference_answer": "NF4（NormalFloat4）由 QLoRA 提出，是一种针对正态分布权重优化的 4 位量化格式：16 个量化值在权重密集的均值附近分布更密、在边角更疏，更贴合权重的正态分布，相比均匀量化精度损失更小。"
+  },
+  {
+    "question": "RAG系统可以从哪些方面优化生成延迟？",
+    "relevant_sources": ["rag_guide.txt"],
+    "reference_answer": "主要从文档切分、Embedding 缓存（文档不变不重算）、向量索引（IVF+PQ 替代暴力检索）、Prompt 设计、流式输出（首 token 即返回）、模型量化（如 INT4 把 6GB 压到 1.5GB）等方面优化延迟。"
+  },
+  {
+    "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+    "relevant_sources": ["attention_variants.txt"],
+    "reference_answer": "MQA 让所有注意力头共享同一组 Key/Value，KV Cache 最小、推理最快但可能损失质量；GQA 是折中方案，若干头共享一组 K/V，LLaMA-2/3、Mistral 采用，兼顾质量与速度。"
+  },
+  {
+    "question": "除了量化，还有哪些主流的模型压缩方法？",
+    "relevant_sources": ["model_compression.txt"],
+    "reference_answer": "除量化外，主流压缩方法还包括：剪枝（移除不重要权重/注意力头）、知识蒸馏（大模型指导小模型）、低秩分解（大矩阵拆成两个小矩阵乘积）。它们通常直接减小已有权重规模，是部署端常用提速手段。"
+  },
+  {
+    "question": "大语言模型预训练常用的训练目标有哪些？",
+    "relevant_sources": ["pretraining.txt"],
+    "reference_answer": "主要有自回归语言建模（CLM，预测下一个 token，GPT 系列）和掩码语言建模（MLM，BERT 系列掩码预测）。预训练在超大规模无标注语料上进行，后续还需指令微调与对齐。"
+  },
+  {
+    "question": "ReAct范式是如何把推理和行动结合起来的？",
+    "relevant_sources": ["llm_agent.txt"],
+    "reference_answer": "ReAct 把「推理（Thought）」与「行动（Action）」交织：模型先思考下一步，再决定调用哪个工具（Action），观察结果（Observation）后继续推理，循环直到得出最终答案，提升了多步任务的可解释性与成功率。"
+  },
+  {
+    "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+    "relevant_sources": ["embedding_models_cmp.txt"],
+    "reference_answer": "中文常用 BGE 系列（如 bge-large-zh、bge-m3）、m3e、stella，以及闭源的 OpenAI text-embedding。选型要看中文 benchmark、维度/显存、是否支持长文本与本地私有化部署。"
+  },
+  {
+    "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+    "relevant_sources": ["llm_serving.txt"],
+    "reference_answer": "vLLM 用 PagedAttention 像操作系统分页一样按需分配 KV Cache，显存利用率和吞吐大幅提升；再配合连续批处理（token 级动态拼批）进一步榨干 GPU。"
+  },
+  {
+    "question": "什么是思维链（Chain-of-Thought）提示？",
+    "relevant_sources": ["prompt_engineering.txt"],
+    "reference_answer": "思维链（CoT）提示要求模型「一步步思考」并显式输出推理过程，而不是只给答案，能大幅提升数学与逻辑题表现；常与少样本示例、自我一致性（多路径投票）结合使用。"
+  },
+  {
+    "question": "人工智能、机器学习、深度学习之间是什么关系？",
+    "relevant_sources": ["ai_intro.txt"],
+    "reference_answer": "人工智能是最上层，目标是让机器模拟人类智能；机器学习是 AI 的核心方法，从数据中学习模式；深度学习是机器学习的一个子领域，用多层神经网络学习层次化表示。"
+  },
+  {
+    "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+    "relevant_sources": ["quantization.txt"],
+    "reference_answer": "NF4 由 QLoRA 提出，是针对正态分布权重优化的 4 位量化格式：16 个量化值在权重密集的均值附近分布更密、在边角更疏，更贴合权重的正态分布，相比均匀量化精度损失更小。它只出现在专门讲量化格式的细节文档里。"
+  },
+  {
+    "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+    "relevant_sources": ["rag_guide.txt"],
+    "reference_answer": "较低温度（如 0.3）让生成更稳定一致，减少随机关联；明确要求'不知道就说不知道'并'只使用参考文档'可以约束模型忠实于检索内容、降低编造（幻觉）。这属于 RAG 生成优化中的 Prompt 设计要点。"
+  }
+]

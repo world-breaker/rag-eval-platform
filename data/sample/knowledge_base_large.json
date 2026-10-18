@@ -1,0 +1,58 @@
+[
+  {
+    "text": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神经网络来学习数据的层次化表示。\n\n自然语言处理（NLP）是AI的重要应用领域，涉及文本理解、机器翻译、情感分析、问答系统等任务。近年来，基于Transformer架构的大语言模型（如GPT、BERT、Qwen等）在NLP领域取得了突破性进展。\n\n检索增强生成（RAG）是一种结合信息检索和文本生成的技术，通过从外部知识库中检索相关文档来增强大语言模型的回答质量，减少幻觉问题。",
+    "source": "ai_intro.txt"
+  },
+  {
+    "text": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。",
+    "source": "transformer.txt"
+  },
+  {
+    "text": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。",
+    "source": "finetuning.txt"
+  },
+  {
+    "text": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。",
+    "source": "quantization.txt"
+  },
+  {
+    "text": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。",
+    "source": "rag_guide.txt"
+  },
+  {
+    "text": "注意力机制的变体在大模型中不断演进。原始 Transformer 使用多头注意力（Multi-Head Attention），让模型从多个表示子空间并行学习。为了提高推理效率和长文本能力，衍生出多种变体：\n\n1. 多查询注意力（Multi-Query Attention, MQA）：所有头共享同一组 Key/Value，显存占用大幅下降，推理时 KV Cache 更小，PaLM、Falcon 等模型采用。\n\n2. 分组查询注意力（Grouped-Query Attention, GQA）：在 MHA 与 MQA 之间取折中，若干头共享一组 K/V，LLaMA-2/3、Mistral 采用，兼顾质量与速度。\n\n3. FlashAttention：通过 IO 感知的精确注意力算法，减少 GPU 显存读写，把注意力计算的显存占用保持在线性，训练与推理都显著加速。\n\n4. 稀疏注意力（Sparse Attention）：只计算 query 与部分 key 的注意力，降低长序列的 O(n²) 开销。\n\n5. 线性注意力（Linear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。",
+    "source": "attention_variants.txt"
+  },
+  {
+    "text": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group-wise）策略保持精度。\n\n2. 剪枝（Pruning）：移除不重要的权重或注意力头，分结构化剪枝与非结构化剪枝。\n\n3. 知识蒸馏（Knowledge Distillation）：用大模型（教师）指导小模型（学生）训练，让小模型逼近大模型行为。\n\n4. 低秩分解（Low-Rank Factorization）：将大权重矩阵分解为两个小矩阵乘积，减少参数量。\n\n与微调侧的 LoRA 不同，压缩通常不改变模型结构、直接减小已有权重规模，是部署端常用的提速手段。",
+    "source": "model_compression.txt"
+  },
+  {
+    "text": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长期记忆借助向量数据库持久化历史交互。\n\n3. 工具使用（Tool Use / Function Calling）：模型调用搜索、计算、数据库、API 等外部工具获取实时或私有信息。\n\n4. ReAct 范式：将「推理（Reasoning）」与「行动（Acting）」交织——模型先思考下一步（Thought），再决定调用哪个工具（Action），观察结果（Observation）后继续推理，直到得出最终答案。ReAct 是 Agent 的经典实现框架，显著提升了多步任务的可解释性与成功率。",
+    "source": "llm_agent.txt"
+  },
+  {
+    "text": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n\n3. 思维链（Chain-of-Thought, CoT）：要求模型「一步步思考」，显式输出推理过程，大幅提升数学与逻辑题表现。\n\n4. 自我一致性（Self-Consistency）：采样多条推理路径，投票选多数答案。\n\n5. 检索增强提示：把检索到的文档拼接进提示，作为生成依据（即 RAG），并在提示中明确要求「只使用参考文档、不知道就说不知道」以降低幻觉。",
+    "source": "prompt_engineering.txt"
+  },
+  {
+    "text": "中文向量模型（Embedding）的选择直接影响检索质量：\n\n1. BGE 系列（BAAI/bge 系列，如 bge-large-zh、bge-m3）：中科院开源，中文检索榜长期领先，m3 版本支持稠密/稀疏/多向量混合检索与多语言。\n\n2. m3e：开源中文 embedding 模型，体积小、推理快，适合轻量检索场景。\n\n3. stella：近期开源的高性能中英文 embedding 模型，在多项基准上接近或超过 BGE。\n\n4. OpenAI text-embedding 系列：闭源 API，英文强、中文需评估；调用方便但数据出境有合规考量。\n\n选型要点：维度与显存、中文 benchmark 分数、是否支持长文本（>512 token）、是否需要本地私有化部署。",
+    "source": "embedding_models_cmp.txt"
+  },
+  {
+    "text": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching）进一步榨干 GPU。\n\n2. 连续批处理：把多个请求在 token 级别动态拼批，减少空闲等待。\n\n3. 量化加速：推理侧常用 INT8 / INT4（如 GPTQ、AWQ）把权重压缩，降低显存与带宽压力，配合高效 kernel 提速。\n\n4. 流式输出：首 token 即返回，改善用户体感延迟。\n\n5. 显存优化：KV Cache 常是长对话的瓶颈，PagedAttention 与缓存卸载是关键手段。",
+    "source": "llm_serving.txt"
+  },
+  {
+    "text": "大语言模型的预训练（Pre-training）阶段在超大规模无标注语料上训练，目标是学习通用语言与知识表示：\n\n1. 训练目标：自回归语言建模（CLM，预测下一个 token，GPT 系列采用）或掩码语言建模（MLM，BERT 系列掩码预测，bidirectional）。\n\n2. 语料：网页、书籍、代码、数学等多源混合，需经过去重、过滤、去污染等清洗。\n\n3. 缩放定律（Scaling Law）：模型性能随参数量、数据量、算力的幂律平滑提升，指导资源分配。\n\n4. 涌现能力（Emergent Abilities）：模型规模超过阈值后突然出现的小样本/推理能力。\n\n预训练得到的基础模型（Base Model）还需经过指令微调与对齐（如 RLHF/DPO）才能稳定遵循人类指令。",
+    "source": "pretraining.txt"
+  },
+  {
+    "text": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借助分组（group-wise）或对称/非对称量化策略来缓解。推理时只需把整数权重反量化为近似浮点即可使用，误差很小。",
+    "source": "quantization_intro.txt"
+  },
+  {
+    "text": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。",
+    "source": "rag_overview.txt"
+  }
+]

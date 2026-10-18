@@ -10,6 +10,7 @@ from src.embedding import EmbeddingEngine
 from src.retrieval import RetrievalEngine
 from src.generation import GenerationEngine
 from src.evaluation import EvaluationEngine
+from src.hybrid_retrieval import HybridRetriever
 
 
 class RAGPipeline:
@@ -22,6 +23,14 @@ class RAGPipeline:
         self.chunker = DocumentChunker(self.config)
         self.embedder = EmbeddingEngine(self.config)
         self.retriever = RetrievalEngine(self.config)
+        # 混合检索：retrieval.mode="hybrid" 时启用（BM25+向量 RRF 融合，可选重排）；
+        # 默认 "vector" 则不实例化，行为与旧版完全一致（零回归）。
+        self.retrieval_mode = self.config["retrieval"].get("mode", "vector")
+        self.hybrid = (
+            HybridRetriever(self.config, self.retriever)
+            if self.retrieval_mode == "hybrid"
+            else None
+        )
         # 生成模型体积大、加载慢：纯检索/评测场景（对比实验、指标评测）可延迟到首次问答时再加载
         self.generator = GenerationEngine(self.config) if load_generator else None
         self.evaluator = EvaluationEngine(self.config)
@@ -29,7 +38,7 @@ class RAGPipeline:
         self.doc_embeddings: Optional[np.ndarray] = None
         self.chunks: List[Dict] = []
         self.doc_ids: Dict[str, int] = {}  # source → 文档序号（供文档级检索评测使用）
-        logger.info("Pipeline 初始化完成")
+        logger.info(f"Pipeline 初始化完成（retrieval.mode={self.retrieval_mode}）")
 
     def _ensure_generator(self) -> GenerationEngine:
         """按需加载生成模型（延迟初始化）"""
@@ -65,6 +74,9 @@ class RAGPipeline:
         self.chunks = all_chunks
         self.doc_ids = doc_ids
         self.doc_embeddings = self.embedder.encode(all_chunks)
+        # 混合检索：用同一批 chunk 拟合 BM25 语料
+        if self.hybrid is not None:
+            self.hybrid.fit(self.chunks)
         logger.info(
             f"索引构建完成：{len(all_chunks)} 个 chunk，"
             f"向量维度 {self.doc_embeddings.shape[1]}"
@@ -95,6 +107,24 @@ class RAGPipeline:
         logger.info(f"从目录加载了 {len(docs)} 个文档")
         return docs
 
+    # ========== 检索 ==========
+
+    def _retrieve(self, question: str, top_k: int = None) -> List[Dict]:
+        """统一检索入口：根据 retrieval.mode 选择向量检索或混合检索（BM25+向量 RRF）。
+
+        返回值结构与 RetrievalEngine.search 一致，供 ask / 对比实验 / 批量评测复用。
+        """
+        if self.doc_embeddings is None or len(self.chunks) == 0:
+            raise RuntimeError("请先调用 build_index() 构建向量库")
+
+        query_emb = self.embedder.encode([{"text": question}])
+
+        if self.retrieval_mode == "hybrid" and self.hybrid is not None:
+            return self.hybrid.search(
+                query_emb, self.doc_embeddings, self.chunks, top_k=top_k, query_text=question
+            )
+        return self.retriever.search(query_emb, self.doc_embeddings, self.chunks, top_k)
+
     # ========== 问答 ==========
 
     @timer
@@ -105,15 +135,10 @@ class RAGPipeline:
         if self.doc_embeddings is None or len(self.chunks) == 0:
             raise RuntimeError("请先调用 build_index() 构建向量库")
 
-        # 1. Query embedding
-        query_emb = self.embedder.encode([{"text": question}])
+        # 1. 检索（向量 or 混合）
+        retrieved = self._retrieve(question, top_k)
 
-        # 2. 检索
-        retrieved = self.retriever.search(
-            query_emb, self.doc_embeddings, self.chunks, top_k
-        )
-
-        # 3. 生成
+        # 2. 生成
         result = self._ensure_generator().generate(question, retrieved)
 
         # 4. 评测（可选，需要标注数据）
@@ -198,10 +223,7 @@ class RAGPipeline:
             # 对每个问题测检索效果
             strategy_results = []
             for q in questions:
-                query_emb = self.embedder.encode([{"text": q}])
-                retrieved = self.retriever.search(
-                    query_emb, self.doc_embeddings, self.chunks
-                )
+                retrieved = self._retrieve(q)
                 strategy_results.append(
                     {
                         "question": q,
