@@ -10,6 +10,8 @@
 
 这是一个**模块化架构 + 系统化评测**的 RAG 平台，重点是把「检索 → 生成 → 评测」三层解耦：每个环节可以单独替换、单独度量、单独做对比实验。
 
+> 架构、数据流与设计取舍的完整说明见 [`docs/architecture.md`](docs/architecture.md)。
+
 ## 核心功能
 
 | 模块 | 功能 | 设计考量 |
@@ -71,8 +73,11 @@ rag-eval-platform/
 │   ├── run_strategy_comparison.py   # 切分策略对比实验 runner
 │   ├── run_hybrid_comparison.py     # 混合检索对比实验 runner（向量 vs 混合 RRF）
 │   └── results/                     # 实验原始数据 + 人读报告
+├── docs/
+│   └── architecture.md     # 架构与设计决策（公开版）
 └── tests/
-    └── test_pipeline.py      # 快速验证脚本（不依赖 GPU 也能跑通）
+    ├── test_pipeline.py      # 快速验证脚本（不依赖 GPU 也能跑通）
+    └── test_hybrid_retrieval.py # 混合检索离线单测（BM25 / RRF / 融合）
 ```
 
 ## 用代码验证
