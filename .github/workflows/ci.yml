@@ -1,0 +1,82 @@
+# rag-eval-platform · CI 门禁（通用 GitHub Actions 格式）
+#
+# 宿主说明：本仓库托管在 **Gitee（私有）**，Gitee 不会执行 GitHub Actions，也还没接 Gitee Go。
+# 所以本文件是"可执行的、可直达的门禁定义"：镜像一份到 GitHub 即可直接生效，
+# 但在 Gitee 侧目前不是自动跑的流水线（README 里也据此不放 CI 徽章）。
+#
+# 三条设计取舍，每条都对着一个真实坑（不是仪式感）：
+#
+#   1) CPU 版 torch 走官方 cpu index
+#      本仓库依赖 torch / sentence-transformers。Linux 上从默认 index 装 torch 会拉
+#      **CUDA 版（+cu1xx，2–3GB）**，而 CI runner 没有 GPU —— 纯浪费带宽和时间。
+#      所以先用 `--index-url https://download.pytorch.org/whl/cpu` 显式装 CPU-only torch，
+#      再装 requirements.txt；此时 `torch>=2.0.0` 已被满足，pip 不会把 CUDA 版拉回来
+#      （本机 `pip install --dry-run -r requirements.txt` 实测输出
+#        "Requirement already satisfied: torch>=2.0.0 ..."，见 README 的 CI 小节）。
+#      不锁死具体版本，跟随 requirements 的 `>=2.0.0` 语义；要完全可复现可改成 torch==x.y.z+cpu。
+#
+#   2) HF_HUB_OFFLINE / TRANSFORMERS_OFFLINE = 1
+#      runner 上没有 BGE 模型缓存。这两条把"模型缺失"从**静默联网下载几百 MB**
+#      变成**立刻报错**（本机清空 HF_HOME 复现实测：OSError: We couldn't connect to
+#      'https://huggingface.co'）—— 宁可红得明确，不要绿得含糊。
+#
+#   3) 显式 --deselect 那 1 个必须真实 BGE 模型 + GPU 的用例
+#      只在命令行排除、**不改测试代码**；pytest 汇总行会报 `1 deselected`，
+#      配额对不上就是配置漂了。
+#      本仓库用例不涉及回环 HTTP，因此不需要兄弟仓库（hello-agent / rag-mcp-server）
+#      里为 `127.0.0.1` 回环准备的 NO_PROXY 放行。
+
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: pytest (ubuntu-latest / Python 3.12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      PYTHONIOENCODING: "utf-8"
+      PYTHONDONTWRITEBYTECODE: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Python 3.12（带 pip 缓存）
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # 先装 CPU-only torch：默认 index 会拉 2–3GB 的 CUDA 版，而 runner 无 GPU。
+      - name: 安装 CPU 版 torch（官方 cpu index）
+        run: python -m pip install --index-url https://download.pytorch.org/whl/cpu torch
+
+      # 上一步已满足 torch>=2.0.0 → 这一步不会再把 CUDA 版装回来。
+      - name: 安装其余依赖
+        run: python -m pip install -r requirements.txt
+
+      # 27 - 1 = 26 passed / 1 deselected。
+      # 排除的唯一用例：tests/test_pipeline.py::test_embedding
+      #   构造 EmbeddingEngine 即 SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")，
+      #   既要模型权重（runner 无缓存、CI 也不下载）又要 GPU（runner 无显卡），必然失败。
+      # 其余 26 个用例是手写小矩阵 / 桩对象，离线确定性，CI 全跑。
+      # 本地全量（有 BGE 缓存 + GPU 的机器）：python -m pytest -q -rs → 27 passed。
+      - name: 单元测试（离线；显式排除需要真实 BGE 模型 + GPU 的 1 个用例）
+        run: |
+          python -m pytest -q -rs \
+            --deselect tests/test_pipeline.py::test_embedding

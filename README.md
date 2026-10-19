@@ -46,6 +46,8 @@ python app.py
 
 ```
 rag-eval-platform/
+├── .github/
+│   └── workflows/ci.yml    # CI 门禁（GitHub Actions 格式；宿主 Gitee 不自动跑）
 ├── app.py                  # Gradio Web 界面
 ├── config.yaml             # 所有配置集中管理
 ├── requirements.txt
@@ -82,6 +84,43 @@ rag-eval-platform/
     ├── test_hybrid_retrieval.py # 混合检索离线单测（BM25 / RRF / 融合）
     ├── test_retrieval_modes.py  # 三档口径 + 重排覆盖 + 改写融合（离线确定性）
     └── test_query_rewriting.py  # 查询改写单测（stub LLM，含降级路径）
+```
+
+## CI 门禁（`.github/workflows/ci.yml`）
+
+`ubuntu-latest` + Python 3.12 + `pip` 依赖缓存 + `pytest`，**离线可跑、不需要密钥、不下载模型**。
+
+> **宿主如实说明**：本仓库托管在 **Gitee（私有）**，Gitee 不会执行 GitHub Actions，也还没接 Gitee Go。
+> 这份 YAML 用的是**通用 GitHub Actions 格式**——镜像一份到 GitHub 即可直接生效，但在 Gitee 侧目前不是自动跑的流水线。
+> 也因此 README 里**不放 CI 徽章**：私有/异源仓库的徽章只会 404。
+
+**本仓库比另外两个多一个坑：装 torch。** Linux 上从默认 index 装 torch 会拉 **CUDA 版（2–3GB）**，而 runner 没有 GPU——纯浪费带宽。所以 workflow 先用 **CPU 版官方 index**（`--index-url https://download.pytorch.org/whl/cpu`）显式装 CPU-only torch，再装 `requirements.txt`；因为 `torch>=2.0.0` 已被满足，第二步不会再把 CUDA 版拉回来（本机 `pip install --dry-run -r requirements.txt` 实测输出 `Requirement already satisfied: torch>=2.0.0 ... (2.14.0+cu132)`）。
+
+| 环境变量 | 作用 |
+|---|---|
+| `HF_HUB_OFFLINE=1` / `TRANSFORMERS_OFFLINE=1` | runner 上没有 BGE 模型缓存。这两条把"模型缺失"从**静默联网下载几百 MB**变成**立刻报错**（本机清空 `HF_HOME` 实测：`OSError: We couldn't connect to 'https://huggingface.co'`）——宁可红得明确，不要绿得含糊 |
+
+**门禁的能力缺口**：27 个用例里有 **1 个必须加载真实 BGE 模型 + GPU**（`tests/test_pipeline.py::test_embedding`：构造 `EmbeddingEngine` 即 `SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")`），CI 上必然失败，已用 `--deselect` 在**命令行显式排除**（没改测试代码，汇总行会报 `1 deselected`，配额对不上就是配置漂了）。其余 26 个用例（切分 / BM25 / RRF / 三档检索模式 / 重排覆盖 / 查询改写）都是手写小矩阵 + 桩对象，离线确定性，CI 全跑。
+
+本地一键复现同一条门禁（照抄可跑）：
+
+```bash
+python -m pip install -r requirements.txt && python -m pytest -q -rs \
+  --deselect tests/test_pipeline.py::test_embedding
+```
+
+```text
+26 passed, 1 deselected in 6.26s
+```
+
+本地**全量**（含那 1 个需要 BGE 缓存的用例；本机有缓存 + GPU）：
+
+```bash
+python -m pytest -q -rs
+```
+
+```text
+27 passed in 6.66s
 ```
 
 ## 用代码验证
