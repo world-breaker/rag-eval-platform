@@ -16,6 +16,11 @@ data/chroma_db/
 eval_results/
 *.npy
 
+# 本地会话 / 索引类产物（可再生成，不入库）：将来若引入 jsonl 记录或 sqlite 索引，别误提交
+*.jsonl
+*.sqlite
+*.sqlite3
+
 # 本地下载的模型（如有）
 models/
 
