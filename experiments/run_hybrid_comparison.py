@@ -8,7 +8,7 @@
 
 说明：
 - 默认只跑 vector / hybrid(RRF) 两档，零额外下载、离线可跑、结果可复现。
-- 若本地 HF 缓存中已存在 bge-reranker-v2-m3，则自动追加「hybrid+重排」一档做完整演示；
+- 若本地 HF 缓存中已存在默认重排模型（`cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`，与 config.yaml 一致），则自动追加「hybrid+重排」一档做完整演示；
   否则不下载，仅在报告中注明重排为可选项。
 """
 
@@ -36,7 +36,7 @@ DATASETS = {
 }
 RESULTS_DIR = ROOT / "experiments/results"
 
-RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
+RERANK_MODEL = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
 
 
 def _hf_model_cached(model_name: str) -> bool:

@@ -12,7 +12,7 @@
 - BM25 与分词均零额外依赖（不引入 jieba），用「英文全词 + 中文单字 + 中文二元组」覆盖关键词重叠，
   足以在评测集上演示混合检索相对纯向量的可测量增益。
 - 重排模型默认关闭（enabled=false），保证默认零额外下载、离线可跑、结果可复现；
-  打开 rerank.enabled 即可启用（需下载 BAAI/bge-reranker-v2-m3，中文效果好），加载失败自动降级回 RRF。
+  打开 rerank.enabled 即可启用（默认 cross-encoder/mmarco-mMiniLMv2-L12-H384-v1，470MB、多语言、已实测；中文专用可换 BAAI/bge-reranker-v2-m3），加载失败自动降级回 RRF。
 
 三种排名口径（`rank_mode`）共用同一套候选召回与结果组装，只切换「最终排序依据」：
 - `vector`：纯向量余弦（等价于 retrieval.mode="vector"，但**不套相似度阈值**，便于对照实验看全量排名）；
@@ -163,7 +163,7 @@ class HybridRetriever:
         rerank_cfg = hybrid_cfg.get("rerank", {})
         self.rerank_enabled = bool(rerank_cfg.get("enabled", False))
         self.rerank_type = rerank_cfg.get("type", "cross_encoder")
-        self.rerank_model_name = rerank_cfg.get("model", "BAAI/bge-reranker-v2-m3")
+        self.rerank_model_name = rerank_cfg.get("model", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1")
         self.rerank_top_n = int(rerank_cfg.get("top_n", 20))
         # 重排默认在 CPU 上跑：评测/演示规模（top-N≤20）下 GPU 与 CPU 差距不大，
         # 而 CPU 不占用生成模型的显存，也避免小显存机器上的 OOM。可用 rerank.device 覆盖。

@@ -210,7 +210,7 @@ embedding 与改写 LLM 走 GPU，**重排走 CPU**。
 ## 8. 扩展点
 
 - 向量库：Faiss IVF+PQ / Chroma；
-- 重排：`BAAI/bge-reranker-v2-m3`（中文效果好）或更小的多语言 Cross-Encoder（见第 6 节实测）；
+- 重排：**默认 `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`**（470MB、多语言、CPU 可跑，第 6 节实测用的就是它）；中文专用可换 `BAAI/bge-reranker-v2-m3`（未实测，需 ~2.27GB）；
 - 生成评测：多次评分取中位数，降低 LLM-as-Judge 方差；
 - 引用校验：答案句级 citation 与来源对齐；
 - 查询改写：step-back / 术语归一化（当前仅 HyDE 与 multi-query）。

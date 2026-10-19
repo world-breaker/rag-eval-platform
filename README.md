@@ -146,7 +146,7 @@ python experiments/run_strategy_comparison.py
 1. **纯向量检索的短板**：擅长语义相似，但对精确关键词（"NF4" / "LoRA" / "√d_k"）和稀有术语不敏感，且在**近义/重复文档**上会把分数分散到多个副本，导致相关文档排不到前面。
 2. **BM25 补关键词**：零额外依赖（不引入 jieba，用「英文全词 + 中文单字 + 二元组」分词），精确匹配术语，正好补向量短板。
 3. **RRF 融合而非加权求和**：两路分数**量纲不同**（余弦 ∈ [-1,1]，BM25 可任意大），不能直接相加；RRF 用排名融合 `score = Σ 1/(k+rank)`，对量纲不敏感、鲁棒性好。
-4. **可选 Cross-Encoder 重排**：对 RRF 融合后的 top-N 用交互式模型（默认 `BAAI/bge-reranker-v2-m3`，中文效果好）二次精排，进一步提升精度；**默认关闭**，加载失败自动降级回 RRF，保证离线可跑、结果可复现。（下文实测用的是更小的多语言 `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`，470MB，CPU 可跑。）
+4. **可选 Cross-Encoder 重排**：对 RRF 融合后的 top-N 用交互式模型（默认 `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`，470MB、多语言、CPU 可跑、**已实测**）二次精排，进一步提升精度；**默认关闭**，加载失败自动降级回 RRF，保证离线可跑、结果可复现。（想要中文专用可换 `BAAI/bge-reranker-v2-m3`，但**未实测**且需 ~2.27GB；换模型后应重跑基准再引用数字。）
 
 开启方式（`config.yaml`）：
 
@@ -157,9 +157,9 @@ retrieval:
   hybrid:
     bm25: { k1: 1.5, b: 0.75 }
     rerank:
-      enabled: false          # 改为 true 启用重排（需下载 ~1.2GB 重排模型）
+      enabled: false          # 改为 true 启用重排（需下载 ~470MB 重排模型）
       type: "cross_encoder"
-      model: "BAAI/bge-reranker-v2-m3"
+      model: "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
       top_n: 20
 ```
 

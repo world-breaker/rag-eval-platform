@@ -33,7 +33,7 @@ retrieval:
     rerank:
       enabled: false          # 默认关闭：零额外依赖、离线可跑、结果可复现
       type: "cross_encoder"   # 交互式重排（Cross-Encoder）
-      model: "BAAI/bge-reranker-v2-m3"  # 中文效果好的重排模型（启用需下载 ~1.2GB）
+      model: "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"  # 已实测（470MB，多语言，CPU 可跑）；中文专用可换 BAAI/bge-reranker-v2-m3（未实测，需 ~2.27GB）
       device: "cpu"           # 重排走 CPU：不占生成模型显存（评测 top-N≤20 时 CPU 足够）
       top_n: 20               # 仅对 RRF 融合后的 top-N 候选做二次精排
 
