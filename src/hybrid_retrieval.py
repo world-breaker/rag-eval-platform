@@ -13,12 +13,22 @@
   足以在评测集上演示混合检索相对纯向量的可测量增益。
 - 重排模型默认关闭（enabled=false），保证默认零额外下载、离线可跑、结果可复现；
   打开 rerank.enabled 即可启用（需下载 BAAI/bge-reranker-v2-m3，中文效果好），加载失败自动降级回 RRF。
+
+三种排名口径（`rank_mode`）共用同一套候选召回与结果组装，只切换「最终排序依据」：
+- `vector`：纯向量余弦（等价于 retrieval.mode="vector"，但**不套相似度阈值**，便于对照实验看全量排名）；
+- `bm25`：纯 BM25 关键词排序（只返回 BM25 分 > 0 的文档）；
+- `hybrid`：RRF 融合向量与 BM25 排名（可选叠加 Cross-Encoder 重排）。
+结果里同时保留两路各自的原始名次（`vector_rank` / `bm25_rank`）与 RRF 分（`fusion_score`），
+这样「这条结果是谁捞上来的、融合后涨了还是跌了」在 UI 和实验报告里都可解释，而不是只给一个黑箱分数。
 """
 
 import re
 import numpy as np
 from typing import List, Dict, Optional
 from src.utils import logger, timer
+
+# 支持的三路排名口径
+RANK_MODES = ("vector", "bm25", "hybrid")
 
 # CJK 基本汉字区（U+4E00–U+9FFF）
 _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
@@ -155,7 +165,11 @@ class HybridRetriever:
         self.rerank_type = rerank_cfg.get("type", "cross_encoder")
         self.rerank_model_name = rerank_cfg.get("model", "BAAI/bge-reranker-v2-m3")
         self.rerank_top_n = int(rerank_cfg.get("top_n", 20))
+        # 重排默认在 CPU 上跑：评测/演示规模（top-N≤20）下 GPU 与 CPU 差距不大，
+        # 而 CPU 不占用生成模型的显存，也避免小显存机器上的 OOM。可用 rerank.device 覆盖。
+        self.rerank_device = rerank_cfg.get("device", "cpu")
         self.reranker = None
+        self.rerank_load_error: Optional[str] = None
         if self.rerank_enabled:
             self._load_reranker()
 
@@ -163,13 +177,28 @@ class HybridRetriever:
         try:
             from sentence_transformers import CrossEncoder
 
-            logger.info(f"加载重排模型：{self.rerank_model_name}")
-            self.reranker = CrossEncoder(self.rerank_model_name, device="cuda")
+            logger.info(
+                f"加载重排模型：{self.rerank_model_name}（device={self.rerank_device}）"
+            )
+            self.reranker = CrossEncoder(self.rerank_model_name, device=self.rerank_device)
+            self.rerank_load_error = None
         except Exception as e:  # 模型未下载/无网络 → 降级，不影响检索
             logger.warning(
                 f"重排模型加载失败，退回 RRF 融合结果（检索仍可用）：{e}"
             )
             self.reranker = None
+            self.rerank_load_error = f"{type(e).__name__}: {e}"
+
+    def set_rerank(self, enabled: bool, model: Optional[str] = None) -> bool:
+        """运行时开关重排（供 Web UI 切换）。返回「重排是否真的可用」。"""
+        self.rerank_enabled = bool(enabled)
+        if model:
+            self.rerank_model_name = model
+        if not self.rerank_enabled:
+            return False
+        if self.reranker is None:
+            self._load_reranker()
+        return self.reranker is not None
 
     def fit(self, chunks: List[Dict]) -> "HybridRetriever":
         """在 build_index 后调用：用同样的 chunk 拟合 BM25 语料。"""
@@ -184,11 +213,17 @@ class HybridRetriever:
         chunks: List[Dict],
         top_k: int = None,
         query_text: str = "",
+        rank_mode: str = "hybrid",
     ) -> List[Dict]:
         """混合检索主入口。
 
         参数与 RetrievalEngine.search 对齐（额外多一个 query_text 供 BM25 使用）。
+        rank_mode 决定最终排序依据：vector / bm25 / hybrid（默认 hybrid，与历史行为一致）。
+        结果中同时给出两路原始名次与 RRF 分，便于解释「这条是谁捞上来的」。
         """
+        if rank_mode not in RANK_MODES:
+            raise ValueError(f"rank_mode 必须是 {RANK_MODES} 之一，实际 {rank_mode!r}")
+
         k = top_k if top_k is not None else (
             self.vector_retriever.top_k if self.vector_retriever else 5
         )
@@ -200,44 +235,67 @@ class HybridRetriever:
         vec_order = np.argsort(vec_scores)[::-1]
         vec_rank = {int(vec_order[i]): i + 1 for i in range(len(vec_order))}
 
-        # 2) BM25 路
+        # 2) BM25 路（全量排名，供融合与对照）
         bm25_ranking = self.bm25.search(query_text, top_k=len(chunks))
         bm25_rank = {r["chunk_index"]: i + 1 for i, r in enumerate(bm25_ranking)}
+        bm25_scores = {r["chunk_index"]: r["bm25_score"] for r in bm25_ranking}
 
-        # 3) RRF 融合
-        fused = rrf_fusion([vec_rank, bm25_rank], k=self.rrf_k)
+        # 3) 按排名口径决定候选顺序
+        if rank_mode == "vector":
+            cand_idx = [int(i) for i in vec_order]
+            fused: Dict[int, float] = {}
+        elif rank_mode == "bm25":
+            # 纯 BM25：只保留真正命中的文档（BM25 分 > 0），不掺向量
+            cand_idx = [r["chunk_index"] for r in bm25_ranking]
+            fused = {}
+        else:  # hybrid：RRF 融合
+            fused = rrf_fusion([vec_rank, bm25_rank], k=self.rrf_k)
+            cand_idx = sorted(fused.keys(), key=lambda i: fused[i], reverse=True)
 
-        # 4) 初排取候选（重排阶段再精排）
-        cand_idx = sorted(fused.keys(), key=lambda i: fused[i], reverse=True)
-
-        # 5) 可选重排：仅对 top-N 用 Cross-Encoder 交互式精排
+        # 4) 可选重排：仅对 top-N 用 Cross-Encoder 交互式精排（只对 hybrid 生效）
         rerank_active = False
-        if self.rerank_enabled and self.reranker is not None:
-            rerank_active = True
+        rerank_scores: Dict[int, float] = {}
+        if rank_mode == "hybrid" and self.rerank_enabled and self.reranker is not None:
             top_cands = cand_idx[: self.rerank_top_n]
-            pairs = [(query_text, chunks[i]["text"]) for i in top_cands]
-            try:
-                rerank_scores = self.reranker.predict(pairs)
-                top_cands = [top_cands[i] for i in np.argsort(rerank_scores)[::-1]]
-                cand_idx = top_cands + cand_idx[self.rerank_top_n :]
-            except Exception as e:
-                logger.warning(f"重排失败，退回 RRF 融合结果：{e}")
+            if top_cands:
+                pairs = [(query_text, chunks[i]["text"]) for i in top_cands]
+                try:
+                    scores = self.reranker.predict(pairs)
+                    scores = np.asarray(scores, dtype=float).reshape(-1)
+                    rerank_scores = {
+                        int(idx): float(s) for idx, s in zip(top_cands, scores)
+                    }
+                    top_cands = [
+                        top_cands[i] for i in np.argsort(scores)[::-1]
+                    ]
+                    cand_idx = top_cands + cand_idx[self.rerank_top_n :]
+                    rerank_active = True
+                except Exception as e:
+                    logger.warning(f"重排失败，退回 RRF 融合结果：{e}")
 
-        # 6) 组装结果（score 保留向量余弦作参考，fusion_score 为融合分）
+        # 5) 组装结果：保留各路来源，供 UI/报告解释融合是否真的起了作用
         results = []
         for rank, idx in enumerate(cand_idx[:k], 1):
             results.append(
                 {
                     **chunks[idx],
                     "score": round(float(vec_scores[idx]), 4),
-                    "fusion_score": round(float(fused[idx]), 4),
+                    "bm25_score": round(float(bm25_scores.get(idx, 0.0)), 4),
+                    "fusion_score": round(float(fused.get(idx, 0.0)), 4),
+                    "vector_rank": vec_rank.get(idx),
+                    "bm25_rank": bm25_rank.get(idx),
+                    "rerank_score": (
+                        round(rerank_scores[idx], 4) if idx in rerank_scores else None
+                    ),
                     "retrieved_rank": rank,
                 }
             )
 
+        detail = f"（RRF k={self.rrf_k}" if rank_mode == "hybrid" else "（"
+        if rerank_active:
+            detail += f" + 重排[{self.rerank_model_name}]"
+        detail += "）"
         logger.info(
-            f"混合检索完成：query → {len(results)}/{k} 条结果（RRF 融合"
-            + (f" + 重排[{self.rerank_model_name}]" if rerank_active else "")
-            + "）"
+            f"检索完成[{rank_mode}]：query → {len(results)}/{k} 条结果{detail}"
         )
         return results

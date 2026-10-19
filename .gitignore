@@ -12,6 +12,10 @@ venv/
 data/embedding_cache/
 data/chroma_db/
 
+# 运行产物（评测输出 / 向量矩阵等，不入库；正式基准报告放 experiments/results/ 并提交）
+eval_results/
+*.npy
+
 # 本地下载的模型（如有）
 models/
 

@@ -16,16 +16,16 @@ embedding:
 
 # ====== 检索 ======
 retrieval:
-  mode: "vector"              # vector（默认，原有纯向量行为）| hybrid（BM25+向量 RRF 融合）
+  mode: "vector"              # vector（默认，原有纯向量行为）| bm25（纯关键词）| hybrid（BM25+向量 RRF 融合）
   top_k: 5
-  similarity_threshold: 0.3    # 余弦相似度低于此值的文档丢弃（仅 vector 模式生效；hybrid 用 RRF 排名）
+  similarity_threshold: 0.3    # 余弦相似度低于此值的文档丢弃（仅 vector 模式生效；bm25/hybrid 用排名）
   rrf_k: 60                   # RRF 融合常数（1/(k+rank)），越大越偏向单路高排名
   # 向量库预留位：当前实现为内存中的 NumPy 余弦检索（见 src/retrieval.py），
   # 小规模知识库零依赖足够；规模上量后可平滑切换到 Faiss / Chroma 等方案。
   vector_store: "numpy"        # numpy（内置实现）| chromadb（预留，尚未接入代码）
   persist_dir: "./data/chroma_db"   # 仅 vector_store=chromadb 时使用（预留）
 
-  # 混合检索（仅 retrieval.mode="hybrid" 时生效）：BM25 + 向量双路召回，RRF 融合
+  # 混合检索（retrieval.mode="hybrid" 时生效）：BM25 + 向量双路召回，RRF 融合
   hybrid:
     bm25:
       k1: 1.5                 # BM25 词频饱和参数
@@ -34,7 +34,16 @@ retrieval:
       enabled: false          # 默认关闭：零额外依赖、离线可跑、结果可复现
       type: "cross_encoder"   # 交互式重排（Cross-Encoder）
       model: "BAAI/bge-reranker-v2-m3"  # 中文效果好的重排模型（启用需下载 ~1.2GB）
+      device: "cpu"           # 重排走 CPU：不占生成模型显存（评测 top-N≤20 时 CPU 足够）
       top_n: 20               # 仅对 RRF 融合后的 top-N 候选做二次精排
+
+  # 查询改写（默认关闭：需 LLM 推理，延迟显著上升；干净小库上收益有限，见 docs/architecture.md）
+  query_rewrite:
+    enabled: false            # 改为 true 启用（复用 generation 里的模型，无需额外权重）
+    strategy: "multi_query"   # multi_query | hyde | both
+    num_queries: 3            # multi-query 生成几条改写查询
+    max_new_tokens: 256       # 单次改写生成上限
+    max_hypothetical_chars: 512  # HyDE 假想文档截断长度
 
 # ====== 生成 ======
 generation:

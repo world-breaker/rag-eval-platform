@@ -1,0 +1,1737 @@
+{
+  "meta": {
+    "date": "2026-10-19",
+    "env": {
+      "python": "3.12.9",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "torch": "2.14.0+cu132",
+      "cuda_available": true,
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+    },
+    "rerank_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "rerank_cached": true,
+    "llm_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "llm_cached": true,
+    "warm_rounds": {
+      "default": 5,
+      "llm": 2
+    },
+    "skipped": {}
+  },
+  "datasets": {
+    "realistic": {
+      "kb": "knowledge_base_large.json",
+      "qa": "test_qa_large.json",
+      "n_docs": 14,
+      "n_chunks": 15,
+      "n_questions": 14,
+      "pipeline_init_ms": 1025.4,
+      "build_index_ms": 1.7,
+      "modes": {
+        "vector": {
+          "rerank_load_ms": null,
+          "llm_load_ms": null,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.9286,
+          "cold_ms": 1.2,
+          "warm": {
+            "mean_ms": 0.63,
+            "p50_ms": 0.62,
+            "p95_ms": 1.06,
+            "n": 70
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+              "relevant": [
+                "transformer.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 2,
+              "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+              "relevant": [
+                "finetuning.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "finetuning.txt"
+            },
+            {
+              "idx": 3,
+              "question": "NF4量化格式为什么对正态分布的权重更友好？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 4,
+              "question": "RAG系统可以从哪些方面优化生成延迟？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "rag_overview.txt"
+            },
+            {
+              "idx": 5,
+              "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+              "relevant": [
+                "attention_variants.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 6,
+              "question": "除了量化，还有哪些主流的模型压缩方法？",
+              "relevant": [
+                "model_compression.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "model_compression.txt"
+            },
+            {
+              "idx": 7,
+              "question": "大语言模型预训练常用的训练目标有哪些？",
+              "relevant": [
+                "pretraining.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "pretraining.txt"
+            },
+            {
+              "idx": 8,
+              "question": "ReAct范式是如何把推理和行动结合起来的？",
+              "relevant": [
+                "llm_agent.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_agent.txt"
+            },
+            {
+              "idx": 9,
+              "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+              "relevant": [
+                "embedding_models_cmp.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "embedding_models_cmp.txt"
+            },
+            {
+              "idx": 10,
+              "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+              "relevant": [
+                "llm_serving.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_serving.txt"
+            },
+            {
+              "idx": 11,
+              "question": "什么是思维链（Chain-of-Thought）提示？",
+              "relevant": [
+                "prompt_engineering.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "prompt_engineering.txt"
+            },
+            {
+              "idx": 12,
+              "question": "人工智能、机器学习、深度学习之间是什么关系？",
+              "relevant": [
+                "ai_intro.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "ai_intro.txt"
+            },
+            {
+              "idx": 13,
+              "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 14,
+              "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            }
+          ],
+          "label": "纯向量（基线）"
+        },
+        "bm25": {
+          "rerank_load_ms": null,
+          "llm_load_ms": null,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.8929,
+          "cold_ms": 2.44,
+          "warm": {
+            "mean_ms": 2.04,
+            "p50_ms": 2.07,
+            "p95_ms": 3.35,
+            "n": 70
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+              "relevant": [
+                "transformer.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 2,
+              "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+              "relevant": [
+                "finetuning.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "finetuning.txt"
+            },
+            {
+              "idx": 3,
+              "question": "NF4量化格式为什么对正态分布的权重更友好？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 4,
+              "question": "RAG系统可以从哪些方面优化生成延迟？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "rag_overview.txt"
+            },
+            {
+              "idx": 5,
+              "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+              "relevant": [
+                "attention_variants.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "attention_variants.txt"
+            },
+            {
+              "idx": 6,
+              "question": "除了量化，还有哪些主流的模型压缩方法？",
+              "relevant": [
+                "model_compression.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "model_compression.txt"
+            },
+            {
+              "idx": 7,
+              "question": "大语言模型预训练常用的训练目标有哪些？",
+              "relevant": [
+                "pretraining.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "pretraining.txt"
+            },
+            {
+              "idx": 8,
+              "question": "ReAct范式是如何把推理和行动结合起来的？",
+              "relevant": [
+                "llm_agent.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_agent.txt"
+            },
+            {
+              "idx": 9,
+              "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+              "relevant": [
+                "embedding_models_cmp.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "rag_guide.txt"
+            },
+            {
+              "idx": 10,
+              "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+              "relevant": [
+                "llm_serving.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_serving.txt"
+            },
+            {
+              "idx": 11,
+              "question": "什么是思维链（Chain-of-Thought）提示？",
+              "relevant": [
+                "prompt_engineering.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "prompt_engineering.txt"
+            },
+            {
+              "idx": 12,
+              "question": "人工智能、机器学习、深度学习之间是什么关系？",
+              "relevant": [
+                "ai_intro.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "ai_intro.txt"
+            },
+            {
+              "idx": 13,
+              "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 14,
+              "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "prompt_engineering.txt"
+            }
+          ],
+          "label": "纯 BM25 关键词"
+        },
+        "hybrid": {
+          "rerank_load_ms": null,
+          "llm_load_ms": null,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.9286,
+          "cold_ms": 2.15,
+          "warm": {
+            "mean_ms": 2.36,
+            "p50_ms": 2.38,
+            "p95_ms": 3.38,
+            "n": 70
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+              "relevant": [
+                "transformer.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 2,
+              "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+              "relevant": [
+                "finetuning.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "finetuning.txt"
+            },
+            {
+              "idx": 3,
+              "question": "NF4量化格式为什么对正态分布的权重更友好？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 4,
+              "question": "RAG系统可以从哪些方面优化生成延迟？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "rag_overview.txt"
+            },
+            {
+              "idx": 5,
+              "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+              "relevant": [
+                "attention_variants.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 6,
+              "question": "除了量化，还有哪些主流的模型压缩方法？",
+              "relevant": [
+                "model_compression.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "model_compression.txt"
+            },
+            {
+              "idx": 7,
+              "question": "大语言模型预训练常用的训练目标有哪些？",
+              "relevant": [
+                "pretraining.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "pretraining.txt"
+            },
+            {
+              "idx": 8,
+              "question": "ReAct范式是如何把推理和行动结合起来的？",
+              "relevant": [
+                "llm_agent.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_agent.txt"
+            },
+            {
+              "idx": 9,
+              "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+              "relevant": [
+                "embedding_models_cmp.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "embedding_models_cmp.txt"
+            },
+            {
+              "idx": 10,
+              "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+              "relevant": [
+                "llm_serving.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_serving.txt"
+            },
+            {
+              "idx": 11,
+              "question": "什么是思维链（Chain-of-Thought）提示？",
+              "relevant": [
+                "prompt_engineering.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "prompt_engineering.txt"
+            },
+            {
+              "idx": 12,
+              "question": "人工智能、机器学习、深度学习之间是什么关系？",
+              "relevant": [
+                "ai_intro.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "ai_intro.txt"
+            },
+            {
+              "idx": 13,
+              "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 14,
+              "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            }
+          ],
+          "label": "混合 BM25+向量 · RRF"
+        },
+        "hybrid_rerank": {
+          "rerank_load_ms": 2596.6,
+          "llm_load_ms": null,
+          "rerank_active": true,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "cold_ms": 665.12,
+          "warm": {
+            "mean_ms": 910.92,
+            "p50_ms": 994.68,
+            "p95_ms": 1118.89,
+            "n": 70
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+              "relevant": [
+                "transformer.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 2,
+              "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+              "relevant": [
+                "finetuning.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "finetuning.txt"
+            },
+            {
+              "idx": 3,
+              "question": "NF4量化格式为什么对正态分布的权重更友好？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 4,
+              "question": "RAG系统可以从哪些方面优化生成延迟？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            },
+            {
+              "idx": 5,
+              "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+              "relevant": [
+                "attention_variants.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "attention_variants.txt"
+            },
+            {
+              "idx": 6,
+              "question": "除了量化，还有哪些主流的模型压缩方法？",
+              "relevant": [
+                "model_compression.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "model_compression.txt"
+            },
+            {
+              "idx": 7,
+              "question": "大语言模型预训练常用的训练目标有哪些？",
+              "relevant": [
+                "pretraining.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "pretraining.txt"
+            },
+            {
+              "idx": 8,
+              "question": "ReAct范式是如何把推理和行动结合起来的？",
+              "relevant": [
+                "llm_agent.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_agent.txt"
+            },
+            {
+              "idx": 9,
+              "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+              "relevant": [
+                "embedding_models_cmp.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "embedding_models_cmp.txt"
+            },
+            {
+              "idx": 10,
+              "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+              "relevant": [
+                "llm_serving.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_serving.txt"
+            },
+            {
+              "idx": 11,
+              "question": "什么是思维链（Chain-of-Thought）提示？",
+              "relevant": [
+                "prompt_engineering.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "prompt_engineering.txt"
+            },
+            {
+              "idx": 12,
+              "question": "人工智能、机器学习、深度学习之间是什么关系？",
+              "relevant": [
+                "ai_intro.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "ai_intro.txt"
+            },
+            {
+              "idx": 13,
+              "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 14,
+              "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            }
+          ],
+          "label": "混合 + Cross-Encoder 重排"
+        },
+        "hybrid_multi_query": {
+          "rerank_load_ms": null,
+          "llm_load_ms": 8409.5,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.9524,
+          "cold_ms": 3580.22,
+          "warm": {
+            "mean_ms": 1795.64,
+            "p50_ms": 1609.65,
+            "p95_ms": 2785.19,
+            "n": 28
+          },
+          "warm_rounds": 2,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+              "relevant": [
+                "transformer.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 2,
+              "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+              "relevant": [
+                "finetuning.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "finetuning.txt"
+            },
+            {
+              "idx": 3,
+              "question": "NF4量化格式为什么对正态分布的权重更友好？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 4,
+              "question": "RAG系统可以从哪些方面优化生成延迟？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            },
+            {
+              "idx": 5,
+              "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+              "relevant": [
+                "attention_variants.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "attention_variants.txt"
+            },
+            {
+              "idx": 6,
+              "question": "除了量化，还有哪些主流的模型压缩方法？",
+              "relevant": [
+                "model_compression.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.3333,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 7,
+              "question": "大语言模型预训练常用的训练目标有哪些？",
+              "relevant": [
+                "pretraining.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "pretraining.txt"
+            },
+            {
+              "idx": 8,
+              "question": "ReAct范式是如何把推理和行动结合起来的？",
+              "relevant": [
+                "llm_agent.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_agent.txt"
+            },
+            {
+              "idx": 9,
+              "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+              "relevant": [
+                "embedding_models_cmp.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "embedding_models_cmp.txt"
+            },
+            {
+              "idx": 10,
+              "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+              "relevant": [
+                "llm_serving.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_serving.txt"
+            },
+            {
+              "idx": 11,
+              "question": "什么是思维链（Chain-of-Thought）提示？",
+              "relevant": [
+                "prompt_engineering.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "prompt_engineering.txt"
+            },
+            {
+              "idx": 12,
+              "question": "人工智能、机器学习、深度学习之间是什么关系？",
+              "relevant": [
+                "ai_intro.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "ai_intro.txt"
+            },
+            {
+              "idx": 13,
+              "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 14,
+              "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            }
+          ],
+          "label": "混合 + multi-query 改写"
+        },
+        "hybrid_hyde": {
+          "rerank_load_ms": null,
+          "llm_load_ms": 0.0,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.9286,
+          "cold_ms": 11329.26,
+          "warm": {
+            "mean_ms": 11733.86,
+            "p50_ms": 12630.11,
+            "p95_ms": 15712.44,
+            "n": 28
+          },
+          "warm_rounds": 2,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+              "relevant": [
+                "transformer.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 2,
+              "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+              "relevant": [
+                "finetuning.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "finetuning.txt"
+            },
+            {
+              "idx": 3,
+              "question": "NF4量化格式为什么对正态分布的权重更友好？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 4,
+              "question": "RAG系统可以从哪些方面优化生成延迟？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "rag_overview.txt"
+            },
+            {
+              "idx": 5,
+              "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+              "relevant": [
+                "attention_variants.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "transformer.txt"
+            },
+            {
+              "idx": 6,
+              "question": "除了量化，还有哪些主流的模型压缩方法？",
+              "relevant": [
+                "model_compression.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "model_compression.txt"
+            },
+            {
+              "idx": 7,
+              "question": "大语言模型预训练常用的训练目标有哪些？",
+              "relevant": [
+                "pretraining.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "pretraining.txt"
+            },
+            {
+              "idx": 8,
+              "question": "ReAct范式是如何把推理和行动结合起来的？",
+              "relevant": [
+                "llm_agent.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_agent.txt"
+            },
+            {
+              "idx": 9,
+              "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+              "relevant": [
+                "embedding_models_cmp.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "embedding_models_cmp.txt"
+            },
+            {
+              "idx": 10,
+              "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+              "relevant": [
+                "llm_serving.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "llm_serving.txt"
+            },
+            {
+              "idx": 11,
+              "question": "什么是思维链（Chain-of-Thought）提示？",
+              "relevant": [
+                "prompt_engineering.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "prompt_engineering.txt"
+            },
+            {
+              "idx": 12,
+              "question": "人工智能、机器学习、深度学习之间是什么关系？",
+              "relevant": [
+                "ai_intro.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "ai_intro.txt"
+            },
+            {
+              "idx": 13,
+              "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+              "relevant": [
+                "quantization.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quantization.txt"
+            },
+            {
+              "idx": 14,
+              "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+              "relevant": [
+                "rag_guide.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "rag_guide.txt"
+            }
+          ],
+          "label": "混合 + HyDE 改写"
+        }
+      }
+    },
+    "near_dup_stress": {
+      "kb": "knowledge_base_stress.json",
+      "qa": "test_qa_stress.json",
+      "n_docs": 10,
+      "n_chunks": 10,
+      "n_questions": 8,
+      "pipeline_init_ms": 1025.4,
+      "build_index_ms": 3.6,
+      "modes": {
+        "vector": {
+          "rerank_load_ms": null,
+          "llm_load_ms": null,
+          "rerank_active": null,
+          "recall@3": 0.625,
+          "recall@5": 0.625,
+          "mrr": 0.4792,
+          "cold_ms": 0.88,
+          "warm": {
+            "mean_ms": 0.48,
+            "p50_ms": 0.4,
+            "p95_ms": 0.85,
+            "n": 40
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "QTAG-A1 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A1.txt"
+              ],
+              "recall@3": 0.0,
+              "recall@5": 0.0,
+              "mrr": 0.0,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 2,
+              "question": "QTAG-A3 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A3.txt"
+              ],
+              "recall@3": 0.0,
+              "recall@5": 0.0,
+              "mrr": 0.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 3,
+              "question": "QTAG-A5 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A5.txt"
+              ],
+              "recall@3": 0.0,
+              "recall@5": 0.0,
+              "mrr": 0.0,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 4,
+              "question": "QTAG-A7 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A7.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 5,
+              "question": "QTAG-A2 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A2.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.3333,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 6,
+              "question": "QTAG-A4 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A4.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 7,
+              "question": "QTAG-A6 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A6.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 8,
+              "question": "QTAG-A8 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A8.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A8.txt"
+            }
+          ],
+          "label": "纯向量（基线）"
+        },
+        "bm25": {
+          "rerank_load_ms": null,
+          "llm_load_ms": null,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "cold_ms": 0.44,
+          "warm": {
+            "mean_ms": 0.49,
+            "p50_ms": 0.46,
+            "p95_ms": 0.73,
+            "n": 40
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "QTAG-A1 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A1.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A1.txt"
+            },
+            {
+              "idx": 2,
+              "question": "QTAG-A3 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A3.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A3.txt"
+            },
+            {
+              "idx": 3,
+              "question": "QTAG-A5 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A5.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A5.txt"
+            },
+            {
+              "idx": 4,
+              "question": "QTAG-A7 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A7.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 5,
+              "question": "QTAG-A2 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A2.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A2.txt"
+            },
+            {
+              "idx": 6,
+              "question": "QTAG-A4 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A4.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 7,
+              "question": "QTAG-A6 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A6.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 8,
+              "question": "QTAG-A8 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A8.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A8.txt"
+            }
+          ],
+          "label": "纯 BM25 关键词"
+        },
+        "hybrid": {
+          "rerank_load_ms": null,
+          "llm_load_ms": null,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.7708,
+          "cold_ms": 0.6,
+          "warm": {
+            "mean_ms": 0.51,
+            "p50_ms": 0.43,
+            "p95_ms": 1.1,
+            "n": 40
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "QTAG-A1 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A1.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 2,
+              "question": "QTAG-A3 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A3.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.3333,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 3,
+              "question": "QTAG-A5 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A5.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.3333,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 4,
+              "question": "QTAG-A7 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A7.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 5,
+              "question": "QTAG-A2 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A2.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A2.txt"
+            },
+            {
+              "idx": 6,
+              "question": "QTAG-A4 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A4.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 7,
+              "question": "QTAG-A6 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A6.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 8,
+              "question": "QTAG-A8 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A8.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A8.txt"
+            }
+          ],
+          "label": "混合 BM25+向量 · RRF"
+        },
+        "hybrid_rerank": {
+          "rerank_load_ms": 0.0,
+          "llm_load_ms": null,
+          "rerank_active": true,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "cold_ms": 640.99,
+          "warm": {
+            "mean_ms": 74.11,
+            "p50_ms": 74.26,
+            "p95_ms": 76.63,
+            "n": 40
+          },
+          "warm_rounds": 5,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "QTAG-A1 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A1.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A1.txt"
+            },
+            {
+              "idx": 2,
+              "question": "QTAG-A3 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A3.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A3.txt"
+            },
+            {
+              "idx": 3,
+              "question": "QTAG-A5 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A5.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A5.txt"
+            },
+            {
+              "idx": 4,
+              "question": "QTAG-A7 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A7.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 5,
+              "question": "QTAG-A2 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A2.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A2.txt"
+            },
+            {
+              "idx": 6,
+              "question": "QTAG-A4 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A4.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 7,
+              "question": "QTAG-A6 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A6.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 8,
+              "question": "QTAG-A8 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A8.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A8.txt"
+            }
+          ],
+          "label": "混合 + Cross-Encoder 重排"
+        },
+        "hybrid_multi_query": {
+          "rerank_load_ms": null,
+          "llm_load_ms": 0.0,
+          "rerank_active": null,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "mrr": 0.8333,
+          "cold_ms": 1601.55,
+          "warm": {
+            "mean_ms": 1202.86,
+            "p50_ms": 1198.94,
+            "p95_ms": 1374.94,
+            "n": 16
+          },
+          "warm_rounds": 2,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "QTAG-A1 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A1.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.3333,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 2,
+              "question": "QTAG-A3 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A3.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.3333,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 3,
+              "question": "QTAG-A5 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A5.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A5.txt"
+            },
+            {
+              "idx": 4,
+              "question": "QTAG-A7 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A7.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 5,
+              "question": "QTAG-A2 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A2.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A2.txt"
+            },
+            {
+              "idx": 6,
+              "question": "QTAG-A4 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A4.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 7,
+              "question": "QTAG-A6 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A6.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 8,
+              "question": "QTAG-A8 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A8.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A8.txt"
+            }
+          ],
+          "label": "混合 + multi-query 改写"
+        },
+        "hybrid_hyde": {
+          "rerank_load_ms": null,
+          "llm_load_ms": 0.0,
+          "rerank_active": null,
+          "recall@3": 0.75,
+          "recall@5": 1.0,
+          "mrr": 0.7375,
+          "cold_ms": 4977.37,
+          "warm": {
+            "mean_ms": 5473.57,
+            "p50_ms": 5569.06,
+            "p95_ms": 7973.54,
+            "n": 16
+          },
+          "warm_rounds": 2,
+          "first_query_len": 5,
+          "per_question": [
+            {
+              "idx": 1,
+              "question": "QTAG-A1 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A1.txt"
+              ],
+              "recall@3": 0.0,
+              "recall@5": 1.0,
+              "mrr": 0.2,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 2,
+              "question": "QTAG-A3 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A3.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 0.5,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 3,
+              "question": "QTAG-A5 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A5.txt"
+              ],
+              "recall@3": 0.0,
+              "recall@5": 1.0,
+              "mrr": 0.2,
+              "top1_source": "quant_dup_A8.txt"
+            },
+            {
+              "idx": 4,
+              "question": "QTAG-A7 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A7.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A7.txt"
+            },
+            {
+              "idx": 5,
+              "question": "QTAG-A2 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A2.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A2.txt"
+            },
+            {
+              "idx": 6,
+              "question": "QTAG-A4 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A4.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A4.txt"
+            },
+            {
+              "idx": 7,
+              "question": "QTAG-A6 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A6.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A6.txt"
+            },
+            {
+              "idx": 8,
+              "question": "QTAG-A8 这条记录的内容是什么？",
+              "relevant": [
+                "quant_dup_A8.txt"
+              ],
+              "recall@3": 1.0,
+              "recall@5": 1.0,
+              "mrr": 1.0,
+              "top1_source": "quant_dup_A8.txt"
+            }
+          ],
+          "label": "混合 + HyDE 改写"
+        }
+      }
+    }
+  }
+}

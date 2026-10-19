@@ -82,20 +82,22 @@ class GenerationEngine:
             "prompt": prompt,
         }
 
-    def _generate_local(self, prompt: str) -> str:
+    def _generate_local(self, prompt: str, max_new_tokens: int = None) -> str:
         """本地模型推理"""
         messages = [{"role": "user", "content": prompt}]
         text = self.tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
         )
         inputs = self.tokenizer(text, return_tensors="pt")
-        if self.device == "cpu":
-            inputs = {k: v.cpu() for k, v in inputs.items()}
+        # 输入必须与模型权重同设备：device_map="cuda" 时权重在 GPU，
+        # 只把输入搬到 cpu（或反之）会在 embedding 层直接 RuntimeError。
+        target_device = getattr(self.model, "device", None) or torch.device("cpu")
+        inputs = {k: v.to(target_device) for k, v in inputs.items()}
 
         with torch.no_grad():
             outputs = self.model.generate(
                 **inputs,
-                max_new_tokens=self.max_new_tokens,
+                max_new_tokens=max_new_tokens or self.max_new_tokens,
                 temperature=self.temperature,
                 top_p=self.top_p,
                 do_sample=self.temperature > 0,
@@ -108,7 +110,17 @@ class GenerationEngine:
         )
         return response
 
-    def _generate_api(self, prompt: str) -> str:
+    def complete(self, prompt: str, max_new_tokens: int = None) -> str:
+        """裸 prompt 补全（不走 RAG 模板）。
+
+        供查询改写（HyDE / multi-query）等「把 LLM 当工具用」的场景复用同一套
+        本地模型 / API 推理路径，避免重复加载模型。
+        """
+        if self.use_api:
+            return self._generate_api(prompt, max_new_tokens=max_new_tokens)
+        return self._generate_local(prompt, max_new_tokens=max_new_tokens)
+
+    def _generate_api(self, prompt: str, max_new_tokens: int = None) -> str:
         """通过 API 推理（Ollama 兼容）"""
         import requests
 
@@ -118,7 +130,7 @@ class GenerationEngine:
                 "model": self.api_model,
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": self.temperature,
-                "max_tokens": self.max_new_tokens,
+                "max_tokens": max_new_tokens or self.max_new_tokens,
             },
             timeout=120,
         )

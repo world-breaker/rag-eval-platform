@@ -3,14 +3,15 @@
 import json
 import numpy as np
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import Callable, Dict, List, Optional
 from src.utils import load_config, logger, timer
 from src.chunking import DocumentChunker
 from src.embedding import EmbeddingEngine
 from src.retrieval import RetrievalEngine
 from src.generation import GenerationEngine
 from src.evaluation import EvaluationEngine
-from src.hybrid_retrieval import HybridRetriever
+from src.hybrid_retrieval import HybridRetriever, rrf_fusion, RANK_MODES
+from src.query_rewriting import QueryRewriter
 
 
 class RAGPipeline:
@@ -23,14 +24,21 @@ class RAGPipeline:
         self.chunker = DocumentChunker(self.config)
         self.embedder = EmbeddingEngine(self.config)
         self.retriever = RetrievalEngine(self.config)
-        # 混合检索：retrieval.mode="hybrid" 时启用（BM25+向量 RRF 融合，可选重排）；
-        # 默认 "vector" 则不实例化，行为与旧版完全一致（零回归）。
+        # 检索模式：vector（默认，历史行为）/ bm25（纯关键词）/ hybrid（BM25+向量 RRF，可选重排）
+        # 默认 "vector" 时不实例化 HybridRetriever，行为与旧版完全一致（零回归）。
         self.retrieval_mode = self.config["retrieval"].get("mode", "vector")
+        if self.retrieval_mode not in RANK_MODES:
+            raise ValueError(
+                f"retrieval.mode 必须是 {RANK_MODES} 之一，实际 {self.retrieval_mode!r}"
+            )
         self.hybrid = (
             HybridRetriever(self.config, self.retriever)
-            if self.retrieval_mode == "hybrid"
+            if self.retrieval_mode != "vector"
             else None
         )
+        # 查询改写（HyDE / multi-query）：默认关闭，开启后需要 LLM（延迟不然后悔）
+        self.query_rewriter: Optional[QueryRewriter] = None
+        self._rewriter_initialized = False
         # 生成模型体积大、加载慢：纯检索/评测场景（对比实验、指标评测）可延迟到首次问答时再加载
         self.generator = GenerationEngine(self.config) if load_generator else None
         self.evaluator = EvaluationEngine(self.config)
@@ -45,6 +53,53 @@ class RAGPipeline:
         if self.generator is None:
             self.generator = GenerationEngine(self.config)
         return self.generator
+
+    # ========== 检索模式与开关 ==========
+
+    def _ensure_hybrid(self) -> HybridRetriever:
+        """按需构造混合检索器（BM25 需要先用当前 chunks 拟合语料）。
+
+        延迟构造的原因：默认 vector 模式下不该为 BM25 付任何代价（零回归）；
+        而 Web UI 允许运行时切到 bm25/hybrid，所以这里做成懒加载 + 幂等。
+        """
+        if self.hybrid is None:
+            self.hybrid = HybridRetriever(self.config, self.retriever)
+            if self.chunks:
+                self.hybrid.fit(self.chunks)
+        return self.hybrid
+
+    def set_retrieval_mode(self, mode: str) -> str:
+        """运行时切换检索模式（供 Web UI / 实验脚本使用）。"""
+        if mode not in RANK_MODES:
+            raise ValueError(f"检索模式必须是 {RANK_MODES} 之一，实际 {mode!r}")
+        self.retrieval_mode = mode
+        if mode != "vector":
+            self._ensure_hybrid()
+        return self.retrieval_mode
+
+    def set_rerank(self, enabled: bool, model: Optional[str] = None) -> bool:
+        """运行时开关 Cross-Encoder 重排（仅 hybrid 模式生效）。返回是否真的可用。"""
+        return self._ensure_hybrid().set_rerank(enabled, model)
+
+    def _ensure_rewriter(self) -> Optional[QueryRewriter]:
+        """按需构造查询改写器；开关关闭时返回 None（零成本）。"""
+        if self._rewriter_initialized:
+            return self.query_rewriter
+        self._rewriter_initialized = True
+
+        cfg = (self.config.get("retrieval", {}) or {}).get("query_rewrite", {}) or {}
+        if not bool(cfg.get("enabled", False)):
+            self.query_rewriter = None
+            return None
+
+        # 改写用 LLM=生成模型（同一套权重，不额外占显存）
+        llm = self._ensure_generator()
+        self.query_rewriter = QueryRewriter(self.config, llm_fn=llm.complete)
+        logger.info(
+            f"查询改写已启用：strategy={self.query_rewriter.strategy}, "
+            f"num_queries={self.query_rewriter.num_queries}"
+        )
+        return self.query_rewriter
 
     # ========== 建库 ==========
 
@@ -109,34 +164,113 @@ class RAGPipeline:
 
     # ========== 检索 ==========
 
-    def _retrieve(self, question: str, top_k: int = None) -> List[Dict]:
-        """统一检索入口：根据 retrieval.mode 选择向量检索或混合检索（BM25+向量 RRF）。
+    def _single_query_search(
+        self, query_text: str, query_emb: np.ndarray, mode: str, top_k: int
+    ) -> List[Dict]:
+        """单条 query 的检索（不涉及改写）。"""
+        if mode == "vector":
+            # 纯向量走 RetrievalEngine：保留 similarity_threshold 过滤（历史行为不变）
+            return self.retriever.search(
+                query_emb, self.doc_embeddings, self.chunks, top_k
+            )
+        return self._ensure_hybrid().search(
+            query_emb,
+            self.doc_embeddings,
+            self.chunks,
+            top_k=top_k,
+            query_text=query_text,
+            rank_mode=mode,
+        )
 
-        返回值结构与 RetrievalEngine.search 一致，供 ask / 对比实验 / 批量评测复用。
+    def _retrieve(self, question: str, top_k: int = None, mode: str = None) -> List[Dict]:
+        """统一检索入口：按 retrieval.mode 选择向量 / BM25 / 混合检索，可选叠加查询改写。
+
+        返回值结构在各模式下保持一致（score / bm25_score / fusion_score / 各路 rank），
+        供 ask / 对比实验 / 批量评测 / Web UI 复用。
         """
         if self.doc_embeddings is None or len(self.chunks) == 0:
             raise RuntimeError("请先调用 build_index() 构建向量库")
 
-        query_emb = self.embedder.encode([{"text": question}])
+        mode = mode or self.retrieval_mode
+        k = top_k if top_k is not None else self.retriever.top_k
 
-        if self.retrieval_mode == "hybrid" and self.hybrid is not None:
-            return self.hybrid.search(
-                query_emb, self.doc_embeddings, self.chunks, top_k=top_k, query_text=question
+        rewriter = self._ensure_rewriter()
+        if rewriter is None or not rewriter.active:
+            # 默认路径（零回归）：单查询检索，与历史版本逐比特一致
+            query_emb = self.embedder.encode([{"text": question}])
+            return self._single_query_search(question, query_emb, mode, k)
+
+        return self._retrieve_with_rewrites(question, rewriter, mode, k)
+
+    def _retrieve_with_rewrites(
+        self, question: str, rewriter: QueryRewriter, mode: str, k: int
+    ) -> List[Dict]:
+        """改写路径：原查询 + 多条改写查询（+ HyDE 假想文档）分别召回 → RRF 融合。
+
+        为什么用 RRF 融合多路改写：改写产出的查询没有「谁更可信」的先验，
+        用排名融合比加权求和更稳（与混合检索同一套理由）；且任何一路漏掉的文档
+        只要在其它路排得靠前，仍能被捞回来——这正是 multi-query 提升召回的原理。
+        """
+        rw = rewriter.rewrite(question)
+        queries: List[str] = rw["queries"]
+        hypothetical = rw.get("hypothetical_doc")
+
+        # 每路都要全量排名，融合才有意义（top_k=len(chunks)）
+        rank_maps: List[Dict[int, int]] = []
+        meta: Dict[int, Dict] = {}
+
+        def _collect(text: str, emb: np.ndarray):
+            res = self._single_query_search(text, emb, mode, len(self.chunks))
+            rank_maps.append(
+                {r["chunk_index"]: i + 1 for i, r in enumerate(res)}
             )
-        return self.retriever.search(query_emb, self.doc_embeddings, self.chunks, top_k)
+            for r in res:  # 保留第一路的元数据（向量分/BM25 分等）
+                meta.setdefault(r["chunk_index"], r)
+
+        embs = self.embedder.encode([{"text": t} for t in queries])
+        for text, emb in zip(queries, embs):
+            _collect(text, emb.reshape(1, -1))
+
+        if hypothetical:
+            # HyDE：用假想文档的向量当作一条额外的「查询路」
+            hyde_emb = self.embedder.encode([{"text": hypothetical}])
+            _collect(hypothetical, hyde_emb.reshape(1, -1))
+
+        rrf_k = self.hybrid.rrf_k if self.hybrid is not None else 60
+        fused = rrf_fusion(rank_maps, k=rrf_k)
+        cand_idx = sorted(fused.keys(), key=lambda i: fused[i], reverse=True)
+
+        results = []
+        for rank, idx in enumerate(cand_idx[:k], 1):
+            row = dict(meta.get(idx, self.chunks[idx]))
+            row["fusion_score"] = round(float(fused[idx]), 4)
+            row["retrieved_rank"] = rank
+            row["rewrite_hits"] = sum(1 for rm in rank_maps if idx in rm)
+            results.append(row)
+
+        logger.info(
+            f"改写检索完成[{mode}]：{len(queries)} 条查询"
+            + (f" + HyDE({len(hypothetical)} 字符)" if hypothetical else "")
+            + f" → RRF 融合 {len(results)}/{k} 条"
+        )
+        return results
 
     # ========== 问答 ==========
 
     @timer
     def ask(
-        self, question: str, top_k: int = None, return_context: bool = True
+        self,
+        question: str,
+        top_k: int = None,
+        return_context: bool = True,
+        mode: str = None,
     ) -> Dict:
         """单次问答"""
         if self.doc_embeddings is None or len(self.chunks) == 0:
             raise RuntimeError("请先调用 build_index() 构建向量库")
 
-        # 1. 检索（向量 or 混合）
-        retrieved = self._retrieve(question, top_k)
+        # 1. 检索（vector / bm25 / hybrid，可叠加查询改写）
+        retrieved = self._retrieve(question, top_k, mode=mode)
 
         # 2. 生成
         result = self._ensure_generator().generate(question, retrieved)
