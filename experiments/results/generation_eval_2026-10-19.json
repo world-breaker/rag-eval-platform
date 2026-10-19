@@ -1,0 +1,4765 @@
+{
+  "date": "2026-10-19",
+  "arms_run": [
+    "rule",
+    "local",
+    "api"
+  ],
+  "env": {
+    "generation_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "embedding_model": "BAAI/bge-small-zh-v1.5",
+    "retrieval_mode": "vector",
+    "device": "cuda",
+    "top_p": 0.9,
+    "max_new_tokens": 256,
+    "torch": "2.14.0+cu132",
+    "python": "3.12.9",
+    "platform": "nt/win32"
+  },
+  "api_probe": {
+    "direct": {
+      "ok": true,
+      "elapsed_s": 0.26,
+      "models": [
+        "deepseek-flash",
+        "deepseek-v4-pro"
+      ]
+    },
+    "proxy_7897": {
+      "ok": true,
+      "elapsed_s": 0.21,
+      "models": [
+        "deepseek-flash",
+        "deepseek-v4-pro"
+      ]
+    }
+  },
+  "api_meta": {
+    "model": "deepseek-chat",
+    "model_returned": "deepseek-flash",
+    "calls": [
+      {
+        "id": "realistic#2",
+        "prompt_tokens": 929,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001083,
+        "peak": false
+      },
+      {
+        "id": "realistic#3",
+        "prompt_tokens": 762,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000905,
+        "peak": false
+      },
+      {
+        "id": "realistic#4",
+        "prompt_tokens": 739,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000881,
+        "peak": false
+      },
+      {
+        "id": "realistic#5",
+        "prompt_tokens": 923,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001077,
+        "peak": false
+      },
+      {
+        "id": "realistic#6",
+        "prompt_tokens": 695,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000834,
+        "peak": false
+      },
+      {
+        "id": "realistic#7",
+        "prompt_tokens": 876,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001027,
+        "peak": false
+      },
+      {
+        "id": "realistic#8",
+        "prompt_tokens": 700,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000839,
+        "peak": false
+      },
+      {
+        "id": "realistic#9",
+        "prompt_tokens": 874,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001025,
+        "peak": false
+      },
+      {
+        "id": "realistic#10",
+        "prompt_tokens": 682,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.00082,
+        "peak": false
+      },
+      {
+        "id": "realistic#11",
+        "prompt_tokens": 673,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.00081,
+        "peak": false
+      },
+      {
+        "id": "realistic#12",
+        "prompt_tokens": 740,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000882,
+        "peak": false
+      },
+      {
+        "id": "realistic#13",
+        "prompt_tokens": 790,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000935,
+        "peak": false
+      },
+      {
+        "id": "realistic#14",
+        "prompt_tokens": 777,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000921,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#2",
+        "prompt_tokens": 303,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000416,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#3",
+        "prompt_tokens": 303,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000416,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#4",
+        "prompt_tokens": 325,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.00044,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#5",
+        "prompt_tokens": 323,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000438,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#6",
+        "prompt_tokens": 328,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000443,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#7",
+        "prompt_tokens": 329,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000444,
+        "peak": false
+      },
+      {
+        "id": "near_dup_stress#8",
+        "prompt_tokens": 323,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000438,
+        "peak": false
+      },
+      {
+        "id": "sample#2",
+        "prompt_tokens": 958,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001114,
+        "peak": false
+      },
+      {
+        "id": "sample#3",
+        "prompt_tokens": 955,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001111,
+        "peak": false
+      },
+      {
+        "id": "sample#4",
+        "prompt_tokens": 932,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.001086,
+        "peak": false
+      },
+      {
+        "id": "sample#5",
+        "prompt_tokens": 756,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000899,
+        "peak": false
+      },
+      {
+        "id": "unanswerable#2",
+        "prompt_tokens": 578,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000709,
+        "peak": false
+      },
+      {
+        "id": "unanswerable#3",
+        "prompt_tokens": 669,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000806,
+        "peak": false
+      },
+      {
+        "id": "unanswerable#4",
+        "prompt_tokens": 661,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000798,
+        "peak": false
+      },
+      {
+        "id": "unanswerable#5",
+        "prompt_tokens": 707,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000847,
+        "peak": false
+      },
+      {
+        "id": "unanswerable#6",
+        "prompt_tokens": 638,
+        "completion_tokens": 22,
+        "cache_hit_tokens": 0,
+        "cost_cny": 0.000773,
+        "peak": false
+      }
+    ],
+    "cache_hits": 4,
+    "prompt_tokens": 19248,
+    "completion_tokens": 638,
+    "cache_hit_tokens": 0,
+    "cost_cny": 0.023217,
+    "aborted": false
+  },
+  "answer_source": "local",
+  "arm_means": {
+    "rule": {
+      "faithfulness": 3.4545
+    },
+    "local": {
+      "faithfulness": 3.1212,
+      "relevance": 3.0,
+      "completeness": 2.5758
+    },
+    "api": {
+      "faithfulness": 4.2727,
+      "relevance": 4.4848,
+      "completeness": 3.8182
+    },
+    "n_samples": 33
+  },
+  "agreement": {
+    "local_vs_api": {
+      "faithfulness": {
+        "n": 33,
+        "exact_agreement": 0.2121,
+        "within1_agreement": 0.4848,
+        "mae": 1.8182,
+        "pearson": -0.0326,
+        "binary_agreement": 0.4545,
+        "confusion_high_low": {
+          "tp": 11,
+          "tn": 4,
+          "fp": 2,
+          "fn": 16
+        },
+        "mean_a": 3.1212,
+        "mean_b": 4.2727
+      },
+      "relevance": {
+        "n": 33,
+        "exact_agreement": 0.2727,
+        "within1_agreement": 0.3636,
+        "mae": 1.7879,
+        "pearson": 0.0966,
+        "binary_agreement": 0.3939,
+        "confusion_high_low": {
+          "tp": 9,
+          "tn": 4,
+          "fp": 1,
+          "fn": 19
+        },
+        "mean_a": 3.0,
+        "mean_b": 4.4848
+      },
+      "completeness": {
+        "n": 33,
+        "exact_agreement": 0.1818,
+        "within1_agreement": 0.5455,
+        "mae": 1.6667,
+        "pearson": -0.0557,
+        "binary_agreement": 0.3636,
+        "confusion_high_low": {
+          "tp": 2,
+          "tn": 10,
+          "fp": 2,
+          "fn": 19
+        },
+        "mean_a": 2.5758,
+        "mean_b": 3.8182
+      }
+    },
+    "rule_vs_api": {
+      "faithfulness": {
+        "n": 33,
+        "exact_agreement": 0.5455,
+        "within1_agreement": 0.7576,
+        "mae": 0.9152,
+        "pearson": 0.589,
+        "binary_agreement": 0.7273,
+        "confusion_high_low": {
+          "tp": 18,
+          "tn": 6,
+          "fp": 0,
+          "fn": 9
+        },
+        "mean_a": 3.4545,
+        "mean_b": 4.2727
+      }
+    },
+    "rule_vs_local": {
+      "faithfulness": {
+        "n": 33,
+        "exact_agreement": 0.3333,
+        "within1_agreement": 0.5152,
+        "mae": 1.6467,
+        "pearson": 0.0233,
+        "binary_agreement": 0.5455,
+        "confusion_high_low": {
+          "tp": 8,
+          "tn": 10,
+          "fp": 10,
+          "fn": 5
+        },
+        "mean_a": 3.4545,
+        "mean_b": 3.1212
+      }
+    }
+  },
+  "segment_by_api_faithfulness": {
+    "低(1-2)": {
+      "n": 6,
+      "strong_mean": 1.667,
+      "local_mean": 3.167,
+      "exact_agreement": 0.1667,
+      "within1_agreement": 0.5,
+      "mae": 1.5
+    },
+    "中(3)": {
+      "n": 0
+    },
+    "高(4-5)": {
+      "n": 27,
+      "strong_mean": 4.852,
+      "local_mean": 3.111,
+      "exact_agreement": 0.2222,
+      "within1_agreement": 0.4815,
+      "mae": 1.8889
+    }
+  },
+  "rule_aggregate": {
+    "numeric_landing_rate": 0.9419,
+    "sentence_attribution_rate": 0.5227,
+    "refusal_accuracy": 0.8182,
+    "refusal_accuracy_answerable": 0.8148,
+    "refusal_accuracy_unanswerable": 0.8333,
+    "false_refusals_on_answerable": [
+      "realistic#1",
+      "realistic#14",
+      "near_dup_stress#1",
+      "near_dup_stress#2",
+      "near_dup_stress#3"
+    ],
+    "hallucination_on_unanswerable": [
+      "unanswerable#2"
+    ],
+    "em": 0.0,
+    "f1": 0.4484,
+    "rouge_l": 0.3477,
+    "bleu1": 0.4509
+  },
+  "local_judge_diagnostics": {
+    "samples_using_heuristic_fallback": [],
+    "unparsed_dims": [],
+    "distinct_raw_outputs": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  "reused_from": "experiments\\results\\generation_eval_2026-10-19.json",
+  "samples": [
+    {
+      "id": "realistic#1",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "Transformer的自注意力机制里为什么要除以√d_k？",
+      "relevant_sources": [
+        "transformer.txt"
+      ],
+      "reference_answer": "Q、K 做点积后维度 d_k 越大，点积数值的方差越大，不经过缩放直接 softmax 会让梯度趋于饱和/消失。除以 √d_k 把点积的方差拉回稳定区间，使 softmax 梯度保持健康。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 2.63
+      },
+      "answer": "根据提供的文档无法回答该问题",
+      "context": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。\n注意力机制的变体在大模型中不断演进。原始 Transformer 使用多头注意力（Multi-Head Attention），让模型从多个表示子空间并行学习。为了提高推理效率和长文本能力，衍生出多种变体：\n\n1. 多查询注意力（Multi-Query Attention, MQA）：所有头共享同一组 Key/Value，显存占用大幅下降，推理时 KV Cache 更小，PaLM、Falcon 等模型采用。\n\n2. 分组查询注意力（Grouped-Query Attention, GQA）：在 MHA 与 MQA 之间取折中，若干头共享一组 K/V，LLaMA-2/3、Mistral 采用，兼顾质量与速度。\n\n3. FlashAttention：通过 IO 感知的精确注意力算法，减少 GPU 显存读写，把注意力计算的显存占用保持在线性，训练与推理都显著加速。\n\n4. 稀疏注意力（Sparse Attention）：只计算 query 与部分 key 的注意力，降低长序列的 O(n²) 开销。\n\n5. 线性注意力（Linear Attention）：用核技巧把 softmax 近似为线性映\nLinear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。",
+      "retrieved": [
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.6471,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 5,
+          "source": "attention_variants.txt",
+          "score": 0.6351,
+          "text_head": "注意力机制的变体在大模型中不断演进。原始 Transformer 使用多头注意力（Multi-Head Attention），让模型从多个表示子空间并行学习。为了提高推理效率和长文本能力，衍生出多种变体：\n\n1. 多查询注意力（Multi-"
+        },
+        {
+          "chunk_index": 6,
+          "source": "attention_variants.txt",
+          "score": 0.4862,
+          "text_head": "Linear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.4673,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.4604,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.0,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": false,
+          "correct": false
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.0444,
+          "rouge_l": 0.037,
+          "bleu1": 0.0213
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.73,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "raw": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+          "model_returned": "deepseek-flash",
+          "source": "cache",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#2",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "LoRA微调的低秩分解公式是怎样的，可训练参数大概占总量多少？",
+      "relevant_sources": [
+        "finetuning.txt"
+      ],
+      "reference_answer": "LoRA 在原始权重 W 旁添加低秩分解矩阵 A、B，前向为 h = Wx + (α/r)BAx，只训练 A 和 B。典型配置 r=8、α=16，可训练参数仅占总量的 0.3% 左右。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 14.13
+      },
+      "answer": "LoRA微调的低秩分解公式如下：\n\\[ h = Wx + \\frac{\\alpha}{r} BAx \\]\n其中，\n- \\( h \\) 是稀疏化的输出矩阵，\n- \\( W \\) 是原始权重矩阵，\n- \\( x \\) 是输入向量，\n- \\( A \\) 和 \\( B \\) 是低秩分解矩阵，\n- \\( r \\) 是稀疏化因子，\n- \\( \\alpha \\) 是稀疏化系数。\n\n可训练参数约占总量的0.3%左右。",
+      "context": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。\n模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group-wise）策略保持精度。\n\n2. 剪枝（Pruning）：移除不重要的权重或注意力头，分结构化剪枝与非结构化剪枝。\n\n3. 知识蒸馏（Knowledge Distillation）：用大模型（教师）指导小模型（学生）训练，让小模型逼近大模型行为。\n\n4. 低秩分解（Low-Rank Factorization）：将大权重矩阵分解为两个小矩阵乘积，减少参数量。\n\n与微调侧的 LoRA 不同，压缩通常不改变模型结构、直接减小已有权重规模，是部署端常用的提速手段。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。",
+      "retrieved": [
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.5883,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.5697,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.5152,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.5152,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.499,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 7,
+          "hit": 4,
+          "rate": 0.5714,
+          "missed": [
+            "frac",
+            "alpha",
+            "alpha"
+          ]
+        },
+        "sentence_attribution": {
+          "n": 10,
+          "attributed": 1,
+          "rate": 0.1,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "LoRA微调的低秩分解公式如下：",
+              "coverage": 0.5,
+              "attributed": false
+            },
+            {
+              "sentence": "\\[ h = Wx + \\frac{\\alpha}{r} BAx \\]",
+              "coverage": 0.4211,
+              "attributed": false
+            },
+            {
+              "sentence": "其中，",
+              "coverage": 0.0,
+              "attributed": false
+            },
+            {
+              "sentence": "- \\( h \\) 是稀疏化的输出矩阵，",
+              "coverage": 0.1818,
+              "attributed": false
+            },
+            {
+              "sentence": "- \\( W \\) 是原始权重矩阵，",
+              "coverage": 0.5556,
+              "attributed": false
+            },
+            {
+              "sentence": "- \\( x \\) 是输入向量，",
+              "coverage": 0.0,
+              "attributed": false
+            },
+            {
+              "sentence": "- \\( A \\) 和 \\( B \\) 是低秩分解矩阵，",
+              "coverage": 0.3846,
+              "attributed": false
+            },
+            {
+              "sentence": "- \\( r \\) 是稀疏化因子，",
+              "coverage": 0.0,
+              "attributed": false
+            },
+            {
+              "sentence": "- \\( \\alpha \\) 是稀疏化系数",
+              "coverage": 0.0769,
+              "attributed": false
+            },
+            {
+              "sentence": "可训练参数约占总量的0.3%左右",
+              "coverage": 0.8571,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 1.4,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.4641,
+          "rouge_l": 0.3265,
+          "bleu1": 0.5842
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.79,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 2,
+            "relevance": 4,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#3",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "NF4量化格式为什么对正态分布的权重更友好？",
+      "relevant_sources": [
+        "quantization.txt"
+      ],
+      "reference_answer": "NF4（NormalFloat4）由 QLoRA 提出，是一种针对正态分布权重优化的 4 位量化格式：16 个量化值在权重密集的均值附近分布更密、在边角更疏，更贴合权重的正态分布，相比均匀量化精度损失更小。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 5.93
+      },
+      "answer": "NF4量化格式对正态分布的权重更友好，因为它的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。",
+      "context": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。\n模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借助分组（group-wise）或对称/非对称量化策略来缓解。推理时只需把整数权重反量化为近似浮点即可使用，误差很小。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。",
+      "retrieved": [
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.6798,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.6635,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.5667,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.5367,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 10,
+          "source": "embedding_models_cmp.txt",
+          "score": 0.5145,
+          "text_head": "中文向量模型（Embedding）的选择直接影响检索质量：\n\n1. BGE 系列（BAAI/bge 系列，如 bge-large-zh、bge-m3）：中科院开源，中文检索榜长期领先，m3 版本支持稠密/稀疏/多向量混合检索与多语言。\n\n2"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 3,
+          "hit": 3,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 1,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "NF4量化格式对正态分布的权重更友好，因为它的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近",
+              "coverage": 0.8788,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.5732,
+          "rouge_l": 0.4138,
+          "bleu1": 0.5243
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.72,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#4",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "RAG系统可以从哪些方面优化生成延迟？",
+      "relevant_sources": [
+        "rag_guide.txt"
+      ],
+      "reference_answer": "主要从文档切分、Embedding 缓存（文档不变不重算）、向量索引（IVF+PQ 替代暴力检索）、Prompt 设计、流式输出（首 token 即返回）、模型量化（如 INT4 把 6GB 压到 1.5GB）等方面优化延迟。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 5.15
+      },
+      "answer": "RAG系统可以从以下几个方面优化生成延迟：\n\n1. 缓存编码结果避免重复计算。\n2. 使用流式输出让用户尽早看到内容。\n3. 对生成模型本身进行量化压缩。",
+      "context": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。\n大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching）进一步榨干 GPU。\n\n2. 连续批处理：把多个请求在 token 级别动态拼批，减少空闲等待。\n\n3. 量化加速：推理侧常用 INT8 / INT4（如 GPTQ、AWQ）把权重压缩，降低显存与带宽压力，配合高效 kernel 提速。\n\n4. 流式输出：首 token 即返回，改善用户体感延迟。\n\n5. 显存优化：KV Cache 常是长对话的瓶颈，PagedAttention 与缓存卸载是关键手段。",
+      "retrieved": [
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.6803,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.6169,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 11,
+          "source": "llm_serving.txt",
+          "score": 0.5696,
+          "text_head": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.5218,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 6,
+          "source": "attention_variants.txt",
+          "score": 0.5133,
+          "text_head": "Linear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 4,
+          "hit": 4,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 4,
+          "attributed": 3,
+          "rate": 0.75,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "RAG系统可以从以下几个方面优化生成延迟：",
+              "coverage": 0.5263,
+              "attributed": false
+            },
+            {
+              "sentence": "1. 缓存编码结果避免重复计算",
+              "coverage": 0.9167,
+              "attributed": true
+            },
+            {
+              "sentence": "2. 使用流式输出让用户尽早看到内容",
+              "coverage": 0.9333,
+              "attributed": true
+            },
+            {
+              "sentence": "3. 对生成模型本身进行量化压缩",
+              "coverage": 0.6923,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 4.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.3333,
+          "rouge_l": 0.1895,
+          "bleu1": 0.292
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.76,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#5",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "MQA（Multi-Query Attention）和 GQA（Grouped-Query Attention）有什么区别？",
+      "relevant_sources": [
+        "attention_variants.txt"
+      ],
+      "reference_answer": "MQA 让所有注意力头共享同一组 Key/Value，KV Cache 最小、推理最快但可能损失质量；GQA 是折中方案，若干头共享一组 K/V，LLaMA-2/3、Mistral 采用，兼顾质量与速度。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 19.03
+      },
+      "answer": "MQA（Multi-Query Attention）和GQA（Grouped-Query Attention）的区别在于它们如何处理查询（query）和键值（key/value）之间的关系。\n\nMQA（Multi-Query Attention）允许所有头共享同一组Key/Value，这可以显着减少内存占用，并且在推理时KV缓存较小。然而，这种方法可能会影响模型的质量，因为它不能充分利用每个头的独特视角。\n\n相比之下，GQA（Grouped-Query Attention）在MHA（Multi-head Attention）与MQA之间取折衷。它允许若干个头共享一组Key/Value，这样可以在质量和速度之间找到一个平衡点。这种设计既保留了MHA的优点，又避免了MQA的缺点。",
+      "context": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。\n注意力机制的变体在大模型中不断演进。原始 Transformer 使用多头注意力（Multi-Head Attention），让模型从多个表示子空间并行学习。为了提高推理效率和长文本能力，衍生出多种变体：\n\n1. 多查询注意力（Multi-Query Attention, MQA）：所有头共享同一组 Key/Value，显存占用大幅下降，推理时 KV Cache 更小，PaLM、Falcon 等模型采用。\n\n2. 分组查询注意力（Grouped-Query Attention, GQA）：在 MHA 与 MQA 之间取折中，若干头共享一组 K/V，LLaMA-2/3、Mistral 采用，兼顾质量与速度。\n\n3. FlashAttention：通过 IO 感知的精确注意力算法，减少 GPU 显存读写，把注意力计算的显存占用保持在线性，训练与推理都显著加速。\n\n4. 稀疏注意力（Sparse Attention）：只计算 query 与部分 key 的注意力，降低长序列的 O(n²) 开销。\n\n5. 线性注意力（Linear Attention）：用核技巧把 softmax 近似为线性映\n模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借助分组（group-wise）或对称/非对称量化策略来缓解。推理时只需把整数权重反量化为近似浮点即可使用，误差很小。",
+      "retrieved": [
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.5081,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 5,
+          "source": "attention_variants.txt",
+          "score": 0.4854,
+          "text_head": "注意力机制的变体在大模型中不断演进。原始 Transformer 使用多头注意力（Multi-Head Attention），让模型从多个表示子空间并行学习。为了提高推理效率和长文本能力，衍生出多种变体：\n\n1. 多查询注意力（Multi-"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.4658,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.4627,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 6,
+          "source": "attention_variants.txt",
+          "score": 0.4582,
+          "text_head": "Linear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 26,
+          "hit": 26,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 6,
+          "attributed": 3,
+          "rate": 0.5,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "MQA（Multi-Query Attention）和GQA（Grouped-Query Attention）的区别在于它们如何处理查询（query）和键值（key/value）之间的关系",
+              "coverage": 0.7,
+              "attributed": true
+            },
+            {
+              "sentence": "MQA（Multi-Query Attention）允许所有头共享同一组Key/Value，这可以显着减少内存占用，并且在推理时KV缓存较小",
+              "coverage": 0.6935,
+              "attributed": true
+            },
+            {
+              "sentence": "然而，这种方法可能会影响模型的质量，因为它不能充分利用每个头的独特视角",
+              "coverage": 0.125,
+              "attributed": false
+            },
+            {
+              "sentence": "相比之下，GQA（Grouped-Query Attention）在MHA（Multi-head Attention）与MQA之间取折衷",
+              "coverage": 0.8621,
+              "attributed": true
+            },
+            {
+              "sentence": "它允许若干个头共享一组Key/Value，这样可以在质量和速度之间找到一个平衡点",
+              "coverage": 0.4324,
+              "attributed": false
+            },
+            {
+              "sentence": "这种设计既保留了MHA的优点，又避免了MQA的缺点",
+              "coverage": 0.1739,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 3.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.3255,
+          "rouge_l": 0.2342,
+          "bleu1": 0.5526
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.76,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#6",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "除了量化，还有哪些主流的模型压缩方法？",
+      "relevant_sources": [
+        "model_compression.txt"
+      ],
+      "reference_answer": "除量化外，主流压缩方法还包括：剪枝（移除不重要权重/注意力头）、知识蒸馏（大模型指导小模型）、低秩分解（大矩阵拆成两个小矩阵乘积）。它们通常直接减小已有权重规模，是部署端常用提速手段。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 2.72
+      },
+      "answer": "除了量化，还有剪枝、知识蒸馏和低秩分解等主流的模型压缩方法。",
+      "context": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group-wise）策略保持精度。\n\n2. 剪枝（Pruning）：移除不重要的权重或注意力头，分结构化剪枝与非结构化剪枝。\n\n3. 知识蒸馏（Knowledge Distillation）：用大模型（教师）指导小模型（学生）训练，让小模型逼近大模型行为。\n\n4. 低秩分解（Low-Rank Factorization）：将大权重矩阵分解为两个小矩阵乘积，减少参数量。\n\n与微调侧的 LoRA 不同，压缩通常不改变模型结构、直接减小已有权重规模，是部署端常用的提速手段。\n模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借助分组（group-wise）或对称/非对称量化策略来缓解。推理时只需把整数权重反量化为近似浮点即可使用，误差很小。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。",
+      "retrieved": [
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.7557,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.6705,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.6647,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.6464,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.5917,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "除了量化，还有剪枝、知识蒸馏和低秩分解等主流的模型压缩方法",
+              "coverage": 0.5385,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.4381,
+          "rouge_l": 0.2951,
+          "bleu1": 0.2826
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#7",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "大语言模型预训练常用的训练目标有哪些？",
+      "relevant_sources": [
+        "pretraining.txt"
+      ],
+      "reference_answer": "主要有自回归语言建模（CLM，预测下一个 token，GPT 系列）和掩码语言建模（MLM，BERT 系列掩码预测）。预训练在超大规模无标注语料上进行，后续还需指令微调与对齐。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 8.62
+      },
+      "answer": "大语言模型预训练常用的训练目标有两类：\n\n1. CLM（自回归语言建模）：预测下一个token，适用于GPT系列模型。\n2. MLM（掩码语言建模）：在文本中随机选择一部分字符并替换为空白，然后预测这些空白处应该填充的内容，适用于BERT系列模型。",
+      "context": "大语言模型的预训练（Pre-training）阶段在超大规模无标注语料上训练，目标是学习通用语言与知识表示：\n\n1. 训练目标：自回归语言建模（CLM，预测下一个 token，GPT 系列采用）或掩码语言建模（MLM，BERT 系列掩码预测，bidirectional）。\n\n2. 语料：网页、书籍、代码、数学等多源混合，需经过去重、过滤、去污染等清洗。\n\n3. 缩放定律（Scaling Law）：模型性能随参数量、数据量、算力的幂律平滑提升，指导资源分配。\n\n4. 涌现能力（Emergent Abilities）：模型规模超过阈值后突然出现的小样本/推理能力。\n\n预训练得到的基础模型（Base Model）还需经过指令微调与对齐（如 RLHF/DPO）才能稳定遵循人类指令。\n大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。\n大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长期记忆借助向量数据库持久化历史交互。\n\n3. 工具使用（Tool Use / Function Calling）：模型调用搜索、计算、数据库、API 等外部工具获取实时或私有信息。\n\n4. ReAct 范式：将「推理（Reasoning）」与「行动（Acting）」交织——模型先思考下一步（Thought），再决定调用哪个工具（Action），观察结果（Observation）后继续推理，直到得出最终答案。ReAct 是 Agent 的经典实现框架，显著提升了多步任务的可解释性与成功率。",
+      "retrieved": [
+        {
+          "chunk_index": 12,
+          "source": "pretraining.txt",
+          "score": 0.8467,
+          "text_head": "大语言模型的预训练（Pre-training）阶段在超大规模无标注语料上训练，目标是学习通用语言与知识表示：\n\n1. 训练目标：自回归语言建模（CLM，预测下一个 token，GPT 系列采用）或掩码语言建模（MLM，BERT 系列掩码预测"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.6621,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 8,
+          "source": "llm_agent.txt",
+          "score": 0.6422,
+          "text_head": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长"
+        },
+        {
+          "chunk_index": 9,
+          "source": "prompt_engineering.txt",
+          "score": 0.6,
+          "text_head": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.5437,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 7,
+          "hit": 7,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 3,
+          "attributed": 1,
+          "rate": 0.3333,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "大语言模型预训练常用的训练目标有两类：",
+              "coverage": 0.5882,
+              "attributed": false
+            },
+            {
+              "sentence": "1. CLM（自回归语言建模）：预测下一个token，适用于GPT系列模型",
+              "coverage": 0.7333,
+              "attributed": true
+            },
+            {
+              "sentence": "2. MLM（掩码语言建模）：在文本中随机选择一部分字符并替换为空白，然后预测这些空白处应该填充的内容，适用于BERT系列模型",
+              "coverage": 0.2545,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 2.33,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.5778,
+          "rouge_l": 0.3679,
+          "bleu1": 0.5565
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.79,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#8",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "ReAct范式是如何把推理和行动结合起来的？",
+      "relevant_sources": [
+        "llm_agent.txt"
+      ],
+      "reference_answer": "ReAct 把「推理（Thought）」与「行动（Action）」交织：模型先思考下一步，再决定调用哪个工具（Action），观察结果（Observation）后继续推理，循环直到得出最终答案，提升了多步任务的可解释性与成功率。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 9.2
+      },
+      "answer": "ReAct范式将推理（Reasoning）与行动（Acting）交织在一起。具体来说，模型首先进行推理，思考下一步应该做什么（Thought），然后决定调用哪个工具（Action），接着观察结果（Observation），最后继续推理，直到得出最终答案。这种结合方式显著提高了多步任务的可解释性和成功率。",
+      "context": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长期记忆借助向量数据库持久化历史交互。\n\n3. 工具使用（Tool Use / Function Calling）：模型调用搜索、计算、数据库、API 等外部工具获取实时或私有信息。\n\n4. ReAct 范式：将「推理（Reasoning）」与「行动（Acting）」交织——模型先思考下一步（Thought），再决定调用哪个工具（Action），观察结果（Observation）后继续推理，直到得出最终答案。ReAct 是 Agent 的经典实现框架，显著提升了多步任务的可解释性与成功率。\n检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。\n提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n\n3. 思维链（Chain-of-Thought, CoT）：要求模型「一步步思考」，显式输出推理过程，大幅提升数学与逻辑题表现。\n\n4. 自我一致性（Self-Consistency）：采样多条推理路径，投票选多数答案。\n\n5. 检索增强提示：把检索到的文档拼接进提示，作为生成依据（即 RAG），并在提示中明确要求「只使用参考文档、不知道就说不知道」以降低幻觉。",
+      "retrieved": [
+        {
+          "chunk_index": 8,
+          "source": "llm_agent.txt",
+          "score": 0.6329,
+          "text_head": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.5889,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 9,
+          "source": "prompt_engineering.txt",
+          "score": 0.5571,
+          "text_head": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n"
+        },
+        {
+          "chunk_index": 11,
+          "source": "llm_serving.txt",
+          "score": 0.5325,
+          "text_head": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.5295,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 6,
+          "hit": 6,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 3,
+          "attributed": 3,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "ReAct范式将推理（Reasoning）与行动（Acting）交织在一起",
+              "coverage": 0.9062,
+              "attributed": true
+            },
+            {
+              "sentence": "具体来说，模型首先进行推理，思考下一步应该做什么（Thought），然后决定调用哪个工具（Action），接着观察结果（Observation），最后继续推理，直到得出最终答案",
+              "coverage": 0.6933,
+              "attributed": true
+            },
+            {
+              "sentence": "这种结合方式显著提高了多步任务的可解释性和成功率",
+              "coverage": 0.6087,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.7807,
+          "rouge_l": 0.7143,
+          "bleu1": 0.8224
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.82,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#9",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "中文场景下有哪些值得关注的Embedding向量模型？",
+      "relevant_sources": [
+        "embedding_models_cmp.txt"
+      ],
+      "reference_answer": "中文常用 BGE 系列（如 bge-large-zh、bge-m3）、m3e、stella，以及闭源的 OpenAI text-embedding。选型要看中文 benchmark、维度/显存、是否支持长文本与本地私有化部署。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 10.78
+      },
+      "answer": "在中文场景下，值得关注的Embedding向量模型有：\n\n1. BGE系列（如bge-large-zh、bge-m3），中科院开源，中文检索榜长期领先。\n2. m3e，开源中文embedding模型，体积小、推理快，适合轻量检索场景。\n3. Stella，近期开源的高性能中英文embedding模型，在多项基准上接近或超过BGE。",
+      "context": "中文向量模型（Embedding）的选择直接影响检索质量：\n\n1. BGE 系列（BAAI/bge 系列，如 bge-large-zh、bge-m3）：中科院开源，中文检索榜长期领先，m3 版本支持稠密/稀疏/多向量混合检索与多语言。\n\n2. m3e：开源中文 embedding 模型，体积小、推理快，适合轻量检索场景。\n\n3. stella：近期开源的高性能中英文 embedding 模型，在多项基准上接近或超过 BGE。\n\n4. OpenAI text-embedding 系列：闭源 API，英文强、中文需评估；调用方便但数据出境有合规考量。\n\n选型要点：维度与显存、中文 benchmark 分数、是否支持长文本（>512 token）、是否需要本地私有化部署。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。",
+      "retrieved": [
+        {
+          "chunk_index": 10,
+          "source": "embedding_models_cmp.txt",
+          "score": 0.7422,
+          "text_head": "中文向量模型（Embedding）的选择直接影响检索质量：\n\n1. BGE 系列（BAAI/bge 系列，如 bge-large-zh、bge-m3）：中科院开源，中文检索榜长期领先，m3 版本支持稠密/稀疏/多向量混合检索与多语言。\n\n2"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.5645,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.5137,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.5033,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.4887,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 14,
+          "hit": 14,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 4,
+          "attributed": 3,
+          "rate": 0.75,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "在中文场景下，值得关注的Embedding向量模型有：",
+              "coverage": 0.5833,
+              "attributed": false
+            },
+            {
+              "sentence": "1. BGE系列（如bge-large-zh、bge-m3），中科院开源，中文检索榜长期领先",
+              "coverage": 1.0,
+              "attributed": true
+            },
+            {
+              "sentence": "2. m3e，开源中文embedding模型，体积小、推理快，适合轻量检索场景",
+              "coverage": 1.0,
+              "attributed": true
+            },
+            {
+              "sentence": "3. Stella，近期开源的高性能中英文embedding模型，在多项基准上接近或超过BGE",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 4.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.4978,
+          "rouge_l": 0.3799,
+          "bleu1": 0.6024
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.78,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#10",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "vLLM是通过什么机制提升大模型推理吞吐的？",
+      "relevant_sources": [
+        "llm_serving.txt"
+      ],
+      "reference_answer": "vLLM 用 PagedAttention 像操作系统分页一样按需分配 KV Cache，显存利用率和吞吐大幅提升；再配合连续批处理（token 级动态拼批）进一步榨干 GPU。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 3.59
+      },
+      "answer": "vLLM通过引入PagedAttention管理KV Cache和连续批处理（Continuous Batching）来提升大模型推理吞吐。",
+      "context": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching）进一步榨干 GPU。\n\n2. 连续批处理：把多个请求在 token 级别动态拼批，减少空闲等待。\n\n3. 量化加速：推理侧常用 INT8 / INT4（如 GPTQ、AWQ）把权重压缩，降低显存与带宽压力，配合高效 kernel 提速。\n\n4. 流式输出：首 token 即返回，改善用户体感延迟。\n\n5. 显存优化：KV Cache 常是长对话的瓶颈，PagedAttention 与缓存卸载是关键手段。\n检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。\n模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group-wise）策略保持精度。\n\n2. 剪枝（Pruning）：移除不重要的权重或注意力头，分结构化剪枝与非结构化剪枝。\n\n3. 知识蒸馏（Knowledge Distillation）：用大模型（教师）指导小模型（学生）训练，让小模型逼近大模型行为。\n\n4. 低秩分解（Low-Rank Factorization）：将大权重矩阵分解为两个小矩阵乘积，减少参数量。\n\n与微调侧的 LoRA 不同，压缩通常不改变模型结构、直接减小已有权重规模，是部署端常用的提速手段。",
+      "retrieved": [
+        {
+          "chunk_index": 11,
+          "source": "llm_serving.txt",
+          "score": 0.6699,
+          "text_head": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.608,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.6046,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.5941,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        },
+        {
+          "chunk_index": 9,
+          "source": "prompt_engineering.txt",
+          "score": 0.576,
+          "text_head": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 6,
+          "hit": 6,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 1,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "vLLM通过引入PagedAttention管理KV Cache和连续批处理（Continuous Batching）来提升大模型推理吞吐",
+              "coverage": 0.8594,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.5775,
+          "rouge_l": 0.478,
+          "bleu1": 0.6404
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.81,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#11",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "什么是思维链（Chain-of-Thought）提示？",
+      "relevant_sources": [
+        "prompt_engineering.txt"
+      ],
+      "reference_answer": "思维链（CoT）提示要求模型「一步步思考」并显式输出推理过程，而不是只给答案，能大幅提升数学与逻辑题表现；常与少样本示例、自我一致性（多路径投票）结合使用。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 5.66
+      },
+      "answer": "思维链（Chain-of-Thought，CoT）提示是指在设计输入时，提供一系列示例，引导模型模仿格式与风格进行推理的过程。这种提示方式有助于提升数学与逻辑题的表现。",
+      "context": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n\n3. 思维链（Chain-of-Thought, CoT）：要求模型「一步步思考」，显式输出推理过程，大幅提升数学与逻辑题表现。\n\n4. 自我一致性（Self-Consistency）：采样多条推理路径，投票选多数答案。\n\n5. 检索增强提示：把检索到的文档拼接进提示，作为生成依据（即 RAG），并在提示中明确要求「只使用参考文档、不知道就说不知道」以降低幻觉。\n大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长期记忆借助向量数据库持久化历史交互。\n\n3. 工具使用（Tool Use / Function Calling）：模型调用搜索、计算、数据库、API 等外部工具获取实时或私有信息。\n\n4. ReAct 范式：将「推理（Reasoning）」与「行动（Acting）」交织——模型先思考下一步（Thought），再决定调用哪个工具（Action），观察结果（Observation）后继续推理，直到得出最终答案。ReAct 是 Agent 的经典实现框架，显著提升了多步任务的可解释性与成功率。\n检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。",
+      "retrieved": [
+        {
+          "chunk_index": 9,
+          "source": "prompt_engineering.txt",
+          "score": 0.5913,
+          "text_head": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n"
+        },
+        {
+          "chunk_index": 8,
+          "source": "llm_agent.txt",
+          "score": 0.502,
+          "text_head": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.4716,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.4675,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.4647,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 2,
+          "attributed": 1,
+          "rate": 0.5,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "思维链（Chain-of-Thought，CoT）提示是指在设计输入时，提供一系列示例，引导模型模仿格式与风格进行推理的过程",
+              "coverage": 0.7222,
+              "attributed": true
+            },
+            {
+              "sentence": "这种提示方式有助于提升数学与逻辑题的表现",
+              "coverage": 0.4737,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 3.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.4366,
+          "rouge_l": 0.3457,
+          "bleu1": 0.5595
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 2,
+            "relevance": 3,
+            "completeness": 2
+          },
+          "raw": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#12",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "人工智能、机器学习、深度学习之间是什么关系？",
+      "relevant_sources": [
+        "ai_intro.txt"
+      ],
+      "reference_answer": "人工智能是最上层，目标是让机器模拟人类智能；机器学习是 AI 的核心方法，从数据中学习模式；深度学习是机器学习的一个子领域，用多层神经网络学习层次化表示。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 8.49
+      },
+      "answer": "人工智能（Artificial Intelligence，简称AI）是研究如何使计算机能够像人一样思考和学习的一门学科。机器学习是人工智能的核心方法之一，它通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，它使用多层神经网络来学习数据的层次化表示。",
+      "context": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神经网络来学习数据的层次化表示。\n\n自然语言处理（NLP）是AI的重要应用领域，涉及文本理解、机器翻译、情感分析、问答系统等任务。近年来，基于Transformer架构的大语言模型（如GPT、BERT、Qwen等）在NLP领域取得了突破性进展。\n\n检索增强生成（RAG）是一种结合信息检索和文本生成的技术，通过从外部知识库中检索相关文档来增强大语言模型的回答质量，减少幻觉问题。\n大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长期记忆借助向量数据库持久化历史交互。\n\n3. 工具使用（Tool Use / Function Calling）：模型调用搜索、计算、数据库、API 等外部工具获取实时或私有信息。\n\n4. ReAct 范式：将「推理（Reasoning）」与「行动（Acting）」交织——模型先思考下一步（Thought），再决定调用哪个工具（Action），观察结果（Observation）后继续推理，直到得出最终答案。ReAct 是 Agent 的经典实现框架，显著提升了多步任务的可解释性与成功率。\n提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n\n3. 思维链（Chain-of-Thought, CoT）：要求模型「一步步思考」，显式输出推理过程，大幅提升数学与逻辑题表现。\n\n4. 自我一致性（Self-Consistency）：采样多条推理路径，投票选多数答案。\n\n5. 检索增强提示：把检索到的文档拼接进提示，作为生成依据（即 RAG），并在提示中明确要求「只使用参考文档、不知道就说不知道」以降低幻觉。",
+      "retrieved": [
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.7207,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        },
+        {
+          "chunk_index": 8,
+          "source": "llm_agent.txt",
+          "score": 0.5184,
+          "text_head": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长"
+        },
+        {
+          "chunk_index": 9,
+          "source": "prompt_engineering.txt",
+          "score": 0.4611,
+          "text_head": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.459,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.4434,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 3,
+          "hit": 3,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 3,
+          "attributed": 3,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "人工智能（Artificial Intelligence，简称AI）是研究如何使计算机能够像人一样思考和学习的一门学科",
+              "coverage": 0.6852,
+              "attributed": true
+            },
+            {
+              "sentence": "机器学习是人工智能的核心方法之一，它通过从数据中学习模式来完成特定任务",
+              "coverage": 0.8788,
+              "attributed": true
+            },
+            {
+              "sentence": "深度学习是机器学习的一个子领域，它使用多层神经网络来学习数据的层次化表示",
+              "coverage": 0.9412,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.601,
+          "rouge_l": 0.5524,
+          "bleu1": 0.6015
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.73,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#13",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "NF4（NormalFloat4）这种 4 位量化格式有什么特点？",
+      "relevant_sources": [
+        "quantization.txt"
+      ],
+      "reference_answer": "NF4 由 QLoRA 提出，是针对正态分布权重优化的 4 位量化格式：16 个量化值在权重密集的均值附近分布更密、在边角更疏，更贴合权重的正态分布，相比均匀量化精度损失更小。它只出现在专门讲量化格式的细节文档里。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 8.64
+      },
+      "answer": "NF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，具有以下特点：\n\n- 在权重密集区域分布更密，在边角分布更疏。\n- 由于正态分布中大多数权重集中在均值附近，因此在这些区域量化值更多，而在边缘区域量化值较少。",
+      "context": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。\n模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借助分组（group-wise）或对称/非对称量化策略来缓解。推理时只需把整数权重反量化为近似浮点即可使用，误差很小。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。",
+      "retrieved": [
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.6652,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.6588,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.5757,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.5515,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 10,
+          "source": "embedding_models_cmp.txt",
+          "score": 0.4883,
+          "text_head": "中文向量模型（Embedding）的选择直接影响检索质量：\n\n1. BGE 系列（BAAI/bge 系列，如 bge-large-zh、bge-m3）：中科院开源，中文检索榜长期领先，m3 版本支持稠密/稀疏/多向量混合检索与多语言。\n\n2"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 5,
+          "hit": 5,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 3,
+          "attributed": 2,
+          "rate": 0.6667,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "NF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，具有以下特点：",
+              "coverage": 0.85,
+              "attributed": true
+            },
+            {
+              "sentence": "- 在权重密集区域分布更密，在边角分布更疏",
+              "coverage": 1.0,
+              "attributed": true
+            },
+            {
+              "sentence": "- 由于正态分布中大多数权重集中在均值附近，因此在这些区域量化值更多，而在边缘区域量化值较少",
+              "coverage": 0.5366,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 3.67,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.5846,
+          "rouge_l": 0.4464,
+          "bleu1": 0.6325
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.75,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "realistic#14",
+      "dataset": "realistic",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_large.json",
+      "question": "在 RAG 的 Prompt 里，为什么要设置较低的温度、并要求模型'不知道就说不知道'？",
+      "relevant_sources": [
+        "rag_guide.txt"
+      ],
+      "reference_answer": "较低温度（如 0.3）让生成更稳定一致，减少随机关联；明确要求'不知道就说不知道'并'只使用参考文档'可以约束模型忠实于检索内容、降低编造（幻觉）。这属于 RAG 生成优化中的 Prompt 设计要点。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 10.49
+      },
+      "answer": "在 RAG 的 Prompt 中，设置较低的温度是为了保持回答的一致性和稳定性。较高的温度会导致模型过度拟合参考文档，而较低的温度则能更好地平衡生成的答案质量和多样性。同时，要求模型“不知道就说不知道”有助于防止模型编造虚假信息，确保生成的回答基于实际可用的信息。这样既能提高系统的可信度，又能保证生成的答案具有一定的创新性和深度。",
+      "context": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。\n检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。\n提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n\n3. 思维链（Chain-of-Thought, CoT）：要求模型「一步步思考」，显式输出推理过程，大幅提升数学与逻辑题表现。\n\n4. 自我一致性（Self-Consistency）：采样多条推理路径，投票选多数答案。\n\n5. 检索增强提示：把检索到的文档拼接进提示，作为生成依据（即 RAG），并在提示中明确要求「只使用参考文档、不知道就说不知道」以降低幻觉。",
+      "retrieved": [
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.5834,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.5516,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 9,
+          "source": "prompt_engineering.txt",
+          "score": 0.5247,
+          "text_head": "提示工程（Prompt Engineering）通过设计输入来引导大模型行为，常见技术：\n\n1. 零样本（Zero-shot）：直接给出指令，不提供示例。\n\n2. 少样本（Few-shot）：在提示中提供若干示例，引导模型模仿格式与风格。\n"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.5245,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.5007,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 4,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "在 RAG 的 Prompt 中，设置较低的温度是为了保持回答的一致性和稳定性",
+              "coverage": 0.5758,
+              "attributed": false
+            },
+            {
+              "sentence": "较高的温度会导致模型过度拟合参考文档，而较低的温度则能更好地平衡生成的答案质量和多样性",
+              "coverage": 0.2439,
+              "attributed": false
+            },
+            {
+              "sentence": "同时，要求模型“不知道就说不知道”有助于防止模型编造虚假信息，确保生成的回答基于实际可用的信息",
+              "coverage": 0.3864,
+              "attributed": false
+            },
+            {
+              "sentence": "这样既能提高系统的可信度，又能保证生成的答案具有一定的创新性和深度",
+              "coverage": 0.129,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": false,
+          "correct": false
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.434,
+          "rouge_l": 0.2097,
+          "bleu1": 0.5602
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 4,
+            "completeness": 4
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            },
+            "relevance": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            },
+            "completeness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 2,
+            "relevance": 4,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#1",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A1 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A1.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A1，核心内容：量化用低位整数表示权重以压缩模型、加快推理。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 0.98
+      },
+      "answer": "根据提供的文档无法回答该问题",
+      "context": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。\n量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。",
+      "retrieved": [
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.6678,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6509,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6367,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.6301,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.6236,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.0,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": false,
+          "correct": false
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.0,
+          "rouge_l": 0.0,
+          "bleu1": 0.0
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.8,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "cache",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#2",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A3 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A3.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A3，核心内容：量化用低位整数表达权重，缩减体积、提升推理效率。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 0.93
+      },
+      "answer": "根据提供的文档无法回答该问题",
+      "context": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。\n采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。",
+      "retrieved": [
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6635,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.6509,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.6272,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.6225,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.618,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.0,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": false,
+          "correct": false
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.04,
+          "rouge_l": 0.0351,
+          "bleu1": 0.0233
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#3",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A5 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A5.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A5，核心内容：量化借助低位整数表示权重，压缩模型与加速推理。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 1.0
+      },
+      "answer": "根据提供的文档无法回答该问题",
+      "context": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。\n把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。",
+      "retrieved": [
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.6361,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6271,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.6152,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6099,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.5855,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.0,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": false,
+          "correct": false
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.0,
+          "rouge_l": 0.0,
+          "bleu1": 0.0
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.8,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#4",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A7 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A7.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A7，核心内容：量化以低位整数表达权重，保精度同时让模型更小更快。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 3.95
+      },
+      "answer": "QTAG-A7 记录的内容是：量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。",
+      "context": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。\n采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。",
+      "retrieved": [
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6711,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.6514,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.642,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6398,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.593,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 1,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "QTAG-A7 记录的内容是：量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快",
+              "coverage": 0.9333,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.7143,
+          "rouge_l": 0.6667,
+          "bleu1": 0.7115
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 4,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            },
+            "relevance": {
+              "score": 4,
+              "raw": "4",
+              "parsed": 4
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.79,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#5",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A2 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A2.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A2，核心内容：量化用低位整数表示权重，使模型更小更快。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 4.36
+      },
+      "answer": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。",
+      "context": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。\n通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。",
+      "retrieved": [
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.6666,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6551,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.6408,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6334,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.6227,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 2,
+          "attributed": 2,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快",
+              "coverage": 1.0,
+              "attributed": true
+            },
+            {
+              "sentence": "本记录的标识码是 QTAG-A2",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.6923,
+          "rouge_l": 0.3556,
+          "bleu1": 0.6275
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.79,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#6",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A4 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A4.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A4，核心内容：量化把权重改用低位整数存储，压缩体积、加快推理。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 4.79
+      },
+      "answer": "为了使大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。",
+      "context": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。\n采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。",
+      "retrieved": [
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6823,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.658,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.6471,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6293,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.6225,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 2,
+          "attributed": 2,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "为了使大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理",
+              "coverage": 0.9394,
+              "attributed": true
+            },
+            {
+              "sentence": "本记录的标识码是 QTAG-A4",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.7619,
+          "rouge_l": 0.4948,
+          "bleu1": 0.7222
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.8,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#7",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A6 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A6.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A6，核心内容：量化以低位整数保存权重，缩小尺寸、提高推理速度。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 4.42
+      },
+      "answer": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。",
+      "context": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。\n为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。",
+      "retrieved": [
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.65,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.645,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6376,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6325,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.584,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 2,
+          "attributed": 2,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度",
+              "coverage": 1.0,
+              "attributed": true
+            },
+            {
+              "sentence": "本记录的标识码是 QTAG-A6",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.7816,
+          "rouge_l": 0.396,
+          "bleu1": 0.7069
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.81,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "near_dup_stress#8",
+      "dataset": "near_dup_stress",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base_stress.json",
+      "question": "QTAG-A8 这条记录的内容是什么？",
+      "relevant_sources": [
+        "quant_dup_A8.txt"
+      ],
+      "reference_answer": "记录标识码 QTAG-A8，核心内容：量化采用低位整数保存权重，压缩规模并改善推理延迟。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 4.21
+      },
+      "answer": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。",
+      "context": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。\n为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。\n把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。",
+      "retrieved": [
+        {
+          "chunk_index": 7,
+          "source": "quant_dup_A8.txt",
+          "score": 0.6806,
+          "text_head": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟。本记录的标识码是 QTAG-A8。"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quant_dup_A4.txt",
+          "score": 0.6473,
+          "text_head": "为了让大模型更轻量，量化把权重改用低位整数存储，既压缩了体积也加快了推理。本记录的标识码是 QTAG-A4。"
+        },
+        {
+          "chunk_index": 5,
+          "source": "quant_dup_A6.txt",
+          "score": 0.6354,
+          "text_head": "把权重以低位整数形式保存，便是量化的核心思路，它能同时缩小模型尺寸、提高推理速度。本记录的标识码是 QTAG-A6。"
+        },
+        {
+          "chunk_index": 6,
+          "source": "quant_dup_A7.txt",
+          "score": 0.6353,
+          "text_head": "量化通过低位整数表达权重参数，在尽量保住精度的前提下让模型更小、推理更快。本记录的标识码是 QTAG-A7。"
+        },
+        {
+          "chunk_index": 1,
+          "source": "quant_dup_A2.txt",
+          "score": 0.6094,
+          "text_head": "通过低位整数表示权重，量化技术能够把大语言模型压缩得更小、跑得更快。本记录的标识码是 QTAG-A2。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 2,
+          "hit": 2,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 2,
+          "attributed": 2,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "采用低位整数保存权重，量化技术压缩了大语言模型的规模并改善了推理延迟",
+              "coverage": 1.0,
+              "attributed": true
+            },
+            {
+              "sentence": "本记录的标识码是 QTAG-A8",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.8,
+          "rouge_l": 0.4792,
+          "bleu1": 0.7692
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 2
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 2,
+              "raw": "2",
+              "parsed": 2
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.78,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "sample#1",
+      "dataset": "sample",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base.json",
+      "question": "什么是Transformer的自注意力机制？",
+      "relevant_sources": [
+        "transformer.txt"
+      ],
+      "reference_answer": "自注意力机制让每个token关注序列中的所有其他token，计算公式为Attention(Q,K,V)=softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长导致梯度消失。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 7.27
+      },
+      "answer": "Transformer的自注意力机制是指每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。",
+      "context": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。\n人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神经网络来学习数据的层次化表示。\n\n自然语言处理（NLP）是AI的重要应用领域，涉及文本理解、机器翻译、情感分析、问答系统等任务。近年来，基于Transformer架构的大语言模型（如GPT、BERT、Qwen等）在NLP领域取得了突破性进展。\n\n检索增强生成（RAG）是一种结合信息检索和文本生成的技术，通过从外部知识库中检索相关文档来增强大语言模型的回答质量，减少幻觉问题。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。",
+      "retrieved": [
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.672,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.5008,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.4639,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.4521,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.3936,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 7,
+          "hit": 7,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 2,
+          "attributed": 2,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "Transformer的自注意力机制是指每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V",
+              "coverage": 0.9333,
+              "attributed": true
+            },
+            {
+              "sentence": "除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.8763,
+          "rouge_l": 0.875,
+          "bleu1": 0.928
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "cache",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "sample#2",
+      "dataset": "sample",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base.json",
+      "question": "LoRA微调的原理是什么？",
+      "relevant_sources": [
+        "finetuning.txt"
+      ],
+      "reference_answer": "LoRA在权重矩阵旁添加低秩分解矩阵A和B，公式为h=Wx+(α/r)BAx，只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 15.45
+      },
+      "answer": "LoRA（Low-Rank Adaptation）是一种参数高效微调技术，其基本原理如下：\n\n1. 在权重矩阵旁添加低秩分解矩阵A和B，形成新的矩阵W' = WA + XB。\n2. 训练过程中，同时更新矩阵A和B，使得它们尽可能接近原始权重矩阵W。\n3. 这种方法减少了参数的数量，因为只有A和B需要进行训练，而不需要更新整个权重矩阵W。\n4. 通过这种方法，LoRA可以在不牺牲性能的情况下显著减少模型的参数数量，从而提高计算效率和速度。",
+      "context": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。\nTransformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。",
+      "retrieved": [
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.5616,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.4763,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.4457,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.4453,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.3139,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 10,
+          "hit": 9,
+          "rate": 0.9,
+          "missed": [
+            "xb"
+          ]
+        },
+        "sentence_attribution": {
+          "n": 5,
+          "attributed": 2,
+          "rate": 0.4,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "LoRA（Low-Rank Adaptation）是一种参数高效微调技术，其基本原理如下：",
+              "coverage": 0.7632,
+              "attributed": true
+            },
+            {
+              "sentence": "1. 在权重矩阵旁添加低秩分解矩阵A和B，形成新的矩阵W' = WA + XB",
+              "coverage": 0.6786,
+              "attributed": true
+            },
+            {
+              "sentence": "2. 训练过程中，同时更新矩阵A和B，使得它们尽可能接近原始权重矩阵W",
+              "coverage": 0.4,
+              "attributed": false
+            },
+            {
+              "sentence": "3. 这种方法减少了参数的数量，因为只有A和B需要进行训练，而不需要更新整个权重矩阵W",
+              "coverage": 0.3421,
+              "attributed": false
+            },
+            {
+              "sentence": "4. 通过这种方法，LoRA可以在不牺牲性能的情况下显著减少模型的参数数量，从而提高计算效率和速度",
+              "coverage": 0.2273,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 2.6,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.3592,
+          "rouge_l": 0.2635,
+          "bleu1": 0.45
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.75,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 2,
+            "relevance": 4,
+            "completeness": 2
+          },
+          "raw": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "sample#3",
+      "dataset": "sample",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base.json",
+      "question": "RAG系统如何优化延迟？",
+      "relevant_sources": [
+        "rag_guide.txt"
+      ],
+      "reference_answer": "优化策略包括：embedding缓存（文档不变不重算）、IVF+PQ索引替代暴力搜索、减少top_k、换用小embedding模型、模型量化到INT4、使用vLLM推理加速、流式输出。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 13.69
+      },
+      "answer": "RAG系统可以通过以下方式优化延迟：\n\n1. 使用嵌入缓存（embedding cache）：将频繁使用的嵌入提前计算并存储，避免重复计算，从而减少延迟。\n\n2. 实施流式输出（stream output）：首先返回模型的第一个token，然后逐个返回后续token，这样可以快速响应用户请求，提高用户体验。\n\n3. 应用模型量化（model quantization）：将模型参数转换为更低位整数表示，减少显存占用和推理延迟，同时不影响性能。",
+      "context": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。\n大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。",
+      "retrieved": [
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.6216,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.525,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.5035,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.4429,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.349,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 12,
+          "hit": 7,
+          "rate": 0.5833,
+          "missed": [
+            "cache",
+            "stream",
+            "output",
+            "model",
+            "quantization"
+          ]
+        },
+        "sentence_attribution": {
+          "n": 4,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "RAG系统可以通过以下方式优化延迟：",
+              "coverage": 0.375,
+              "attributed": false
+            },
+            {
+              "sentence": "1. 使用嵌入缓存（embedding cache）：将频繁使用的嵌入提前计算并存储，避免重复计算，从而减少延迟",
+              "coverage": 0.3617,
+              "attributed": false
+            },
+            {
+              "sentence": "2. 实施流式输出（stream output）：首先返回模型的第一个token，然后逐个返回后续token，这样可以快速响应用户请求，提高用户体验",
+              "coverage": 0.3125,
+              "attributed": false
+            },
+            {
+              "sentence": "3. 应用模型量化（model quantization）：将模型参数转换为更低位整数表示，减少显存占用和推理延迟，同时不影响性能",
+              "coverage": 0.5536,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.3895,
+          "rouge_l": 0.2038,
+          "bleu1": 0.4054
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.75,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 5,
+            "completeness": 4
+          },
+          "raw": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "sample#4",
+      "dataset": "sample",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base.json",
+      "question": "模型量化的基本原理是什么？",
+      "relevant_sources": [
+        "quantization.txt"
+      ],
+      "reference_answer": "量化将浮点参数转为低位整数。scale=(max-min)/15，quantized=round((value-min)/scale)。推理时反量化：value≈quantized×scale+min。NF4针对正态分布优化采样点分布。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 11.05
+      },
+      "answer": "模型量化的基本原理是将浮点模型参数转换为低位整数表示，以减少模型大小和推理延迟。具体来说，通过定义一个缩放因子scale，并使用这个因子将输入值映射到0到15之间的整数值，从而实现量化。量化后的模型参数占用较少的内存，同时也能保证一定的精度损失。在推理阶段，通过反量化操作恢复原始值，得到最终的结果。",
+      "context": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。\n大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。",
+      "retrieved": [
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.7214,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.575,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.5646,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.5138,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.4536,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 3,
+          "hit": 3,
+          "rate": 1.0,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 4,
+          "attributed": 1,
+          "rate": 0.25,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "模型量化的基本原理是将浮点模型参数转换为低位整数表示，以减少模型大小和推理延迟",
+              "coverage": 0.8108,
+              "attributed": true
+            },
+            {
+              "sentence": "具体来说，通过定义一个缩放因子scale，并使用这个因子将输入值映射到0到15之间的整数值，从而实现量化",
+              "coverage": 0.2083,
+              "attributed": false
+            },
+            {
+              "sentence": "量化后的模型参数占用较少的内存，同时也能保证一定的精度损失",
+              "coverage": 0.2593,
+              "attributed": false
+            },
+            {
+              "sentence": "在推理阶段，通过反量化操作恢复原始值，得到最终的结果",
+              "coverage": 0.1739,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 2.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.2269,
+          "rouge_l": 0.2164,
+          "bleu1": 0.3267
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 4,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "sample#5",
+      "dataset": "sample",
+      "kind": "gold",
+      "answerable": true,
+      "kb": "knowledge_base.json",
+      "question": "深度学习是什么？",
+      "relevant_sources": [
+        "ai_intro.txt"
+      ],
+      "reference_answer": "深度学习是机器学习的一个子领域，使用多层神经网络来学习数据的层次化表示。它是机器学习的核心方法之一，通过从数据中学习模式来完成特定任务。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 2.99
+      },
+      "answer": "深度学习是机器学习的一个子领域，它使用多层神经网络来学习数据的层次化表示。",
+      "context": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神经网络来学习数据的层次化表示。\n\n自然语言处理（NLP）是AI的重要应用领域，涉及文本理解、机器翻译、情感分析、问答系统等任务。近年来，基于Transformer架构的大语言模型（如GPT、BERT、Qwen等）在NLP领域取得了突破性进展。\n\n检索增强生成（RAG）是一种结合信息检索和文本生成的技术，通过从外部知识库中检索相关文档来增强大语言模型的回答质量，减少幻觉问题。\nTransformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。",
+      "retrieved": [
+        {
+          "chunk_index": 0,
+          "source": "ai_intro.txt",
+          "score": 0.6777,
+          "text_head": "人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创建能够模拟人类智能行为的系统。\n\n机器学习是人工智能的核心方法，通过从数据中学习模式来完成特定任务。深度学习是机器学习的一个子领域，使用多层神"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.443,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.4142,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.3736,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.3459,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 1,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "深度学习是机器学习的一个子领域，它使用多层神经网络来学习数据的层次化表示",
+              "coverage": 0.9412,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": false,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.7071,
+          "rouge_l": 0.6857,
+          "bleu1": 0.5441
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.8,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "unanswerable#1",
+      "dataset": "unanswerable",
+      "kind": "synthetic_new",
+      "answerable": false,
+      "kb": "knowledge_base_large.json",
+      "question": "2026 年世界杯决赛的最终比分是多少？",
+      "relevant_sources": [],
+      "reference_answer": "根据提供的文档无法回答该问题：知识库中不含与体育赛事比分相关的信息。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 0.99
+      },
+      "answer": "根据提供的文档无法回答该问题",
+      "context": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借助分组（group-wise）或对称/非对称量化策略来缓解。推理时只需把整数权重反量化为近似浮点即可使用，误差很小。",
+      "retrieved": [
+        {
+          "chunk_index": 13,
+          "source": "quantization_intro.txt",
+          "score": 0.3002,
+          "text_head": "模型量化是将高精度浮点权重转换为低精度整数，以压缩模型体积、加快推理。常见做法包括 INT8 与 INT4：INT8 把 32 位浮点转为 8 位整数，体积大致降为原来的四分之一；INT4 进一步压到 4 位。量化会带来一定精度损失，通常借"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 1,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": true,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.6087,
+          "rouge_l": 0.5833,
+          "bleu1": 0.4118
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.78,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "cache",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "unanswerable#2",
+      "dataset": "unanswerable",
+      "kind": "synthetic_new",
+      "answerable": false,
+      "kb": "knowledge_base_large.json",
+      "question": "川菜回锅肉的正宗做法需要准备哪些配料？",
+      "relevant_sources": [],
+      "reference_answer": "无法回答：知识库中只包含 AI / 大模型技术文档，没有任何烹饪与食材相关内容。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 11.83
+      },
+      "answer": "川菜回锅肉的正宗做法需要准备以下配料：\n\n1. 主料：五花肉500克\n2. 辅料：青蒜苗适量、干辣椒若干、花椒少许、豆瓣酱适量、生姜适量、大蒜适量、生抽适量、老抽适量、糖适量、盐适量、鸡精适量、食用油适量。\n\n以上是制作川菜回锅肉的基本配料，可以根据个人口味进行调整。",
+      "context": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量新增参数，冻结原始模型。典型方法包括：\n   - LoRA（Low-Rank Adaptation）：在权重矩阵旁添加低秩分解矩阵A和B（h = Wx + (α/r)BAx），只训练A和B。典型配置r=8，α=16，可训练参数仅占总量的0.3%左右。\n   - QLoRA：在LoRA基础上加入4bit量化，进一步降低显存需求。\n   - Adapter：在Transformer层之间插入小型的可训练瓶颈层。\n\n3. 指令微调（Instruction Tuning）：使用指令-回答对训练模型遵循人类指令的能力。\n\n4. RLHF（基于人类反馈的强化学习）：先用人类偏好训练奖励模型，再用PPO算法优化策略。DPO（直接偏好优化）跳过奖励模型步骤，直接从偏好数据中优化。\nLinear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。",
+      "retrieved": [
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.3266,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 6,
+          "source": "attention_variants.txt",
+          "score": 0.3113,
+          "text_head": "Linear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 3,
+          "hit": 2,
+          "rate": 0.6667,
+          "missed": [
+            "500"
+          ]
+        },
+        "sentence_attribution": {
+          "n": 4,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "川菜回锅肉的正宗做法需要准备以下配料：",
+              "coverage": 0.0588,
+              "attributed": false
+            },
+            {
+              "sentence": "1. 主料：五花肉500克",
+              "coverage": 0.1111,
+              "attributed": false
+            },
+            {
+              "sentence": "2. 辅料：青蒜苗适量、干辣椒若干、花椒少许、豆瓣酱适量、生姜适量、大蒜适量、生抽适量、老抽适量、糖适量、盐适量、鸡精适量、食用油适量",
+              "coverage": 0.0,
+              "attributed": false
+            },
+            {
+              "sentence": "以上是制作川菜回锅肉的基本配料，可以根据个人口味进行调整",
+              "coverage": 0.0,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": false,
+          "expected_refusal": true,
+          "correct": false
+        },
+        "rule_faithfulness": 1.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.0567,
+          "rouge_l": 0.0805,
+          "bleu1": 0.097
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 3,
+            "relevance": 5,
+            "completeness": 3
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            },
+            "relevance": {
+              "score": 5,
+              "raw": "5",
+              "parsed": 5
+            },
+            "completeness": {
+              "score": 3,
+              "raw": "3",
+              "parsed": 3
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.78,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "raw": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "unanswerable#3",
+      "dataset": "unanswerable",
+      "kind": "synthetic_new",
+      "answerable": false,
+      "kb": "knowledge_base_large.json",
+      "question": "我们公司去年第四季度的营收同比增长了多少？",
+      "relevant_sources": [],
+      "reference_answer": "不知道：知识库中不包含任何公司经营与财务数据。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 1.16
+      },
+      "answer": "根据提供的文档无法回答该问题。",
+      "context": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。\n模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF4等技术保持精度\n\nNF4（NormalFloat4）是一种针对正态分布权重优化的4位量化格式，由QLoRA提出。与均匀量化不同，NF4的16个值在权重密集区域分布更密，在边角分布更疏——因为在正态分布中，绝大多数权重集中在均值附近。\n\n量化计算：scale = (max - min) / 15，quantized = round((value - min) / scale)。推理时反量化：value ≈ quantized × scale + min，误差通常<1%。\n模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group-wise）策略保持精度。\n\n2. 剪枝（Pruning）：移除不重要的权重或注意力头，分结构化剪枝与非结构化剪枝。\n\n3. 知识蒸馏（Knowledge Distillation）：用大模型（教师）指导小模型（学生）训练，让小模型逼近大模型行为。\n\n4. 低秩分解（Low-Rank Factorization）：将大权重矩阵分解为两个小矩阵乘积，减少参数量。\n\n与微调侧的 LoRA 不同，压缩通常不改变模型结构、直接减小已有权重规模，是部署端常用的提速手段。",
+      "retrieved": [
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.3509,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 3,
+          "source": "quantization.txt",
+          "score": 0.3091,
+          "text_head": "模型量化是将浮点模型参数转换为低位整数表示的技术，目的是减少模型大小和推理延迟。\n\n常见量化方法：\n- INT8量化：FP32→INT8，显存减少75%，精度损失极小\n- INT4量化：FP16→INT4，显存减少75%，需要分组量化或NF"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.3062,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.3011,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.1538,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": true,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.0571,
+          "rouge_l": 0.1053,
+          "bleu1": 0.087
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.78,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "unanswerable#4",
+      "dataset": "unanswerable",
+      "kind": "synthetic_new",
+      "answerable": false,
+      "kb": "knowledge_base_large.json",
+      "question": "从北京南站坐地铁去大兴机场，最快应该怎么换乘？",
+      "relevant_sources": [],
+      "reference_answer": "无法从提供的文档中找到答案：知识库不涉及北京地铁线路与换乘方案。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 1.17
+      },
+      "answer": "根据提供的文档无法回答该问题。",
+      "context": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching）进一步榨干 GPU。\n\n2. 连续批处理：把多个请求在 token 级别动态拼批，减少空闲等待。\n\n3. 量化加速：推理侧常用 INT8 / INT4（如 GPTQ、AWQ）把权重压缩，降低显存与带宽压力，配合高效 kernel 提速。\n\n4. 流式输出：首 token 即返回，改善用户体感延迟。\n\n5. 显存优化：KV Cache 常是长对话的瓶颈，PagedAttention 与缓存卸载是关键手段。\n大语言模型的预训练（Pre-training）阶段在超大规模无标注语料上训练，目标是学习通用语言与知识表示：\n\n1. 训练目标：自回归语言建模（CLM，预测下一个 token，GPT 系列采用）或掩码语言建模（MLM，BERT 系列掩码预测，bidirectional）。\n\n2. 语料：网页、书籍、代码、数学等多源混合，需经过去重、过滤、去污染等清洗。\n\n3. 缩放定律（Scaling Law）：模型性能随参数量、数据量、算力的幂律平滑提升，指导资源分配。\n\n4. 涌现能力（Emergent Abilities）：模型规模超过阈值后突然出现的小样本/推理能力。\n\n预训练得到的基础模型（Base Model）还需经过指令微调与对齐（如 RLHF/DPO）才能稳定遵循人类指令。\n检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。",
+      "retrieved": [
+        {
+          "chunk_index": 11,
+          "source": "llm_serving.txt",
+          "score": 0.3443,
+          "text_head": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching"
+        },
+        {
+          "chunk_index": 12,
+          "source": "pretraining.txt",
+          "score": 0.3199,
+          "text_head": "大语言模型的预训练（Pre-training）阶段在超大规模无标注语料上训练，目标是学习通用语言与知识表示：\n\n1. 训练目标：自回归语言建模（CLM，预测下一个 token，GPT 系列采用）或掩码语言建模（MLM，BERT 系列掩码预测"
+        },
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.3198,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 2,
+          "source": "finetuning.txt",
+          "score": 0.3061,
+          "text_head": "大语言模型的微调技术主要包括：\n\n1. 全参数微调（Full Fine-Tuning）：更新所有模型参数，效果最好但计算成本高。微调7B模型FP16需要约76GB显存，通常需要多张A100显卡。\n\n2. 参数高效微调（PEFT）：只训练少量"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.3046,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.4615,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": true,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.3636,
+          "rouge_l": 0.2979,
+          "bleu1": 0.2812
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.78,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 3,
+            "completeness": 3
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 3, \"completeness\": 3}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "unanswerable#5",
+      "dataset": "unanswerable",
+      "kind": "synthetic_new",
+      "answerable": false,
+      "kb": "knowledge_base_large.json",
+      "question": "家里养的猫做完绝育手术后，术后护理有哪些注意事项？",
+      "relevant_sources": [],
+      "reference_answer": "根据提供的文档无法回答该问题：知识库不含宠物医疗与术后护理知识。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 1.17
+      },
+      "answer": "根据提供的文档无法回答该问题。",
+      "context": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，可以缓存编码结果避免重复计算，采用流式输出让用户尽早看到内容，并对生成模型本身做量化压缩。\n检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overlap）防止关键信息被切断在边界。\n\n2. Embedding模型：将文本转换为向量表示。中文场景推荐BGE、m3e、stella等模型。向量需归一化以使点积等价于余弦相似度。\n\n3. 向量检索：使用余弦相似度衡量query和文档的相关性。大规模场景用Faiss的IVF+PQ索引替代暴力搜索，精度损失1-3%但速度快两个数量级。\n\n4. 生成优化：Prompt设计至关重要——明确指示模型\"只使用参考文档\"、\"不知道就说不知道\"。temperature设为0.3以保持回答的一致性。\n\n5. 延迟优化：embedding缓存（文档不变不重算）、流式输出（首token即返回）、模型量化（INT4从6GB压到1.5GB）。\n大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching）进一步榨干 GPU。\n\n2. 连续批处理：把多个请求在 token 级别动态拼批，减少空闲等待。\n\n3. 量化加速：推理侧常用 INT8 / INT4（如 GPTQ、AWQ）把权重压缩，降低显存与带宽压力，配合高效 kernel 提速。\n\n4. 流式输出：首 token 即返回，改善用户体感延迟。\n\n5. 显存优化：KV Cache 常是长对话的瓶颈，PagedAttention 与缓存卸载是关键手段。",
+      "retrieved": [
+        {
+          "chunk_index": 14,
+          "source": "rag_overview.txt",
+          "score": 0.3428,
+          "text_head": "检索增强生成（RAG）把外部知识的检索与大模型生成结合起来，缓解幻觉问题。典型流程是：先将文档切分为片段；再用向量模型把片段与用户问题编码成向量；随后用相似度检索出最相关的若干片段；最后把这些片段拼进提示，让模型据此生成答案。为了降低延迟，"
+        },
+        {
+          "chunk_index": 4,
+          "source": "rag_guide.txt",
+          "score": 0.3272,
+          "text_head": "检索增强生成（RAG）系统的核心组件和优化策略：\n\n1. 文档处理：将原始文档切分为适当大小的chunk。chunk_size的选择是精度-效率的权衡——太小导致语义不完整，太大导致检索精度下降。典型值256-1024字符。重叠（overl"
+        },
+        {
+          "chunk_index": 11,
+          "source": "llm_serving.txt",
+          "score": 0.3254,
+          "text_head": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching"
+        },
+        {
+          "chunk_index": 5,
+          "source": "attention_variants.txt",
+          "score": 0.3223,
+          "text_head": "注意力机制的变体在大模型中不断演进。原始 Transformer 使用多头注意力（Multi-Head Attention），让模型从多个表示子空间并行学习。为了提高推理效率和长文本能力，衍生出多种变体：\n\n1. 多查询注意力（Multi-"
+        },
+        {
+          "chunk_index": 7,
+          "source": "model_compression.txt",
+          "score": 0.3132,
+          "text_head": "模型压缩旨在减少模型体积与推理开销，主要方法包括：\n\n1. 量化（Quantization）：将浮点参数转为低位整数。INT8 量化把 FP32 转为 8 位整数，显存减少约 75%；INT4 进一步压到 4 位。量化常配合分组（group"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 1,
+          "rate": 1.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 1.0,
+              "attributed": true
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": true,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.6364,
+          "rouge_l": 0.6383,
+          "bleu1": 0.4688
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.71,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 3,
+            "completeness": 1
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 3, \"completeness\": 1}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    },
+    {
+      "id": "unanswerable#6",
+      "dataset": "unanswerable",
+      "kind": "synthetic_new",
+      "answerable": false,
+      "kb": "knowledge_base_large.json",
+      "question": "嫦娥六号月球采样返回任务具体是哪一天着陆的？",
+      "relevant_sources": [],
+      "reference_answer": "不知道：知识库中没有航天任务时间线的任何记录。",
+      "gen": {
+        "source": "local",
+        "elapsed_s": 1.12
+      },
+      "answer": "根据提供的文档无法回答该问题。",
+      "context": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching）进一步榨干 GPU。\n\n2. 连续批处理：把多个请求在 token 级别动态拼批，减少空闲等待。\n\n3. 量化加速：推理侧常用 INT8 / INT4（如 GPTQ、AWQ）把权重压缩，降低显存与带宽压力，配合高效 kernel 提速。\n\n4. 流式输出：首 token 即返回，改善用户体感延迟。\n\n5. 显存优化：KV Cache 常是长对话的瓶颈，PagedAttention 与缓存卸载是关键手段。\nTransformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = softmax(QK^T/√d_k)V。除以√d_k是为了防止点积方差随维度增长，导致softmax梯度消失。\n\n2. 多头注意力（Multi-Head Attention）：使用多组不同的QKV投影，让模型从不同的表示子空间学习信息。\n\n3. 位置编码（Positional Encoding）：由于注意力机制本身对位置不敏感，需要额外注入位置信息。原始Transformer使用正余弦编码，现代架构（LLaMA、Qwen）使用旋转位置编码（RoPE）。\n\n4. 前馈网络（Feed-Forward Network）：每个位置独立应用的两层全连接网络，通常使用ReLU或SwiGLU激活函数。\n\n5. 残差连接与层归一化：残差连接绕过子层直接传递信号，层归一化稳定训练过程。\nLinear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。",
+      "retrieved": [
+        {
+          "chunk_index": 11,
+          "source": "llm_serving.txt",
+          "score": 0.3192,
+          "text_head": "大模型推理服务（Serving）关注吞吐与延迟：\n\n1. vLLM：引入 PagedAttention 管理 KV Cache，像操作系统分页一样按需分配显存，显存利用率与吞吐大幅提升；配合连续批处理（Continuous Batching"
+        },
+        {
+          "chunk_index": 1,
+          "source": "transformer.txt",
+          "score": 0.3131,
+          "text_head": "Transformer架构由Vaswani等人在2017年提出，核心组件包括：\n\n1. 自注意力机制（Self-Attention）：让每个token能够关注序列中的所有其他token，计算公式为 Attention(Q,K,V) = so"
+        },
+        {
+          "chunk_index": 6,
+          "source": "attention_variants.txt",
+          "score": 0.3097,
+          "text_head": "Linear Attention）：用核技巧把 softmax 近似为线性映射，将复杂度从 O(n²) 降到 O(n)，适合超长文本，但会损失部分表达力。"
+        },
+        {
+          "chunk_index": 8,
+          "source": "llm_agent.txt",
+          "score": 0.3005,
+          "text_head": "大语言模型智能体（LLM Agent）让模型具备自主规划与执行能力，核心组件包括：\n\n1. 规划（Planning）：把复杂任务拆解为可执行的子步骤，常用思维链（CoT）与任务分解。\n\n2. 记忆（Memory）：短期记忆保存当前上下文，长"
+        }
+      ],
+      "rule": {
+        "numeric_landing": {
+          "n": 0,
+          "hit": 0,
+          "rate": null,
+          "missed": []
+        },
+        "sentence_attribution": {
+          "n": 1,
+          "attributed": 0,
+          "rate": 0.0,
+          "threshold": 0.6,
+          "sentences": [
+            {
+              "sentence": "根据提供的文档无法回答该问题",
+              "coverage": 0.0,
+              "attributed": false
+            }
+          ]
+        },
+        "refusal": {
+          "is_refusal": true,
+          "expected_refusal": true,
+          "correct": true
+        },
+        "rule_faithfulness": 5.0,
+        "lexical": {
+          "em": 0.0,
+          "f1": 0.0571,
+          "rouge_l": 0.1053,
+          "bleu1": 0.087
+        }
+      },
+      "judge": {
+        "local": {
+          "scores": {
+            "faithfulness": 1,
+            "relevance": 1,
+            "completeness": 1
+          },
+          "detail": {
+            "faithfulness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "relevance": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            },
+            "completeness": {
+              "score": 1,
+              "raw": "1",
+              "parsed": 1
+            }
+          },
+          "unparsed": [],
+          "used_heuristic": [],
+          "elapsed_s": 0.77,
+          "model": "Qwen/Qwen2.5-1.5B-Instruct"
+        },
+        "api": {
+          "scores": {
+            "faithfulness": 5,
+            "relevance": 5,
+            "completeness": 5
+          },
+          "raw": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+          "model_returned": "deepseek-flash",
+          "source": "api",
+          "error": null,
+          "via": "direct"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "question": "2026 年世界杯决赛的最终比分是多少？",
+    "relevant_sources": [],
+    "reference_answer": "根据提供的文档无法回答该问题：知识库中不含与体育赛事比分相关的信息。"
+  },
+  {
+    "question": "川菜回锅肉的正宗做法需要准备哪些配料？",
+    "relevant_sources": [],
+    "reference_answer": "无法回答：知识库中只包含 AI / 大模型技术文档，没有任何烹饪与食材相关内容。"
+  },
+  {
+    "question": "我们公司去年第四季度的营收同比增长了多少？",
+    "relevant_sources": [],
+    "reference_answer": "不知道：知识库中不包含任何公司经营与财务数据。"
+  },
+  {
+    "question": "从北京南站坐地铁去大兴机场，最快应该怎么换乘？",
+    "relevant_sources": [],
+    "reference_answer": "无法从提供的文档中找到答案：知识库不涉及北京地铁线路与换乘方案。"
+  },
+  {
+    "question": "家里养的猫做完绝育手术后，术后护理有哪些注意事项？",
+    "relevant_sources": [],
+    "reference_answer": "根据提供的文档无法回答该问题：知识库不含宠物医疗与术后护理知识。"
+  },
+  {
+    "question": "嫦娥六号月球采样返回任务具体是哪一天着陆的？",
+    "relevant_sources": [],
+    "reference_answer": "不知道：知识库中没有航天任务时间线的任何记录。"
+  }
+]

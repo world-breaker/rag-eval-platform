@@ -20,7 +20,7 @@
 | **向量化** | BGE-small-zh-v1.5（512 维），文本 MD5 内容缓存 | 文档不变不重算，重复运行零成本 |
 | **检索** | 三档排名口径：**纯向量 / 纯 BM25 / 混合（BM25 + 向量 RRF 融合）**，可选 **Cross-Encoder 重排**，可选 **查询改写（HyDE / multi-query）**；结果携带各路排名与融合分 | 默认纯向量（零回归）；`retrieval.mode` 切换口径；混合专治「近义/重复文档」的向量混淆；重排与改写默认关（要额外模型/延迟），按场景开 |
 | **生成** | Qwen2.5 本地推理 / OpenAI 兼容 API，结构化 RAG Prompt | Prompt 约束「只使用参考文档、不知道就说不知道」以降低幻觉 |
-| **评测** | 三层指标：检索（Recall@K / Precision@3 / MRR）+ 生成（LLM-as-Judge）+ 传统（BLEU / ROUGE-L） | 检索与生成的错误分离度量，问题定位更快 |
+| **评测** | 三层指标：检索（Recall@K / Precision@3 / MRR）+ 生成（LLM-as-Judge）+ 传统（BLEU / ROUGE-L） | 检索与生成的错误分离度量，问题定位更快；**生成层已做三臂对照实测**（规则判据 / 本地 1.5B 裁判 / 强裁判 API），见下文 |
 | **对比实验** | 切分策略 × 粒度矩阵；检索模式 × 重排 × 改写的**质量 + 延迟**基准，结果落盘为 JSON + Markdown | 见 [`experiments/results/`](experiments/results/) |
 | **Web 界面** | Gradio 四个 Tab（文档管理 / 问答 / 评测 / 实验对比）；问答页可选检索模式、重排开关，结果表直接展示 **各路排名与 RRF 融合分** | 浏览器内完成全流程演示，且能现场解释「这条是谁捞上来的」 |
 
@@ -72,10 +72,12 @@ rag-eval-platform/
 │       ├── test_qa_large.json         # 扩大评测集（14 题）
 │       ├── knowledge_base_stress.json # 近义/重复噪声语料（验证混合检索价值区间）
 │       └── test_qa_stress.json        # 近义副本精确标识符查询评测集（8 题）
+│       └── test_qa_unanswerable.json  # 拒答样本（6 题，2026-10-19 手写，测生成层拒答正确性）
 ├── experiments/
 │   ├── run_strategy_comparison.py   # 切分策略对比实验 runner
 │   ├── run_hybrid_comparison.py     # 混合检索对比实验 runner（向量 vs 混合 RRF，2026-10-18 快照）
 │   ├── run_retrieval_benchmark.py   # 检索基准：全档位质量 + 延迟（p50/p95，冷/热启动）
+│   ├── run_generation_eval.py       # 生成层忠实度三臂对照（规则 / 本地 1.5B 裁判 / 强裁判 API）
 │   └── results/                     # 实验原始数据 + 人读报告
 ├── docs/
 │   └── architecture.md     # 架构与设计决策（公开版）
@@ -83,7 +85,8 @@ rag-eval-platform/
     ├── test_pipeline.py      # 快速验证脚本（不依赖 GPU 也能跑通）
     ├── test_hybrid_retrieval.py # 混合检索离线单测（BM25 / RRF / 融合）
     ├── test_retrieval_modes.py  # 三档口径 + 重排覆盖 + 改写融合（离线确定性）
-    └── test_query_rewriting.py  # 查询改写单测（stub LLM，含降级路径）
+    ├── test_query_rewriting.py  # 查询改写单测（stub LLM，含降级路径）
+    └── test_generation_eval.py  # 生成层评测离线单测（规则判据 / 缓存键 / rubric 防漂移，不调 API、不载大模型）
 ```
 
 ## CI 门禁（`.github/workflows/ci.yml`）
@@ -247,11 +250,42 @@ retrieval:
 
 - 评测口径与 `evaluation.evaluate_retrieval_doc_level` 一致（文档级标注，跨策略可比）。
 
+## 生成层忠实度实测：本地 1.5B 裁判到底够不够用（2026-10-19）
+
+前面的基准只评**检索层**。这里补上**生成层忠实度**的实测：把同一批答案交给三条互为对照的评分臂，用实测数字回答「能不能拿仓库自带的 1.5B 小模型当评测裁判」。
+
+- 报告：[`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)
+- 原始数据：[`experiments/results/generation_eval_2026-10-19.json`](experiments/results/generation_eval_2026-10-19.json)
+- 复现：`python experiments/run_generation_eval.py`（离线部分加 `--no-api`；`--from-results` 可只重算规则臂、不重跑模型/不花钱）
+
+三臂的设置（**三臂共用同一份检索上下文**，答案一律由本地 1.5B 在 `temperature=0` 下贪心生成、可复现）：
+
+| 臂 | 角色 | 实现 |
+|---|---|---|
+| A 规则判据 | 零成本、确定性基线 | 数字/实体落地率、句子归因（字符 2-gram 覆盖率 ≥ 0.6）、拒答判定、EM / F1 / ROUGE-L / BLEU，映射到 1–5 粗分 |
+| B 本地 1.5B 裁判 | 被测对象 | `Qwen2.5-1.5B-Instruct`（与生成模型**同款**，即自评），沿用仓库 `evaluation.py` 的判据文本 |
+| C 强裁判 API | 参照系 | DeepSeek `deepseek-chat`（实测解析到 `deepseek-flash`），一次调用返回 3 维 JSON、`temperature=0` |
+
+**实测结果（33 条样本 = 27 条原金标 + 6 条本次新造的拒答样本）**：
+
+| 臂 | faithfulness | relevance | completeness |
+|---|---|---|---|
+| A 规则判据 | 3.45 | — | — |
+| B 本地 1.5B 裁判 | 3.12 | 3.00 | 2.58 |
+| C 强裁判 API | 4.27 | 4.48 | 3.82 |
+
+臂 B（本地 1.5B）vs 臂 C（强裁判）在 faithfulness 上的一致率：**精确一致 0.21、±1 一致 0.48、MAE 1.82、Pearson r ≈ −0.03**。
+
+**一句话结论（含对我们不利的实测）**：本批样本上**本地 1.5B 的裁判分数与强裁判几乎不相关（r≈0），且"中庸化回归"**——强裁判判低（≤2）的样本它偏**高**（本地均 3.17 vs 强裁判 1.67），判高（≥4）的偏**低**（3.11 vs 4.85），最该抓的编造（`unanswerable#2` 川菜菜谱幻觉）反被放行。反而**零成本、离线的规则判据更贴近强裁判**（faithfulness MAE 0.92 vs 1.82，精确一致 0.55 vs 0.21）。因此「用本地 1.5B 做裁判」在本批样本上**不成立**——不是"有点噪声"，而是"与目标信号无关"。它仍可用于「明显编造 vs 明显有据」的两端粗筛，或网络/预算完全不可用时的占位；需要排序、需要区分"好与更好"的场景都不该用它。
+
+**边界（详见报告第七节）**：样本量小（33 条）只能给量级判断；臂 B 是**自评**（判分模型＝生成模型），绝对分不可作为质量证据；只做两裁判一致性、不是与人类标注对齐；强裁判本身也不是真值；强裁判每样本只调一次，未做多次采样，故裁判自身方差未知。费用：29 次新调用 + 4 次缓存命中，输入 19,248 / 输出 638 token，估 **¥0.0232**（硬上限 ¥0.5）。
+
 ## 评测口径
 
 - 评测数据集 `data/sample/test_qa.json` 使用**文档级标注**（`relevant_sources`）：chunk 边界随切分策略变化，chunk 索引无法跨策略对照，因此以「是否检索到正确文档」为稳定口径，由 `EvaluationEngine.evaluate_retrieval_doc_level` 计算（内部复用 Recall / Precision / MRR 公式）。
 - 三层指标：检索层（Recall@3 / Recall@5 / Precision@3 / MRR）、生成层（faithfulness / relevance / completeness，LLM-as-Judge）、传统层（BLEU / ROUGE-L）。
 - 生成层需要 Qwen 模型或 API；未配置时回退到启发式评分（仅用于跑通流程，不作为正式指标）。
+- 生成层的判分**质量**有实测：见上文「生成层忠实度实测」与 [`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)——本地 1.5B 裁判与强裁判几乎不相关（faithfulness r≈0），库内小规模场景建议用规则判据做回归门禁、用 API 做正式裁判，不要默认信任本地小模型当裁判。
 
 ## 设计决策
 
@@ -259,7 +293,7 @@ retrieval:
 > `experiments/run_strategy_comparison.py` 提供 128–1024 的完整扫描入口，可一键复跑。在仓库自带的样例数据集上各粒度 `recall@3` 均为 1.0、无显著差异；512 是工程默认值，面向「一个 chunk 覆盖一段完整技术要点」的常见文档形态，更大规模语料下的选型需要更大评测集验证。
 
 **Q: LLM-as-Judge 打分准吗？**
-> 有偏差——同一条答案多次打分可能不同。当前实现的做法：Judge Prompt 只要求输出数字、限定评分维度（结构化输出降低随机性）；后续可加多次评分取中位数。这是当前评测工程中的已知开放问题。
+> **已实测，答案是不准——至少本机 1.5B 这一档不准。** 实测（33 条，2026-10-19）：用仓库自带的 `Qwen2.5-1.5B-Instruct`（与生成模型同款，即自评）当裁判，其 faithfulness 分与强裁判（DeepSeek）**Pearson r ≈ −0.03、MAE 1.82、精确一致率仅 0.21**，且呈"中庸化回归"（低分样本偏高、高分样本偏低），把一条明确的编造答案放行。反直觉的是：**零成本、离线的规则判据反而更贴近强裁判**（MAE 0.92、精确一致 0.55）。结论与取舍——正式裁判用强模型/API，回归门禁用确定性规则判据，本地 1.5B 裁判只在「两端粗筛/离线占位」时用。完整数据、分段结论与规则判据的 5 类已知误判见 [`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)。当前实现仍是**每样本只评一次**，「多次评分取中位数」仍是未实现项（也在报告的诚实边界里标注了）。
 
 **Q: 为什么检索是 NumPy 而不是向量数据库？**
 > 本项目的知识库规模是「单机小知识库」（几十~几百个 chunk），暴力余弦检索在这个量级下复杂度完全不构成瓶颈，且零额外依赖、行为完全可解释。config 中保留了向量库相关的配置位，规模上量后（万级以上 chunk）可平滑替换为 Faiss / Chroma 等服务。

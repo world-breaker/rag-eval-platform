@@ -61,6 +61,8 @@ evaluation:
   # 检索质量
   retrieval_metrics: ["recall@3", "recall@5", "precision@3", "mrr"]
   # 生成质量（LLM-as-Judge）
+  # 注意：judge_model 与生成模型同款，属于「自评」——它的可信度实测见
+  # experiments/results/generation_eval_*.md（与强裁判 API 的三臂一致率对照）
   judge_model: "Qwen/Qwen2.5-1.5B-Instruct"  # 用同款模型自评
   judge_dimensions: ["faithfulness", "relevance", "completeness"]
   # 传统指标
