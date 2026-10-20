@@ -1,1544 +1,1544 @@
 {
- "date": "2026-10-20",
- "script": "experiments/run_generation_eval.py --judge-samples 3 --out <临时目录>/api_n3.json",
- "args": {
-  "judge_samples": 3,
-  "temperature": 0.8,
-  "temperature_scope": "judge_temperature（裁判采样温度）；生成端为贪心 temperature=0，答案与 2026-10-19 逐条一致"
- },
- "n_samples": 33,
- "api_meta": {
-  "calls": 99,
-  "cache_hits": 0,
-  "cost_cny": 0.077725,
-  "aborted": false,
-  "prompt_tokens": 64269,
-  "prompt_cache_hit_tokens": 45312,
-  "completion_tokens": 2178,
-  "elapsed_s": 236.5,
-  "model_returned": "deepseek-flash",
-  "probe": {
-   "direct": true,
-   "proxy_7897": true
+  "date": "2026-10-20",
+  "script": "experiments/package_variance_json.py（输入：experiments/run_generation_eval.py --judge-samples N 的 raw 输出）",
+  "args": {
+    "judge_samples": 3,
+    "temperature": 0.8,
+    "temperature_scope": "judge_temperature（裁判采样温度）；生成端为贪心 temperature=0，答案与 2026-10-19 逐条一致"
+  },
+  "n_samples": 33,
+  "api_meta": {
+    "calls": 99,
+    "cache_hits": 0,
+    "cost_cny": 0.077725,
+    "aborted": false,
+    "prompt_tokens": 64269,
+    "prompt_cache_hit_tokens": 45312,
+    "completion_tokens": 2178,
+    "elapsed_s": 236.5,
+    "model_returned": "deepseek-flash",
+    "probe": {
+      "direct": true,
+      "proxy_7897": true
+    }
+  },
+  "answers_identical_to_2026-10-19": true,
+  "n_fallbacks": 0,
+  "api_errors": 0,
+  "items": {
+    "realistic#1": {
+      "api": {
+        "faithfulness": [
+          1,
+          5,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "realistic#2": {
+      "api": {
+        "faithfulness": [
+          3,
+          3,
+          3
+        ],
+        "relevance": [
+          5,
+          4,
+          5
+        ],
+        "completeness": [
+          4,
+          3,
+          3
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          3,
+          5,
+          3
+        ]
+      }
+    },
+    "realistic#3": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          3,
+          5
+        ],
+        "completeness": [
+          3,
+          3,
+          4
+        ]
+      }
+    },
+    "realistic#4": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          3,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          4,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#5": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          4
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          3,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          4
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#6": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          2
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          4,
+          4
+        ],
+        "relevance": [
+          4,
+          3,
+          5
+        ],
+        "completeness": [
+          3,
+          4,
+          4
+        ]
+      }
+    },
+    "realistic#7": {
+      "api": {
+        "faithfulness": [
+          4,
+          4,
+          4
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          4,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#8": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          4,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          5
+        ]
+      }
+    },
+    "realistic#9": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          5,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          4
+        ],
+        "completeness": [
+          5,
+          4,
+          3
+        ]
+      }
+    },
+    "realistic#10": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          4,
+          3
+        ],
+        "relevance": [
+          4,
+          4,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#11": {
+      "api": {
+        "faithfulness": [
+          1,
+          1,
+          2
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          2,
+          1,
+          2
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          5,
+          5
+        ],
+        "relevance": [
+          3,
+          4,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#12": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          5,
+          4
+        ],
+        "relevance": [
+          3,
+          5,
+          4
+        ],
+        "completeness": [
+          5,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#13": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          4
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          3,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          4
+        ],
+        "completeness": [
+          4,
+          3,
+          3
+        ]
+      }
+    },
+    "realistic#14": {
+      "api": {
+        "faithfulness": [
+          2,
+          2,
+          3
+        ],
+        "relevance": [
+          3,
+          4,
+          4
+        ],
+        "completeness": [
+          2,
+          3,
+          3
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          5,
+          5
+        ],
+        "relevance": [
+          4,
+          4,
+          4
+        ],
+        "completeness": [
+          4,
+          4,
+          4
+        ]
+      }
+    },
+    "near_dup_stress#1": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          4,
+          5
+        ],
+        "completeness": [
+          5,
+          4,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          3,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "near_dup_stress#2": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          4,
+          4
+        ],
+        "completeness": [
+          5,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "near_dup_stress#3": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          4,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          2,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "near_dup_stress#4": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          4,
+          5,
+          4
+        ],
+        "relevance": [
+          5,
+          3,
+          4
+        ],
+        "completeness": [
+          4,
+          3,
+          3
+        ]
+      }
+    },
+    "near_dup_stress#5": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          3,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "near_dup_stress#6": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          3,
+          3
+        ],
+        "relevance": [
+          2,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "near_dup_stress#7": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          3,
+          2
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          2,
+          2
+        ]
+      }
+    },
+    "near_dup_stress#8": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          4,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          2,
+          2,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          2,
+          3
+        ]
+      }
+    },
+    "sample#1": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          5,
+          4
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "sample#2": {
+      "api": {
+        "faithfulness": [
+          2,
+          2,
+          2
+        ],
+        "relevance": [
+          4,
+          4,
+          4
+        ],
+        "completeness": [
+          2,
+          2,
+          2
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          3,
+          3
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "sample#3": {
+      "api": {
+        "faithfulness": [
+          4,
+          4,
+          4
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          4,
+          4,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          3,
+          4
+        ],
+        "relevance": [
+          5,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "sample#4": {
+      "api": {
+        "faithfulness": [
+          4,
+          4,
+          4
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          3,
+          3,
+          3
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          4,
+          5
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          3,
+          4,
+          3
+        ]
+      }
+    },
+    "sample#5": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          5,
+          5,
+          4
+        ],
+        "relevance": [
+          3,
+          3,
+          3
+        ],
+        "completeness": [
+          2,
+          2,
+          3
+        ]
+      }
+    },
+    "unanswerable#1": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          3,
+          4
+        ],
+        "completeness": [
+          5,
+          2,
+          4
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "unanswerable#2": {
+      "api": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          3,
+          3,
+          3
+        ],
+        "relevance": [
+          5,
+          3,
+          5
+        ],
+        "completeness": [
+          3,
+          4,
+          3
+        ]
+      }
+    },
+    "unanswerable#3": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          5,
+          5,
+          5
+        ],
+        "completeness": [
+          5,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "unanswerable#4": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          3,
+          1,
+          3
+        ],
+        "completeness": [
+          3,
+          1,
+          1
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "unanswerable#5": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          3,
+          5,
+          5
+        ],
+        "completeness": [
+          1,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "unanswerable#6": {
+      "api": {
+        "faithfulness": [
+          5,
+          5,
+          5
+        ],
+        "relevance": [
+          3,
+          5,
+          5
+        ],
+        "completeness": [
+          3,
+          5,
+          5
+        ]
+      },
+      "local": {
+        "faithfulness": [
+          1,
+          1,
+          1
+        ],
+        "relevance": [
+          1,
+          1,
+          1
+        ],
+        "completeness": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "summary": {
+    "item_noise_api": {
+      "n_units": 99,
+      "n_observations_per_unit": 3,
+      "identical_count": 71,
+      "identical_ratio": 0.7172,
+      "range_mean": 0.4343,
+      "range_hist": {
+        "0": 71,
+        "1": 18,
+        "2": 7,
+        "3": 1,
+        "4": 2
+      },
+      "units_range_ge3": 3,
+      "per_dim_item_sd_mean_ddof0": {
+        "faithfulness": 0.1,
+        "relevance": 0.1962,
+        "completeness": 0.3092
+      }
+    },
+    "item_noise_local": {
+      "n_units": 99,
+      "n_observations_per_unit": 3,
+      "identical_count": 55,
+      "identical_ratio": 0.5556,
+      "range_mean": 0.5859,
+      "range_hist": {
+        "0": 55,
+        "1": 30,
+        "2": 14
+      },
+      "units_range_ge3": 0,
+      "per_dim_item_sd_mean_ddof0": {
+        "faithfulness": 0.2885,
+        "relevance": 0.2885,
+        "completeness": 0.2247
+      },
+      "other_run_local_n7": {
+        "source": "experiments/results/judge_variance_2026-10-20.json",
+        "n_observations_per_unit": 7,
+        "identical_count": 38,
+        "identical_ratio": 0.3838,
+        "range_mean": 0.8586,
+        "per_dim_item_sd_mean_ddof0": {
+          "faithfulness": 0.4137,
+          "relevance": 0.3223,
+          "completeness": 0.2852
+        }
+      }
+    },
+    "reference_drift": {
+      "faithfulness": {
+        "n_changed": 3,
+        "mean_n1_greedy": 4.2727,
+        "mean_n3_median": 4.303,
+        "changed": [
+          {
+            "id": "realistic#2",
+            "n1_greedy": 2,
+            "n3_median": 3
+          },
+          {
+            "id": "realistic#5",
+            "n1_greedy": 4,
+            "n3_median": 5
+          },
+          {
+            "id": "realistic#11",
+            "n1_greedy": 2,
+            "n3_median": 1
+          }
+        ]
+      },
+      "relevance": {
+        "n_changed": 4,
+        "mean_n1_greedy": 4.4848,
+        "mean_n3_median": 4.5152,
+        "changed": [
+          {
+            "id": "realistic#2",
+            "n1_greedy": 4,
+            "n3_median": 5
+          },
+          {
+            "id": "near_dup_stress#2",
+            "n1_greedy": 5,
+            "n3_median": 4
+          },
+          {
+            "id": "unanswerable#1",
+            "n1_greedy": 5,
+            "n3_median": 4
+          },
+          {
+            "id": "unanswerable#5",
+            "n1_greedy": 3,
+            "n3_median": 5
+          }
+        ]
+      },
+      "completeness": {
+        "n_changed": 6,
+        "mean_n1_greedy": 3.8182,
+        "mean_n3_median": 3.8788,
+        "changed": [
+          {
+            "id": "realistic#4",
+            "n1_greedy": 3,
+            "n3_median": 4
+          },
+          {
+            "id": "realistic#9",
+            "n1_greedy": 3,
+            "n3_median": 4
+          },
+          {
+            "id": "near_dup_stress#2",
+            "n1_greedy": 5,
+            "n3_median": 4
+          },
+          {
+            "id": "unanswerable#1",
+            "n1_greedy": 5,
+            "n3_median": 4
+          },
+          {
+            "id": "unanswerable#4",
+            "n1_greedy": 3,
+            "n3_median": 1
+          },
+          {
+            "id": "unanswerable#5",
+            "n1_greedy": 1,
+            "n3_median": 5
+          }
+        ]
+      }
+    },
+    "robustness_vs_reference": {
+      "faithfulness": {
+        "local_vs_n1": {
+          "mean": 3.1212,
+          "exact": 0.2121,
+          "within1": 0.4848,
+          "mae": 1.8182,
+          "r": -0.0326
+        },
+        "local_vs_n3_median": {
+          "mean": 3.1515,
+          "exact": 0.2121,
+          "within1": 0.4545,
+          "mae": 1.9394,
+          "r": -0.1595
+        },
+        "rule_vs_n1": {
+          "mean": 3.4545,
+          "exact": 0.5455,
+          "within1": 0.7576,
+          "mae": 0.9152,
+          "r": 0.589
+        },
+        "rule_vs_n3_median": {
+          "mean": 3.4545,
+          "exact": 0.5455,
+          "within1": 0.6667,
+          "mae": 1.0061,
+          "r": 0.5485
+        }
+      },
+      "local_three_dims": {
+        "vs_n1": {
+          "faithfulness": {
+            "mean": 3.1212,
+            "exact": 0.2121,
+            "within1": 0.4848,
+            "mae": 1.8182,
+            "r": -0.0326
+          },
+          "relevance": {
+            "mean": 3.0,
+            "exact": 0.2727,
+            "within1": 0.3636,
+            "mae": 1.7879,
+            "r": 0.0966
+          },
+          "completeness": {
+            "mean": 2.5758,
+            "exact": 0.1818,
+            "within1": 0.5455,
+            "mae": 1.6667,
+            "r": -0.0557
+          }
+        },
+        "vs_n3_median": {
+          "faithfulness": {
+            "mean": 3.1515,
+            "exact": 0.2121,
+            "within1": 0.4545,
+            "mae": 1.9394,
+            "r": -0.1595
+          },
+          "relevance": {
+            "mean": 2.8485,
+            "exact": 0.1818,
+            "within1": 0.3333,
+            "mae": 1.9091,
+            "r": 0.1013
+          },
+          "completeness": {
+            "mean": 2.5152,
+            "exact": 0.2121,
+            "within1": 0.5455,
+            "mae": 1.6667,
+            "r": -0.0462
+          }
+        }
+      },
+      "note": "臂与参照系同协议：N=1 行用 2026-10-19 已归档的两臂分数，N=3 行用本次 --judge-samples 3 跑出来的两臂中位数"
+    },
+    "segments": {
+      "definition": "按参照系（强裁判 faithfulness）分组：判低 1-2 / 中 3 / 判高 4-5；arm 为本地 1.5B 裁判",
+      "local_arm_n1_reference": {
+        "low_1_2": {
+          "n": 6,
+          "ref_mean": 1.6667,
+          "arm_mean": 3.1667,
+          "mae": 1.5
+        },
+        "mid_3": {
+          "n": 0
+        },
+        "high_4_5": {
+          "n": 27,
+          "ref_mean": 4.8519,
+          "arm_mean": 3.1111,
+          "mae": 1.8889
+        }
+      },
+      "local_arm_n3_median_reference": {
+        "low_1_2": {
+          "n": 5,
+          "ref_mean": 1.4,
+          "arm_mean": 3.4,
+          "mae": 2.0
+        },
+        "mid_3": {
+          "n": 1,
+          "ref_mean": 3.0,
+          "arm_mean": 5.0,
+          "mae": 2.0
+        },
+        "high_4_5": {
+          "n": 27,
+          "ref_mean": 4.8889,
+          "arm_mean": 3.037,
+          "mae": 1.9259
+        }
+      },
+      "rule_arm_n1_reference": {
+        "low_1_2": {
+          "n": 6,
+          "ref_mean": 1.6667,
+          "arm_mean": 1.6667,
+          "mae": 0.5333
+        },
+        "mid_3": {
+          "n": 0
+        },
+        "high_4_5": {
+          "n": 27,
+          "ref_mean": 4.8519,
+          "arm_mean": 3.8519,
+          "mae": 1.0
+        }
+      },
+      "rule_arm_n3_median_reference": {
+        "low_1_2": {
+          "n": 5,
+          "ref_mean": 1.4,
+          "arm_mean": 1.72,
+          "mae": 0.72
+        },
+        "mid_3": {
+          "n": 1,
+          "ref_mean": 3.0,
+          "arm_mean": 1.4,
+          "mae": 1.6
+        },
+        "high_4_5": {
+          "n": 27,
+          "ref_mean": 4.8889,
+          "arm_mean": 3.8519,
+          "mae": 1.037
+        }
+      }
+    },
+    "strong_judge_self_consistency": {
+      "scheme": "固定 33 条样本，item 内对强裁判的 3 次观测有放回重抽；B=4000、random.seed(7)；参照系为 2026-10-19 已归档的强裁判 N=1 faithfulness",
+      "reference": "experiments/results/generation_eval_2026-10-19.json -> samples[*].judge.api.scores.faithfulness",
+      "single": {
+        "mae_mean": 0.1222,
+        "mae_sd": 0.0632,
+        "r_mean": 0.9247,
+        "r_sd": 0.0729,
+        "exact_sd": 0.0288
+      },
+      "median_of_3": {
+        "mae_mean": 0.114,
+        "mae_sd": 0.0575,
+        "r_mean": 0.9371,
+        "r_sd": 0.0667,
+        "exact_sd": 0.0264
+      },
+      "mae_sd_drop_ratio": 0.0898
+    },
+    "boundaries": [
+      "样本量只有 33 条（27 条原金标 + 6 条本次新造拒答样本），所有比例、均值、相关都只能给量级，不能当分布估计。",
+      "API 侧每格只有 3 个观测，item 级 sd 的估计本身不稳（同一本地裁判 N=3 时 sd=0.225、N=7 时 sd=0.285），只用于比较量级。",
+      "只有同一次运行内的 API vs 本地对比才是同协议可比的；跨 run 比较（N=7 那次）只作旁证。",
+      "greedy 的 N=1 不是采样分布的一次抽样（沿用 2026-10-19 / judge_variance 两份报告的口径），N=1 与 N=3 的差别是估计器不同，不是准确度排序。",
+      "未做假设检验：本报告只给点估计与量级描述，不做任何统计推断（不做假设检验、不给区间估计）；r 保留四位只是为了与脚本输出逐位对齐，不代表精度声明。",
+      "强裁判模型会滚动更新（deepseek-chat 实际解析为 deepseek-flash，/models 现返回 deepseek-flash 与 deepseek-v4-pro），绝对值随版本变化。",
+      "本地裁判与生成模型同款（自评），绝对分不可作为答案质量证据。"
+    ]
   }
- },
- "answers_identical_to_2026-10-19": true,
- "n_fallbacks": 0,
- "api_errors": 0,
- "items": {
-  "realistic#1": {
-   "api": {
-    "faithfulness": [
-     1,
-     5,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "realistic#2": {
-   "api": {
-    "faithfulness": [
-     3,
-     3,
-     3
-    ],
-    "relevance": [
-     5,
-     4,
-     5
-    ],
-    "completeness": [
-     4,
-     3,
-     3
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     3,
-     5,
-     3
-    ]
-   }
-  },
-  "realistic#3": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     3,
-     5
-    ],
-    "completeness": [
-     3,
-     3,
-     4
-    ]
-   }
-  },
-  "realistic#4": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     3,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     4,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#5": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     4
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     3,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     4
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#6": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     2
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     4,
-     4
-    ],
-    "relevance": [
-     4,
-     3,
-     5
-    ],
-    "completeness": [
-     3,
-     4,
-     4
-    ]
-   }
-  },
-  "realistic#7": {
-   "api": {
-    "faithfulness": [
-     4,
-     4,
-     4
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     4,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#8": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     4,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     5
-    ]
-   }
-  },
-  "realistic#9": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     5,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     4
-    ],
-    "completeness": [
-     5,
-     4,
-     3
-    ]
-   }
-  },
-  "realistic#10": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     4,
-     3
-    ],
-    "relevance": [
-     4,
-     4,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#11": {
-   "api": {
-    "faithfulness": [
-     1,
-     1,
-     2
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     2,
-     1,
-     2
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     5,
-     5
-    ],
-    "relevance": [
-     3,
-     4,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#12": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     5,
-     4
-    ],
-    "relevance": [
-     3,
-     5,
-     4
-    ],
-    "completeness": [
-     5,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#13": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     4
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     3,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     4
-    ],
-    "completeness": [
-     4,
-     3,
-     3
-    ]
-   }
-  },
-  "realistic#14": {
-   "api": {
-    "faithfulness": [
-     2,
-     2,
-     3
-    ],
-    "relevance": [
-     3,
-     4,
-     4
-    ],
-    "completeness": [
-     2,
-     3,
-     3
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     5,
-     5
-    ],
-    "relevance": [
-     4,
-     4,
-     4
-    ],
-    "completeness": [
-     4,
-     4,
-     4
-    ]
-   }
-  },
-  "near_dup_stress#1": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     4,
-     5
-    ],
-    "completeness": [
-     5,
-     4,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     3,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "near_dup_stress#2": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     4,
-     4
-    ],
-    "completeness": [
-     5,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "near_dup_stress#3": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     4,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     2,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "near_dup_stress#4": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     4,
-     5,
-     4
-    ],
-    "relevance": [
-     5,
-     3,
-     4
-    ],
-    "completeness": [
-     4,
-     3,
-     3
-    ]
-   }
-  },
-  "near_dup_stress#5": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     3,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "near_dup_stress#6": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     3,
-     3
-    ],
-    "relevance": [
-     2,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "near_dup_stress#7": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     3,
-     2
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     2,
-     2
-    ]
-   }
-  },
-  "near_dup_stress#8": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     4,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     2,
-     2,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     2,
-     3
-    ]
-   }
-  },
-  "sample#1": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     5,
-     4
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "sample#2": {
-   "api": {
-    "faithfulness": [
-     2,
-     2,
-     2
-    ],
-    "relevance": [
-     4,
-     4,
-     4
-    ],
-    "completeness": [
-     2,
-     2,
-     2
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     3,
-     3
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "sample#3": {
-   "api": {
-    "faithfulness": [
-     4,
-     4,
-     4
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     4,
-     4,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     3,
-     4
-    ],
-    "relevance": [
-     5,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   }
-  },
-  "sample#4": {
-   "api": {
-    "faithfulness": [
-     4,
-     4,
-     4
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     3,
-     3,
-     3
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     4,
-     5
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     3,
-     4,
-     3
-    ]
-   }
-  },
-  "sample#5": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     5,
-     5,
-     4
-    ],
-    "relevance": [
-     3,
-     3,
-     3
-    ],
-    "completeness": [
-     2,
-     2,
-     3
-    ]
-   }
-  },
-  "unanswerable#1": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     3,
-     4
-    ],
-    "completeness": [
-     5,
-     2,
-     4
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "unanswerable#2": {
-   "api": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     3,
-     3,
-     3
-    ],
-    "relevance": [
-     5,
-     3,
-     5
-    ],
-    "completeness": [
-     3,
-     4,
-     3
-    ]
-   }
-  },
-  "unanswerable#3": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     5,
-     5,
-     5
-    ],
-    "completeness": [
-     5,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "unanswerable#4": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     3,
-     1,
-     3
-    ],
-    "completeness": [
-     3,
-     1,
-     1
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "unanswerable#5": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     3,
-     5,
-     5
-    ],
-    "completeness": [
-     1,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  },
-  "unanswerable#6": {
-   "api": {
-    "faithfulness": [
-     5,
-     5,
-     5
-    ],
-    "relevance": [
-     3,
-     5,
-     5
-    ],
-    "completeness": [
-     3,
-     5,
-     5
-    ]
-   },
-   "local": {
-    "faithfulness": [
-     1,
-     1,
-     1
-    ],
-    "relevance": [
-     1,
-     1,
-     1
-    ],
-    "completeness": [
-     1,
-     1,
-     1
-    ]
-   }
-  }
- },
- "summary": {
-  "item_noise_api": {
-   "n_units": 99,
-   "n_observations_per_unit": 3,
-   "identical_count": 71,
-   "identical_ratio": 0.7172,
-   "range_mean": 0.4343,
-   "range_hist": {
-    "0": 71,
-    "1": 18,
-    "2": 7,
-    "3": 1,
-    "4": 2
-   },
-   "units_range_ge3": 3,
-   "per_dim_item_sd_mean_ddof0": {
-    "faithfulness": 0.1,
-    "relevance": 0.1962,
-    "completeness": 0.3092
-   }
-  },
-  "item_noise_local": {
-   "n_units": 99,
-   "n_observations_per_unit": 3,
-   "identical_count": 55,
-   "identical_ratio": 0.5556,
-   "range_mean": 0.5859,
-   "range_hist": {
-    "0": 55,
-    "1": 30,
-    "2": 14
-   },
-   "units_range_ge3": 0,
-   "per_dim_item_sd_mean_ddof0": {
-    "faithfulness": 0.2885,
-    "relevance": 0.2885,
-    "completeness": 0.2247
-   },
-   "other_run_local_n7": {
-    "source": "experiments/results/judge_variance_2026-10-20.json",
-    "n_observations_per_unit": 7,
-    "identical_count": 38,
-    "identical_ratio": 0.3838,
-    "range_mean": 0.8586,
-    "per_dim_item_sd_mean_ddof0": {
-     "faithfulness": 0.4137,
-     "relevance": 0.3223,
-     "completeness": 0.2852
-    }
-   }
-  },
-  "reference_drift": {
-   "faithfulness": {
-    "n_changed": 3,
-    "mean_n1_greedy": 4.2727,
-    "mean_n3_median": 4.303,
-    "changed": [
-     {
-      "id": "realistic#2",
-      "n1_greedy": 2,
-      "n3_median": 3
-     },
-     {
-      "id": "realistic#5",
-      "n1_greedy": 4,
-      "n3_median": 5
-     },
-     {
-      "id": "realistic#11",
-      "n1_greedy": 2,
-      "n3_median": 1
-     }
-    ]
-   },
-   "relevance": {
-    "n_changed": 4,
-    "mean_n1_greedy": 4.4848,
-    "mean_n3_median": 4.5152,
-    "changed": [
-     {
-      "id": "realistic#2",
-      "n1_greedy": 4,
-      "n3_median": 5
-     },
-     {
-      "id": "near_dup_stress#2",
-      "n1_greedy": 5,
-      "n3_median": 4
-     },
-     {
-      "id": "unanswerable#1",
-      "n1_greedy": 5,
-      "n3_median": 4
-     },
-     {
-      "id": "unanswerable#5",
-      "n1_greedy": 3,
-      "n3_median": 5
-     }
-    ]
-   },
-   "completeness": {
-    "n_changed": 6,
-    "mean_n1_greedy": 3.8182,
-    "mean_n3_median": 3.8788,
-    "changed": [
-     {
-      "id": "realistic#4",
-      "n1_greedy": 3,
-      "n3_median": 4
-     },
-     {
-      "id": "realistic#9",
-      "n1_greedy": 3,
-      "n3_median": 4
-     },
-     {
-      "id": "near_dup_stress#2",
-      "n1_greedy": 5,
-      "n3_median": 4
-     },
-     {
-      "id": "unanswerable#1",
-      "n1_greedy": 5,
-      "n3_median": 4
-     },
-     {
-      "id": "unanswerable#4",
-      "n1_greedy": 3,
-      "n3_median": 1
-     },
-     {
-      "id": "unanswerable#5",
-      "n1_greedy": 1,
-      "n3_median": 5
-     }
-    ]
-   }
-  },
-  "robustness_vs_reference": {
-   "faithfulness": {
-    "local_vs_n1": {
-     "mean": 3.1212,
-     "exact": 0.2121,
-     "within1": 0.4848,
-     "mae": 1.8182,
-     "r": -0.0326
-    },
-    "local_vs_n3_median": {
-     "mean": 3.1515,
-     "exact": 0.2121,
-     "within1": 0.4545,
-     "mae": 1.9394,
-     "r": -0.1595
-    },
-    "rule_vs_n1": {
-     "mean": 3.4545,
-     "exact": 0.5455,
-     "within1": 0.7576,
-     "mae": 0.9152,
-     "r": 0.589
-    },
-    "rule_vs_n3_median": {
-     "mean": 3.4545,
-     "exact": 0.5455,
-     "within1": 0.6667,
-     "mae": 1.0061,
-     "r": 0.5485
-    }
-   },
-   "local_three_dims": {
-    "vs_n1": {
-     "faithfulness": {
-      "mean": 3.1212,
-      "exact": 0.2121,
-      "within1": 0.4848,
-      "mae": 1.8182,
-      "r": -0.0326
-     },
-     "relevance": {
-      "mean": 3.0,
-      "exact": 0.2727,
-      "within1": 0.3636,
-      "mae": 1.7879,
-      "r": 0.0966
-     },
-     "completeness": {
-      "mean": 2.5758,
-      "exact": 0.1818,
-      "within1": 0.5455,
-      "mae": 1.6667,
-      "r": -0.0557
-     }
-    },
-    "vs_n3_median": {
-     "faithfulness": {
-      "mean": 3.1515,
-      "exact": 0.2121,
-      "within1": 0.4545,
-      "mae": 1.9394,
-      "r": -0.1595
-     },
-     "relevance": {
-      "mean": 2.8485,
-      "exact": 0.1818,
-      "within1": 0.3333,
-      "mae": 1.9091,
-      "r": 0.1013
-     },
-     "completeness": {
-      "mean": 2.5152,
-      "exact": 0.2121,
-      "within1": 0.5455,
-      "mae": 1.6667,
-      "r": -0.0462
-     }
-    }
-   },
-   "note": "臂与参照系同协议：N=1 行用 2026-10-19 已归档的两臂分数，N=3 行用本次 --judge-samples 3 跑出来的两臂中位数"
-  },
-  "segments": {
-   "definition": "按参照系（强裁判 faithfulness）分组：判低 1-2 / 中 3 / 判高 4-5；arm 为本地 1.5B 裁判",
-   "local_arm_n1_reference": {
-    "low_1_2": {
-     "n": 6,
-     "ref_mean": 1.6667,
-     "arm_mean": 3.1667,
-     "mae": 1.5
-    },
-    "mid_3": {
-     "n": 0
-    },
-    "high_4_5": {
-     "n": 27,
-     "ref_mean": 4.8519,
-     "arm_mean": 3.1111,
-     "mae": 1.8889
-    }
-   },
-   "local_arm_n3_median_reference": {
-    "low_1_2": {
-     "n": 5,
-     "ref_mean": 1.4,
-     "arm_mean": 3.4,
-     "mae": 2.0
-    },
-    "mid_3": {
-     "n": 1,
-     "ref_mean": 3.0,
-     "arm_mean": 5.0,
-     "mae": 2.0
-    },
-    "high_4_5": {
-     "n": 27,
-     "ref_mean": 4.8889,
-     "arm_mean": 3.037,
-     "mae": 1.9259
-    }
-   },
-   "rule_arm_n1_reference": {
-    "low_1_2": {
-     "n": 6,
-     "ref_mean": 1.6667,
-     "arm_mean": 1.6667,
-     "mae": 0.5333
-    },
-    "mid_3": {
-     "n": 0
-    },
-    "high_4_5": {
-     "n": 27,
-     "ref_mean": 4.8519,
-     "arm_mean": 3.8519,
-     "mae": 1.0
-    }
-   },
-   "rule_arm_n3_median_reference": {
-    "low_1_2": {
-     "n": 5,
-     "ref_mean": 1.4,
-     "arm_mean": 1.72,
-     "mae": 0.72
-    },
-    "mid_3": {
-     "n": 1,
-     "ref_mean": 3.0,
-     "arm_mean": 1.4,
-     "mae": 1.6
-    },
-    "high_4_5": {
-     "n": 27,
-     "ref_mean": 4.8889,
-     "arm_mean": 3.8519,
-     "mae": 1.037
-    }
-   }
-  },
-  "strong_judge_self_consistency": {
-   "scheme": "固定 33 条样本，item 内对强裁判的 3 次观测有放回重抽；B=4000、random.seed(7)；参照系为 2026-10-19 已归档的强裁判 N=1 faithfulness",
-   "reference": "experiments/results/generation_eval_2026-10-19.json -> samples[*].judge.api.scores.faithfulness",
-   "single": {
-    "mae_mean": 0.1222,
-    "mae_sd": 0.0632,
-    "r_mean": 0.9247,
-    "r_sd": 0.0729,
-    "exact_sd": 0.0288
-   },
-   "median_of_3": {
-    "mae_mean": 0.114,
-    "mae_sd": 0.0575,
-    "r_mean": 0.9371,
-    "r_sd": 0.0667,
-    "exact_sd": 0.0264
-   },
-   "mae_sd_drop_ratio": 0.0898
-  },
-  "boundaries": [
-   "样本量只有 33 条（27 条原金标 + 6 条本次新造拒答样本），所有比例、均值、相关都只能给量级，不能当分布估计。",
-   "API 侧每格只有 3 个观测，item 级 sd 的估计本身不稳（同一本地裁判 N=3 时 sd=0.225、N=7 时 sd=0.285），只用于比较量级。",
-   "只有同一次运行内的 API vs 本地对比才是同协议可比的；跨 run 比较（N=7 那次）只作旁证。",
-   "greedy 的 N=1 不是采样分布的一次抽样（沿用 2026-10-19 / judge_variance 两份报告的口径），N=1 与 N=3 的差别是估计器不同，不是准确度排序。",
-   "未做假设检验：本报告只给点估计与量级描述，不做任何统计推断（不做假设检验、不给区间估计）；r 保留四位只是为了与脚本输出逐位对齐，不代表精度声明。",
-   "强裁判模型会滚动更新（deepseek-chat 实际解析为 deepseek-flash，/models 现返回 deepseek-flash 与 deepseek-v4-pro），绝对值随版本变化。",
-   "本地裁判与生成模型同款（自评），绝对分不可作为答案质量证据。"
-  ]
- }
 }

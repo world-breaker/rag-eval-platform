@@ -1,6 +1,6 @@
 {
   "date": "2026-10-20",
-  "script": "experiments/run_generation_eval.py",
+  "script": "experiments/package_variance_json.py（输入：experiments/run_generation_eval.py 的 raw 输出）",
   "args": {
     "no_api": true,
     "judge_samples": 7
@@ -996,6 +996,107 @@
       "per_cell_sd_max": 0.9258,
       "sd_convention": "pstdev(ddof=0)：7 个观测的标准差除以 7（不是 6）"
     },
+    "median_vs_greedy": {
+      "faithfulness": {
+        "changed_count": 4,
+        "changed_total": 33,
+        "mean_n1": 3.1212,
+        "mean_n7": 3.1212,
+        "changes": [
+          {
+            "id": "realistic#10",
+            "n1": 4,
+            "n7": 3.0
+          },
+          {
+            "id": "realistic#11",
+            "n1": 3,
+            "n7": 4.0
+          },
+          {
+            "id": "realistic#12",
+            "n1": 5,
+            "n7": 4.0
+          },
+          {
+            "id": "unanswerable#2",
+            "n1": 3,
+            "n7": 4.0
+          }
+        ]
+      },
+      "relevance": {
+        "changed_count": 7,
+        "changed_total": 33,
+        "mean_n1": 3,
+        "mean_n7": 2.8485,
+        "changes": [
+          {
+            "id": "realistic#3",
+            "n1": 5,
+            "n7": 4.0
+          },
+          {
+            "id": "realistic#9",
+            "n1": 5,
+            "n7": 3.0
+          },
+          {
+            "id": "realistic#11",
+            "n1": 3,
+            "n7": 4.0
+          },
+          {
+            "id": "realistic#12",
+            "n1": 5,
+            "n7": 4.0
+          },
+          {
+            "id": "near_dup_stress#8",
+            "n1": 3,
+            "n7": 2.0
+          },
+          {
+            "id": "sample#4",
+            "n1": 3,
+            "n7": 4.0
+          },
+          {
+            "id": "unanswerable#2",
+            "n1": 5,
+            "n7": 3.0
+          }
+        ]
+      },
+      "completeness": {
+        "changed_count": 3,
+        "changed_total": 33,
+        "mean_n1": 2.5758,
+        "mean_n7": 2.5758,
+        "changes": [
+          {
+            "id": "realistic#2",
+            "n1": 5,
+            "n7": 3.0
+          },
+          {
+            "id": "realistic#3",
+            "n1": 3,
+            "n7": 4.0
+          },
+          {
+            "id": "realistic#6",
+            "n1": 3,
+            "n7": 4.0
+          }
+        ]
+      },
+      "notes": [
+        "relevance 均值降 0.1515（-5.1%）：median-of-7 不是单向抬高，高估的被拉回（realistic#9 5->3、near_dup_stress#8 3->2），低估的被抬高（sample#4 3->4）",
+        "unanswerable#2 两维反向移动：faithfulness 3->4（更放行幻觉）、relevance 5->3，所以「中位数让裁判更保守」不成立，方向由每个 item 自己的 7 次分布决定",
+        "本节三个维度均为 N=1 greedy -> median-of-7；与强裁判的一致性对照仍只做 faithfulness"
+      ]
+    },
     "aggregate_vs_strong_judge_faithfulness": {
       "reference": "臂 C 强裁判分取自 experiments/results/generation_eval_2026-10-19.json（本文件不重复存储）",
       "greedy_N1": {
@@ -1072,107 +1173,6 @@
       "greedy 的 N=1 不是采样分布的一次抽样（取众数、运行间方差为 0），与典型抽样在水平上不同",
       "本轮只跑离线臂（rule + local），未调用强裁判 API，费用 0",
       "本地裁判与生成模型同款（自评），绝对分不可作为质量证据"
-    ],
-    "median_vs_greedy": {
-      "faithfulness": {
-        "changed_count": 4,
-        "changed_total": 33,
-        "mean_n1": 3.1212,
-        "mean_n7": 3.1212,
-        "changes": [
-          {
-            "id": "realistic#10",
-            "n1": 4,
-            "n7": 3.0
-          },
-          {
-            "id": "realistic#11",
-            "n1": 3,
-            "n7": 4.0
-          },
-          {
-            "id": "realistic#12",
-            "n1": 5,
-            "n7": 4.0
-          },
-          {
-            "id": "unanswerable#2",
-            "n1": 3,
-            "n7": 4.0
-          }
-        ]
-      },
-      "relevance": {
-        "changed_count": 7,
-        "changed_total": 33,
-        "mean_n1": 3.0,
-        "mean_n7": 2.8485,
-        "changes": [
-          {
-            "id": "realistic#3",
-            "n1": 5,
-            "n7": 4.0
-          },
-          {
-            "id": "realistic#9",
-            "n1": 5,
-            "n7": 3.0
-          },
-          {
-            "id": "realistic#11",
-            "n1": 3,
-            "n7": 4.0
-          },
-          {
-            "id": "realistic#12",
-            "n1": 5,
-            "n7": 4.0
-          },
-          {
-            "id": "near_dup_stress#8",
-            "n1": 3,
-            "n7": 2.0
-          },
-          {
-            "id": "sample#4",
-            "n1": 3,
-            "n7": 4.0
-          },
-          {
-            "id": "unanswerable#2",
-            "n1": 5,
-            "n7": 3.0
-          }
-        ]
-      },
-      "completeness": {
-        "changed_count": 3,
-        "changed_total": 33,
-        "mean_n1": 2.5758,
-        "mean_n7": 2.5758,
-        "changes": [
-          {
-            "id": "realistic#2",
-            "n1": 5,
-            "n7": 3.0
-          },
-          {
-            "id": "realistic#3",
-            "n1": 3,
-            "n7": 4.0
-          },
-          {
-            "id": "realistic#6",
-            "n1": 3,
-            "n7": 4.0
-          }
-        ]
-      },
-      "notes": [
-        "relevance 均值降 0.1515（-5.1%）：median-of-7 不是单向抬高，高估的被拉回（realistic#9 5->3、near_dup_stress#8 3->2），低估的被抬高（sample#4 3->4）",
-        "unanswerable#2 两维反向移动：faithfulness 3->4（更放行幻觉）、relevance 5->3，所以「中位数让裁判更保守」不成立，方向由每个 item 自己的 7 次分布决定",
-        "本节三个维度均为 N=1 greedy -> median-of-7；与强裁判的一致性对照仍只做 faithfulness"
-      ]
-    }
+    ]
   }
 }
