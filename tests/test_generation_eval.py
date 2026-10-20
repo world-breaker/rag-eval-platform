@@ -402,3 +402,100 @@ def test_local_judge_no_longer_uses_tokenizer_device_proxy():
     # 直接传真实 tokenizer（不再包一层）
     assert "judge_tokenizer = pipe.generator.tokenizer" in src
 
+
+# ---------------------------------------------------------------- 代理地址可用环境变量覆盖
+
+
+def test_proxy_address_is_env_overridable(monkeypatch):
+    """本机代理地址不该写死在代码里：可用环境变量 HTTP_PROXY_LOCAL 覆盖（默认行为不变）。"""
+    import importlib
+
+    import experiments.run_generation_eval as rge
+
+    monkeypatch.setenv("HTTP_PROXY_LOCAL", "http://127.0.0.1:9999")
+    try:
+        assert importlib.reload(rge).PROXY == "http://127.0.0.1:9999"
+    finally:
+        monkeypatch.delenv("HTTP_PROXY_LOCAL", raising=False)
+        importlib.reload(rge)
+    assert rge.PROXY == "http://127.0.0.1:7897", "默认行为不变"
+
+
+# ---------------------------------------------------------------- 每个臂的有效 n
+
+def _sample(sid, rule_f=None, local=None, api=None):
+    return {
+        "id": sid,
+        "dataset": "realistic",
+        "kind": "gold",
+        "answerable": True,
+        "question": f"q-{sid}",
+        "answer": "a",
+        "context": "c",
+        "rule": {"rule_faithfulness": rule_f},
+        "judge": {
+            "local": {"scores": local or {}},
+            "api": {"scores": api or {}},
+        },
+    }
+
+
+def test_arm_means_report_effective_n():
+    """有样本失败时，均值是「少样本均值」→ 必须能看出有效 n（与样本数两个口径）。"""
+    from experiments.run_generation_eval import compute_report
+
+    dims = JUDGE_DIMENSIONS
+    full = {d: 3 for d in dims}
+    samples = [
+        _sample("a#1", rule_f=5.0, local=full, api=full),
+        _sample("a#2", rule_f=5.0, local=full, api=full),
+        # 第 3 条本地裁判失败（scores 为空）→ 本地臂有效 n = 2
+        _sample("a#3", rule_f=5.0, local={}, api=full),
+    ]
+    report = {"date": "2026-10-20"}
+    compute_report(samples, ["rule", "local", "api"], report)
+
+    means = report["arm_means"]
+    eff = means["effective_n"]
+    assert means["n_samples"] == 3, "样本数 = 数据集规模（3）"
+    assert eff["rule"]["faithfulness"] == 3
+    assert eff["local"]["faithfulness"] == 2, "失败样本被剔除 → 有效 n 必须是 2"
+    assert eff["api"]["faithfulness"] == 3
+    assert means["local"]["faithfulness"] == 3.0, "均值只按有效样本算（2 条都是 3 分）"
+
+
+def test_report_table_shows_effective_n():
+    """报告的三臂总览表要标出有效 n，且与「样本数」口径分开说明。"""
+    from experiments.run_generation_eval import compute_report, render_md
+
+    dims = JUDGE_DIMENSIONS
+    full = {d: 3 for d in dims}
+    samples = [
+        _sample("a#1", rule_f=5.0, local=full, api=full),
+        _sample("a#2", rule_f=5.0, local={}, api=full),
+    ]
+    report = {
+        "date": "2026-10-20",
+        "arms_run": ["rule", "local", "api"],
+        "env": {
+            "generation_model": "m",
+            "embedding_model": "e",
+            "retrieval_mode": "vector",
+            "device": "cpu",
+            "top_p": 0.9,
+            "max_new_tokens": 256,
+            "python": "3.12",
+            "platform": "nt",
+        },
+        "api_meta": {"model": "deepseek-chat", "calls": [], "prompt_tokens": 0,
+                     "completion_tokens": 0, "cache_hit_tokens": 0, "cost_cny": 0.0,
+                     "cache_hits": 0, "judge_samples": 1},
+        "api_probe": {},
+    }
+    compute_report(samples, ["rule", "local", "api"], report)
+    md = render_md(dict(report, samples=samples))
+    assert "有效 n（f/r/c）" in md
+    row = [ln for ln in md.splitlines() if ln.startswith("| B 本地 1.5B 裁判 |")][0]
+    assert "f=1" in row, f"本地臂 faithfulness 只有 1 条有效：{row}"
+    assert "样本数" in md and "有效 n" in md
+

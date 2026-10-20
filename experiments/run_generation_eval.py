@@ -555,7 +555,10 @@ def build_context(retrieved: List[Dict]) -> str:
 
 DEEPSEEK_BASE = "https://api.deepseek.com"
 DEEPSEEK_MODEL = "deepseek-chat"  # 实测解析为 deepseek-flash（DeepSeek-V4.1-Flash-1017）
-PROXY = "http://127.0.0.1:7897"
+# 本机代理地址：默认 127.0.0.1:7897，可用环境变量 HTTP_PROXY_LOCAL 覆盖（默认行为不变）。
+# 说明：探测结果的标签仍叫 "proxy_7897"（历史字段名，已归档的结果 JSON 按这个键读，
+# 改键名会破坏既有归档文件的可解析性）。
+PROXY = os.environ.get("HTTP_PROXY_LOCAL", "http://127.0.0.1:7897")
 
 
 def _read_key() -> Optional[str]:
@@ -1085,15 +1088,40 @@ def compute_report(samples: List[Dict], arms: List[str], report: Dict) -> None:
     local = dims_of("local")
     api = dims_of("api")
     rule_f = [s.get("rule", {}).get("rule_faithfulness") for s in samples]
+
     def mean(vals):
         v = [x for x in vals if isinstance(x, (int, float))]
         return round(sum(v) / len(v), 4) if v else None
 
+    def mean_and_n(vals):
+        """均值 + **有效 n**（均值实际用到的样本数）。
+
+        为什么两个都要：失败样本（裁判报错/API 失败）的分数是 None，会被均值剔除。
+        只写「样本数 33」会让人以为均值是 33 条的均值——实际可能是少样本均值。
+        """
+        v = [x for x in vals if isinstance(x, (int, float))]
+        return (round(sum(v) / len(v), 4) if v else None), len(v)
+
+    local_means, local_ns = {}, {}
+    for d in dims:
+        local_means[d], local_ns[d] = mean_and_n(local[d])
+    api_means, api_ns = {}, {}
+    for d in dims:
+        api_means[d], api_ns[d] = mean_and_n(api[d])
+    rule_mean, rule_n = mean_and_n(rule_f)
+
     report["arm_means"] = {
-        "rule": {"faithfulness": mean(rule_f)},
-        "local": {d: mean(local[d]) for d in dims},
-        "api": {d: mean(api[d]) for d in dims},
+        "rule": {"faithfulness": rule_mean},
+        "local": local_means,
+        "api": api_means,
         "n_samples": len(samples),
+        # 有效 n：与上面的「样本数」是两个口径——样本数是数据集规模，
+        # 有效 n 是均值实际用到的样本数（两者不等 = 有样本失败被剔除）。
+        "effective_n": {
+            "rule": {"faithfulness": rule_n},
+            "local": local_ns,
+            "api": api_ns,
+        },
     }
     report["agreement"] = {
         "local_vs_api": {d: agreement_stats(local[d], api[d]) for d in dims},
@@ -1304,6 +1332,33 @@ def _judge_samples_of(report: Dict) -> int:
     return 1
 
 
+def _effective_n_from_samples(samples: List[Dict]) -> Dict:
+    """从逐样本结果现算「有效 n」（老 JSON 里没有 arm_means.effective_n 时用，例如 --render-only）。"""
+    dims = JUDGE_DIMENSIONS
+
+    def _num(vals) -> int:
+        return len([v for v in vals if isinstance(v, (int, float))])
+
+    out: Dict = {
+        "rule": {
+            "faithfulness": _num(
+                [s.get("rule", {}).get("rule_faithfulness") for s in samples]
+            )
+        },
+        "local": {},
+        "api": {},
+    }
+    for arm in ("local", "api"):
+        for d in dims:
+            out[arm][d] = _num(
+                [
+                    ((s.get("judge") or {}).get(arm) or {}).get("scores", {}).get(d)
+                    for s in samples
+                ]
+            )
+    return out
+
+
 def render_md(report: Dict) -> str:
     samples = report["samples"]
     dims = JUDGE_DIMENSIONS
@@ -1345,17 +1400,40 @@ def render_md(report: Dict) -> str:
 
     # ---------- 二、三臂总览
     m = report["arm_means"]
+    eff = m.get("effective_n") or _effective_n_from_samples(samples)
     L.append("## 二、三臂分数总览（1-5 分，均值）\n")
-    L.append("| 臂 | faithfulness | relevance | completeness |")
-    L.append("|---|---|---|---|")
+    L.append("| 臂 | faithfulness | relevance | completeness | 有效 n（f/r/c） |")
+    L.append("|---|---|---|---|---|")
+
+    def _eff(arm, dim):
+        return (eff.get(arm) or {}).get(dim)
+
+    def _eff_cell(arm):
+        vals = [_eff(arm, d) for d in dims]
+        if all(v is None for v in vals):
+            return "—"
+        parts = []
+        for d, v in zip(dims, vals):
+            parts.append(f"{d[:1]}={v}" if v is not None else f"{d[:1]}=—")
+        return "/".join(parts)
+
     L.append(
-        f"| A 规则判据（粗映射） | {_fmt(m['rule']['faithfulness'])} | — | — |"
+        f"| A 规则判据（粗映射） | {_fmt(m['rule']['faithfulness'])} | — | — | "
+        f"{_eff_cell('rule')} |"
     )
     L.append(
-        f"| B 本地 1.5B 裁判 | {_fmt(m['local']['faithfulness'])} | {_fmt(m['local']['relevance'])} | {_fmt(m['local']['completeness'])} |"
+        f"| B 本地 1.5B 裁判 | {_fmt(m['local']['faithfulness'])} | {_fmt(m['local']['relevance'])} | {_fmt(m['local']['completeness'])} | "
+        f"{_eff_cell('local')} |"
     )
     L.append(
-        f"| C 强裁判 API | {_fmt(m['api']['faithfulness'])} | {_fmt(m['api']['relevance'])} | {_fmt(m['api']['completeness'])} |"
+        f"| C 强裁判 API | {_fmt(m['api']['faithfulness'])} | {_fmt(m['api']['relevance'])} | {_fmt(m['api']['completeness'])} | "
+        f"{_eff_cell('api')} |"
+    )
+    L.append("")
+    L.append(
+        f"> **两个口径**：「样本数」= 数据集样本总数（{len(samples)}）；"
+        "「有效 n」= 该均值**实际用到的样本数**（失败样本的分数是 None，会被剔除）。"
+        "两者不等时，表里的均值就是**少样本均值**——这时不要把它当成全量结论引用。"
     )
     L.append("")
     ra = report["rule_aggregate"]
