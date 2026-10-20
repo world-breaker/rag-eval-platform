@@ -9,7 +9,7 @@
     "generation": "greedy（temperature=0、do_sample=False，答案与 2026-10-19 逐条一致）",
     "judge_sampling": null,
     "bootstrap": 7,
-    "note": "bootstrap 固定 seed=7、B=4000、item 内有放回重抽 7 个观测；更换 seed 会让表内数值在 ≤1e-3 量级抖动，结论不受影响。裁判采样本身未设种子（生成端为贪心解码故无抽样方差）。"
+    "note": "bootstrap 固定 seed=7、B=4000、item 内有放回重抽 7 个观测；更换 seed 会让表内数值在 1e-3 量级抖动（实测 seed=123：sd 最多移动 1.6e-3、相对 <2%），结论不受影响。裁判采样本身未设种子（生成端为贪心解码故无抽样方差）。"
   },
   "n_samples": 33,
   "judge_temperature": 0.8,
@@ -1062,7 +1062,7 @@
       "share_r_below_zero": {
         "single": 0.999
       },
-      "caveat": "7 个观测做非参数 bootstrap，只能看抽样波动的量级；seed 固定为 7，更换 seed 表内数值在 ≤1e-3 量级抖动，结论不受影响",
+      "caveat": "7 个观测做非参数 bootstrap，只能看抽样波动的量级；seed 固定为 7，更换 seed 表内数值在 1e-3~2e-3 量级抖动（相对 <2%），结论不受影响",
       "seed": 7,
       "boot": 4000,
       "script": "experiments/bootstrap_judge_variance.py（默认 --seed 7 --boot 4000，可逐位复算本表）"

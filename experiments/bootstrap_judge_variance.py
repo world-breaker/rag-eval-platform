@@ -10,7 +10,7 @@
 
 复算的就是 `judge_variance_2026-10-20.md` 第六节那张表（MAE/r 的均值与抽样 sd、90% 区间）。
 RNG 调用顺序固定为 `for b in B: for k in (1,3,7,15): for item: k 次 random.choice`——
-换 seed 只会在 ≤1e-3 量级抖动，换顺序则数字全变，所以重写本脚本时必须保持这个嵌套顺序。
+换 seed 只会在 1e-3 量级抖动（实测 seed=123 相对差 <2%），换顺序则数字全变，所以重写本脚本时必须保持这个嵌套顺序。
 
 用法：
     python experiments/bootstrap_judge_variance.py            # 默认 seed=7、B=4000
