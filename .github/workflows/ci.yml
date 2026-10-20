@@ -70,12 +70,12 @@ jobs:
       - name: 安装其余依赖
         run: python -m pip install -r requirements.txt
 
-      # 106 - 1 = 105 passed / 1 deselected。
+      # 108 - 1 = 107 passed / 1 deselected。
       # 排除的唯一用例：tests/test_pipeline.py::test_embedding
       #   构造 EmbeddingEngine 即 SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")，
       #   既要模型权重（runner 无缓存、CI 也不下载）又要 GPU（runner 无显卡），必然失败。
       # 其余 77 个用例是手写小矩阵 / 桩对象（含裁判引擎的假模型设备搬运测试），离线确定性，CI 全跑。
-      # 本地全量（有 BGE 缓存 + GPU 的机器）：python -m pytest -q -rs → 106 passed。
+      # 本地全量（有 BGE 缓存 + GPU 的机器）：python -m pytest -q -rs → 108 passed。
       - name: 单元测试（离线；显式排除需要真实 BGE 模型 + GPU 的 1 个用例）
         run: |
           python -m pytest -q -rs \
