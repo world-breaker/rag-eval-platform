@@ -22,6 +22,9 @@ from experiments.run_generation_eval import (  # noqa: E402
     JUDGE_DIMENSIONS,
     agreement_stats,
     build_api_judge_messages,
+    cache_key,
+    cache_key_n,
+    cache_keys,
     char_f1,
     cost_cny,
     detect_refusal,
@@ -357,3 +360,45 @@ def test_eval_script_has_no_top_level_heavy_imports():
     head = src.split("def ")[0]
     for heavy in ["import torch", "import transformers", "sentence_transformers", "import requests"]:
         assert heavy not in head, f"顶层出现重依赖：{heavy}"
+
+
+# ---------------------------------------------------------------- 多次采样：缓存隔离
+
+
+def test_api_cache_key_depends_on_judge_samples():
+    """N 必须进缓存 key：否则 N=1 的缓存会被 N=3 命中，中位数就等于单次值。"""
+    msgs = build_api_judge_messages("问题？", "回答。", "上下文。")
+    k1 = cache_key_n(msgs, "deepseek-chat", 1, 0, 0.0)
+    k3 = cache_key_n(msgs, "deepseek-chat", 3, 0, 0.0)
+    assert k1 != k3
+    # 同 N 的不同采样次数也要分开（否则 3 次采样取回同一条响应）
+    assert cache_key_n(msgs, "deepseek-chat", 3, 0, 0.8) != cache_key_n(
+        msgs, "deepseek-chat", 3, 1, 0.8
+    )
+    # temperature 也进 key（0 与 0.8 的响应不同，不能混用）
+    assert cache_key_n(msgs, "deepseek-chat", 3, 0, 0.0) != cache_key_n(
+        msgs, "deepseek-chat", 3, 0, 0.8
+    )
+
+
+def test_n1_can_still_hit_legacy_cache_but_n3_cannot():
+    """N=1 允许回落到历史（无 N）缓存，避免重复付费；N=3 绝不允许命中它。"""
+    msgs = build_api_judge_messages("问题？", "回答。", "上下文。")
+    legacy = cache_key(msgs, "deepseek-chat")
+    keys_n1 = cache_keys(msgs, "deepseek-chat", 1, 0, 0.0)
+    assert legacy in keys_n1
+    keys_n3 = cache_keys(msgs, "deepseek-chat", 3, 0, 0.8)
+    assert legacy not in keys_n3
+    assert len(keys_n3) == 1
+
+
+def test_local_judge_no_longer_uses_tokenizer_device_proxy():
+    """回归守卫：设备搬运已进 src/evaluation.py，实验侧不得再留 workaround 类。
+
+    保留 workaround 会让「修复到底有没有生效」永远说不清（两条路径都通）。
+    """
+    src = (ROOT / "experiments/run_generation_eval.py").read_text(encoding="utf-8")
+    assert "class DeviceTokenProxy" not in src
+    # 直接传真实 tokenizer（不再包一层）
+    assert "judge_tokenizer = pipe.generator.tokenizer" in src
+

@@ -127,7 +127,13 @@ chunk 边界随切分策略/参数变化，chunk 索引无法跨策略对照；
   实测表明这一档小模型当裁判**与强裁判几乎不相关**，正式评测应改用强模型 / API；本地 1.5B 裁判只适合两端粗筛或离线占位。
 - **确定性替代**：`experiments/run_generation_eval.py` 的**规则判据臂**（数字/实体落地率、句子归因覆盖率、
   拒答判定、EM/F1/ROUGE-L/BLEU）零成本、离线可复现，实测比本地裁判更贴近强裁判，适合做回归门禁。
-- **已知缺陷**：`evaluation.py::_judge_single_dim` 在异常时静默回退到启发式打分，详见 §6.4 附录。
+- **已知缺陷（已修复，2026-10-20）**：`evaluation.py::_judge_single_dim` 曾把 tokenizer 产出的 CPU 张量
+  直接喂给 CUDA 上的裁判模型（缺设备搬运），异常又被 `try/except` 吞掉 → **静默退化成启发式打分**。
+  现已改为在 `generate` 前把输入搬到 `model.device`，并且任何兜底都写进 `meta.fallbacks`（带维度与原因）、
+  以 warning 日志点名、由报告层打印。验证：① 离线单测用假模型断言送进 `generate` 的张量都在 `model.device`；
+  ② GPU 上真实对比「旧版 vs 修复后」（同模型同一样本）：旧版三维全部抛
+  `Expected all tensors to be on the same device` 并返回启发式（`realistic#10` 得到 1/1/1），
+  修复后同一批样本拿到真实裁判分（4/3/3），33 条样本重跑与修复前（绕过版）逐条一致、零兜底。详见 §6.4 附录。
 
 ## 6. 实验结果
 
@@ -227,16 +233,27 @@ faithfulness 上 臂 B vs 臂 C：**精确一致 0.21、±1 一致 0.48、MAE 1.
 4. **可信区间**：只有答案与上下文**近乎逐字重合**（归因率≈1、落地率=1）或**整段拒答**时，本地裁判才与强裁判同档；
    「自己组织的正确改述」会被本地裁判压到 3 分档。
 
-**附录：本次实测发现的一处 `src/` 缺陷（本实验未改 `src/`，仅记录）**——
-`evaluation.py::_judge_single_dim` 把 tokenizer 产生的 **CPU** 张量直接喂给 `device_map="cuda"` 的裁判模型，
-GPU 上必抛 `Expected all tensors to be on the same device, but got index is on cpu`；
-该异常被 `try/except` 吞掉后**静默回退**到「按回答长度打分」的启发式（`_heuristic_score`），解析不出数字时给中性分 3。
-实验侧用三层 tokenizer 代理在外部补上设备搬运绕过（不动业务代码），并逐维度记录裁判原始输出以区分「真打 3 分」与「解析失败兜底」。
-建议最小修复（与 `generation.py::_generate_local` 同款）：
+**附录：曾发现并已修复的一处 `src/` 缺陷（设备搬运缺失 → 静默降级，2026-10-20）**
 
-```python
-inputs = {k: v.to(model.device) for k, v in inputs.items()}  # 在 model.generate 之前
-```
+修复前 `evaluation.py::_judge_single_dim` 把 tokenizer 产生的 **CPU** 张量直接喂给 `device_map="cuda"` 的
+裁判模型，GPU 上必抛 `Expected all tensors to be on the same device, but got index is on cpu, different from
+other tensors on cuda:0`；该异常被 `try/except` 吞掉后**静默回退**到「按回答长度打分」的启发式
+（`_heuristic_score`）。后果不是「偶尔不准」，而是**只要裁判模型在 GPU 上，报告里的裁判分就全是兜底值**
+且看不出来——生产闸门里最危险的一类错误。
+
+- **修复**：`_generate_judge_raw` 在 `generate` 前把输入搬到 `model.device`（无该属性时退回 tokenizer / CPU）；
+  两类兜底（异常→启发式、输出解析不出数字→中性 3.0）都返回结构化 `source` 并写进 `meta.fallbacks`，
+  同时以 warning 日志点名「该分数来自启发式兜底，不是 LLM 裁判」；报告层逐条打印。
+- **验证证据（本机 GPU 实测，同一模型同一样本，旧版代码从 `git show HEAD:src/evaluation.py` 加载）**：
+
+  | 样本 | 回答字符数 | 修复前（旧版） | 修复后 | 说明 |
+  |---|---|---|---|---|
+  | `realistic#10` | 70 | 1 / 1 / 1（＝启发式） | 4 / 3 / 3（source=llm） | 旧版三维全部抛设备异常后兜底 |
+  | `realistic#5` | 342 | 1.71 / 2.28 / 3.42（＝启发式） | 3 / 3 / 3（source=llm） | 启发式按长度给分，与裁判无关 |
+
+- **等价性验证**：`--no-api` 全量重跑（33 条）与修复前「用 tokenizer 代理绕过」的结果**逐条完全一致**
+  （local 裁判三维 33/33 相同、均值相同、零兜底）——说明当时的 workaround 与直跑等价，
+  历史报告的数字没有被 workaround 污染。
 
 ## 7. 设计取舍
 
@@ -257,15 +274,22 @@ inputs = {k: v.to(model.device) for k, v in inputs.items()}  # 在 model.generat
 | 生成模型延迟加载 | 只做检索评测/演示时不必加载 3GB 权重 | 首次问答有一次性加载延迟 |
 | 裁判默认用生成同款 1.5B（自评） | 零额外依赖、离线可跑 | **实测与强裁判几乎不相关**（r≈−0.03），不可作正式质量证据；正式评测应换强模型/API（见 §6.4） |
 | 评测同时提供规则判据臂 | 零成本、确定性、离线可复现，适合回归门禁 | 字面指标（2-gram 覆盖）会误判改述句；只给 1–5 粗分，当「有据/无据」二分类看 |
-| 强裁判 API 每样本只调一次 + 磁盘缓存 | 费用可控（本次 ¥0.023）、重跑零成本 | 无多次采样，裁判自身方差未知；绝对值随 API 模型滚动变化 |
+| 强裁判 API 每样本调 1 次（可配 N 取中位数）+ 磁盘缓存 | 费用可控（本次 ¥0.023）、重跑零成本；N=1 与历史行为一致 | 本轮未实测 N>1，裁判自身方差仍未知；绝对值随 API 模型滚动变化 |
+| 缓存 key 含 N / 第几次采样 / temperature | 否则 N=1 的缓存会被 N=3 命中，中位数退化为单次值而看不出来 | 缓存条目变多；N=1 额外保留旧 key 回落（避免重复付费） |
+| 裁判兜底必须可观测（`meta.fallbacks` + warning + 报告打印） | 「有数但是兜底值」是最危险的假绿；生产闸门不允许 | 调用方要读 `meta` 才能看到来源；报告多一节兜底表 |
+| `vector_store` 只接受 numpy，其他值启动即报错 | 配置里写一个永不生效的选项＝配置不诚实 | 想上 Faiss/Chroma 必须真的实现后再放开白名单 |
 | key 只从环境变量读、缓存不含 key | 密钥绝不入库 | 使用时需自行注入环境变量，无便捷配置项 |
 
 ## 8. 扩展点
 
 - 向量库：Faiss IVF+PQ / Chroma；
 - 重排：**默认 `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`**（470MB、多语言、CPU 可跑，第 6 节实测用的就是它）；中文专用可换 `BAAI/bge-reranker-v2-m3`（未实测，需 ~2.27GB）；
-- 生成评测：**多次评分取中位数**——**仍未实现**。当前强裁判每样本只调一次（费用/预算护栏所限），
-  因此裁判自身方差未知；本地 1.5B 裁判的方差也未测（见 §6.4 的诚实边界）；
+- 生成评测：**多次评分取中位数——已实现（默认 N=1；本轮未实测 N>1）**。
+  `config.yaml` 的 `evaluation.judge_samples`（CLI `--judge-samples N`）支持同一答案调 N 次取中位数；
+  N=1 时保持单次贪心解码，与历史行为逐比特一致（有离线单测守住）。N>1 时裁判改为按
+  `judge_temperature` 采样；API 臂的 N 次采样计入预算预估与 ¥0.5 硬上限，且缓存 key 带 N/第几次/temperature，
+  N=1 的缓存不会被 N=3 命中。**注意**：本轮所有报告数字仍是 N=1 跑出来的，所以「裁判自身方差」仍未实测——
+  要回答方差得花 N 倍费用重跑，本轮没有花这笔钱；
 - 生成评测：接入更强、更稳定的裁判模型，或对裁判做多模型投票，替代/补充当前「自评」默认；
 - 引用校验：答案句级 citation 与来源对齐；
 - 查询改写：step-back / 术语归一化（当前仅 HyDE 与 multi-query）。

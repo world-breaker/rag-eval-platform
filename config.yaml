@@ -20,10 +20,11 @@ retrieval:
   top_k: 5
   similarity_threshold: 0.3    # 余弦相似度低于此值的文档丢弃（仅 vector 模式生效；bm25/hybrid 用排名）
   rrf_k: 60                   # RRF 融合常数（1/(k+rank)），越大越偏向单路高排名
-  # 向量库预留位：当前实现为内存中的 NumPy 余弦检索（见 src/retrieval.py），
-  # 小规模知识库零依赖足够；规模上量后可平滑切换到 Faiss / Chroma 等方案。
-  vector_store: "numpy"        # numpy（内置实现）| chromadb（预留，尚未接入代码）
-  persist_dir: "./data/chroma_db"   # 仅 vector_store=chromadb 时使用（预留）
+  # 向量库现状：实现为内存中的 NumPy 余弦检索（见 src/retrieval.py），
+  # 小规模知识库零依赖足够；规模上量后可平滑切换到 Faiss / Chroma 等方案（**尚未实现**）。
+  # 注意：这里若写 numpy 以外的值，load_config() 会**直接报错**（不再假装支持）。
+  vector_store: "numpy"        # 当前唯一支持值：numpy；chromadb / faiss 未接入代码
+  persist_dir: "./data/chroma_db"   # 预留位：当前无任何代码读取（vector_store=numpy 时无效）
 
   # 混合检索（retrieval.mode="hybrid" 时生效）：BM25 + 向量双路召回，RRF 融合
   hybrid:
@@ -65,6 +66,10 @@ evaluation:
   # experiments/results/generation_eval_*.md（与强裁判 API 的三臂一致率对照）
   judge_model: "Qwen/Qwen2.5-1.5B-Instruct"  # 用同款模型自评
   judge_dimensions: ["faithfulness", "relevance", "completeness"]
+  # 同一样本调 N 次裁判取中位数（N=1 = 历史行为：单次贪心解码，逐比特可复现）。
+  # N>1 时裁判改为按 judge_temperature 采样，用中位数压制单次抖动；费用/耗时线性增长。
+  judge_samples: 1             # CLI 可覆盖：run_generation_eval.py --judge-samples N
+  judge_temperature: 0.8       # 仅 judge_samples>1 生效（N=1 仍走贪心）
   # 传统指标
   traditional_metrics: ["bleu", "rouge_l"]
   # 评测数据集

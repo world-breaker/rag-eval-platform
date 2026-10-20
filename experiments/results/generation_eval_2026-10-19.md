@@ -197,6 +197,12 @@
 inputs = {k: v.to(model.device) for k, v in inputs.items()}  # 在 model.generate 之前
 ```
 
+> **后续（2026-10-20）**：该缺陷已在 `src/evaluation.py` 修复（输入张量搬到 `model.device`），
+> 实验侧的 tokenizer 代理 workaround 已删除；兜底会写进 `meta.fallbacks` 并在报告 3.5 节打印。
+> 用 `--no-api` 复跑 33 条，臂 B 三维分数与本报告**逐条完全一致**（0 条差异、零兜底），
+> 说明当时的 workaround 与直跑等价，本报告的数字未被绕过路径污染。
+> 本节其余表述保留为本报告发布时的原始记录。
+
 ## 八、复现命令
 
 ```bash

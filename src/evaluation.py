@@ -1,21 +1,32 @@
 """评测模块：三层指标体系。
 
 - 分三层的原因：检索错误会传导到生成，需要独立评检索；生成是否忠实/切题需要独立评生成。
-- LLM-as-Judge 的一致性问题：同一条答案多次打分可能不同，可通过结构化输出约束 + 多次评分取中位数缓解。
+- LLM-as-Judge 的一致性问题：同一条答案多次打分可能不同，可用结构化输出约束 +
+  多次评分取中位数缓解（`evaluation.judge_samples`，默认 1 = 历史行为）。
+
+裁判的两类「静默降级」都在本模块被显式标记（不再只看得到分数、看不到来源）：
+1. 异常（含设备不一致）→ 启发式兜底 `_heuristic_score`；
+2. 裁判输出解析不出 1-5 数字 → 中性兜底 3.0。
+两者都会写进 `meta.fallbacks`（维度 + 原因 + 原始输出）并以 warning 级日志点名，
+报告层可直接打印，避免「报告里有数、其实是兜底值」。
 """
 
 import re
 import json
+import statistics
 import numpy as np
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 from collections import defaultdict
 from src.utils import logger, timer
+
+# 兜底来源（出现在 meta.fallbacks 里的两种 source；其余 source 表示分数确实来自裁判）
+FALLBACK_SOURCES = ("heuristic", "neutral_unparsed")
 
 
 class EvaluationEngine:
     """评测引擎。三层指标：检索质量 + 生成质量 + 传统指标。"""
 
-    def __init__(self, config: dict):
+    def __init__(self, config: dict, judge_samples: Optional[int] = None):
         eval_cfg = config["evaluation"]
         self.retrieval_metrics = eval_cfg.get(
             "retrieval_metrics", ["recall@3", "recall@5", "mrr"]
@@ -26,6 +37,28 @@ class EvaluationEngine:
         self.traditional_metrics = eval_cfg.get(
             "traditional_metrics", ["bleu", "rouge_l"]
         )
+        # 同一样本调 N 次裁判取中位数（N=1 时与历史行为完全一致：单次贪心解码）
+        self.judge_samples = self.validate_judge_samples(
+            eval_cfg.get("judge_samples", 1) if judge_samples is None else judge_samples
+        )
+        # 只有 N>1 才启用采样（N=1 保持 temperature=0/贪心，保证可复现与历史可比）
+        self.judge_temperature = float(eval_cfg.get("judge_temperature", 0.8))
+
+    @staticmethod
+    def validate_judge_samples(n) -> int:
+        """judge_samples 必须是 ≥1 的整数；配置写错要立刻炸，不要静默按 1 跑。"""
+        try:
+            n = int(n)
+        except (TypeError, ValueError):
+            raise ValueError(f"evaluation.judge_samples 必须是正整数，实际 {n!r}")
+        if n < 1:
+            raise ValueError(f"evaluation.judge_samples 必须 ≥ 1，实际 {n!r}")
+        return n
+
+    def set_judge_samples(self, n: int) -> int:
+        """运行时覆盖采样次数（供 CLI `--judge-samples N` 使用）。"""
+        self.judge_samples = self.validate_judge_samples(n)
+        return self.judge_samples
 
     # ========== 检索评测 ==========
 
@@ -103,23 +136,116 @@ class EvaluationEngine:
         context: str,
         judge_model=None,
         judge_tokenizer=None,
-    ) -> Dict[str, float]:
+        return_meta: bool = False,
+    ):
         """
         LLM-as-Judge：从多个维度打分。
         judge_model/tokenizer 传入已加载的模型，不重复加载。
+
+        返回（默认，向后兼容）：{dimension: score}
+        返回（return_meta=True）：{"scores": {dim: score}, "meta": {...}}
+        meta 里带 `judge_samples`（采样次数）与 `fallbacks`（哪些维度、因为什么用了兜底），
+        这样调用方不必「猜」某个分是裁判给的还是兜底值。
         """
-        scores = {}
+        scores: Dict[str, float] = {}
+        details: Dict[str, Dict] = {}
+        fallbacks: List[Dict] = []
         for dim in self.judge_dimensions:
-            score = self._judge_single_dim(
+            r = self._judge_single_dim(
                 dim, question, answer, context, judge_model, judge_tokenizer
             )
-            scores[dim] = score
+            scores[dim] = r["score"]
+            details[dim] = r
+            if r["source"] in FALLBACK_SOURCES:
+                fallbacks.append(
+                    {
+                        "dim": dim,
+                        "source": r["source"],
+                        "score": r["score"],
+                        "reason": r["reason"],
+                        "raws": r["raws"],
+                    }
+                )
+
+        if return_meta:
+            return {
+                "scores": scores,
+                "meta": {
+                    "judge_samples": self.judge_samples,
+                    "fallbacks": fallbacks,
+                    "details": details,
+                },
+            }
         return scores
+
+    @staticmethod
+    def _resolve_input_device(model, tokenizer, torch_module):
+        """输入张量该去的设备：优先模型（`model.device`），其次 tokenizer，最后 CPU。
+
+        为什么需要兜底：包装类（如实验侧的记录器）或不带 `device` 属性的自定义模型
+        未必有 `model.device`；此时若直接取属性会 AttributeError，若默认 CPU 则
+        **在 GPU 上必然复现「张量在 CPU、权重在 GPU」的崩溃**。
+        """
+        for holder in (model, tokenizer):
+            device = getattr(holder, "device", None)
+            if device is not None:
+                return device
+        return torch_module.device("cpu")
+
+    def _generate_judge_raw(
+        self, dimension: str, judge_prompt: str, model, tokenizer, torch_module
+    ) -> str:
+        """跑一次裁判生成，返回解码后的原始文本（解析在调用方做）。"""
+        messages = [{"role": "user", "content": judge_prompt}]
+        text = tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True
+        )
+        inputs = tokenizer(text, return_tensors="pt")
+
+        # 输入必须与模型权重同设备：tokenizer 产出的是 CPU 张量，而裁判模型通常在
+        # device_map="cuda" 上（见 src/generation.py::_generate_local 的同款处理）。
+        # 漏掉这一步会抛 "Expected all tensors to be on the same device"，
+        # 而该异常会被兜底逻辑吞掉——那就变成了「看似有分、其实是启发式」。
+        target_device = self._resolve_input_device(model, tokenizer, torch_module)
+        inputs = {
+            k: (v.to(target_device) if hasattr(v, "to") else v)
+            for k, v in inputs.items()
+        }
+
+        gen_kwargs = {
+            "max_new_tokens": 5,
+            "pad_token_id": tokenizer.eos_token_id,
+        }
+        if self.judge_samples > 1:
+            # 多次采样才有「方差」可言：N>1 时按 temperature 采样（结构化约束仍是「只输出数字」）
+            gen_kwargs.update(
+                do_sample=True,
+                temperature=self.judge_temperature,
+                top_p=0.95,
+            )
+        else:
+            # N=1 保持历史行为：贪心解码，可复现
+            gen_kwargs.update(do_sample=False)
+
+        with torch_module.no_grad():
+            outputs = model.generate(**inputs, **gen_kwargs)
+        return tokenizer.decode(
+            outputs[0][len(inputs["input_ids"][0]) :], skip_special_tokens=True
+        ).strip()
 
     def _judge_single_dim(
         self, dimension: str, question: str, answer: str, context: str, model, tokenizer
-    ) -> float:
-        """单维度 LLM 评判（1-5分）"""
+    ) -> Dict:
+        """单维度 LLM 评判（1-5分）。
+
+        返回结构化结果，而不是裸分数：
+        `{"score", "source", "reason", "parsed", "raws", "n"}`
+        - source="llm"（N=1 单次）/ "llm_median"（N>1 取中位数）：分数来自裁判；
+        - source="heuristic"：异常兜底（分数是 `_heuristic_score`，**不是**裁判给的）；
+        - source="neutral_unparsed"：裁判输出解析不出数字，给中性兜底 3.0。
+
+        N>1 时同一样本调 N 次、取**中位数**（对偶数的 N 取中间两数均值，可能是 .5）。
+        """
         criteria = {
             "faithfulness": "回答中的每一条信息是否都能在参考文档中找到依据？有没有编造？",
             "relevance": "回答是否直接回应了用户的问题？有没有偏离主题？",
@@ -143,35 +269,99 @@ class EvaluationEngine:
 ## 请输出一个 1-5 的数字（5=完美，1=完全不合格）
 分数："""
 
-        try:
-            if model is None:
-                # 没有模型用启发式评分——不作为正式评估
-                return self._heuristic_score(dimension, answer, context)
-
-            messages = [{"role": "user", "content": judge_prompt}]
-            text = tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True
+        if model is None:
+            # 没有模型用启发式评分——不作为正式评估，必须标记来源
+            score = self._heuristic_score(dimension, answer, context)
+            reason = "未传入裁判模型（judge_model=None），分数由 _heuristic_score 生成"
+            logger.warning(
+                f"LLM-as-Judge「{dimension}」该分数来自启发式兜底（不是 LLM 裁判）：{reason}；"
+                f"score={score}"
             )
-            inputs = tokenizer(text, return_tensors="pt")
+            return {
+                "score": score,
+                "source": "heuristic",
+                "reason": reason,
+                "parsed": [],
+                "raws": [],
+                "n": 0,
+            }
 
-            import torch
+        import torch
 
-            with torch.no_grad():
-                outputs = model.generate(
-                    **inputs, max_new_tokens=5, do_sample=False, pad_token_id=tokenizer.eos_token_id
+        n = self.judge_samples
+        parsed: List[float] = []
+        raws: List[str] = []
+        failures: List[str] = []
+        for i in range(n):
+            try:
+                raw = self._generate_judge_raw(
+                    dimension, judge_prompt, model, tokenizer, torch
                 )
-            response = tokenizer.decode(
-                outputs[0][len(inputs["input_ids"][0]) :], skip_special_tokens=True
-            ).strip()
-
-            # 提取数字
-            match = re.search(r"([1-5])", response)
+            except Exception as e:  # 单次失败不炸整批；但要留下原因
+                failures.append(f"第{i + 1}次调用异常 {type(e).__name__}: {str(e)[:200]}")
+                continue
+            raws.append(raw)
+            match = re.search(r"([1-5])", raw)
             if match:
-                return int(match.group(1))
-            return 3.0  # 无法解析时给中性分
-        except Exception as e:
-            logger.warning(f"LLM-as-Judge {dimension} 评分失败: {e}")
-            return self._heuristic_score(dimension, answer, context)
+                parsed.append(float(int(match.group(1))))
+            else:
+                failures.append(f"第{i + 1}次输出未解析出 1-5 数字: {raw!r}")
+
+        if not parsed:
+            # 一次都没拿到可用分数：区分「调用异常」与「输出不可解析」。
+            # 两者都不许静默——前者用启发式兜底（保持历史行为），后者沿用中性 3.0。
+            reason = "；".join(failures) or "裁判未产出可用输出"
+            if not raws:  # 全部走到了异常分支（不是「输出不可解析」）
+                score = self._heuristic_score(dimension, answer, context)
+                logger.warning(
+                    f"LLM-as-Judge「{dimension}」该分数来自启发式兜底（不是 LLM 裁判）："
+                    f"{reason}；score={score}"
+                )
+                return {
+                    "score": score,
+                    "source": "heuristic",
+                    "reason": reason,
+                    "parsed": [],
+                    "raws": raws,
+                    "n": n,
+                }
+            logger.warning(
+                f"LLM-as-Judge「{dimension}」裁判输出无法解析出数字，"
+                f"该分数为中性兜底值 3.0（不是 LLM 裁判给出的分）：{reason}"
+            )
+            return {
+                "score": 3.0,
+                "source": "neutral_unparsed",
+                "reason": reason,
+                "parsed": [],
+                "raws": raws,
+                "n": n,
+            }
+
+        if n == 1:
+            # N=1：与历史行为完全一致——单次生成、取该次分数
+            return {
+                "score": parsed[0],
+                "source": "llm",
+                "reason": None,
+                "parsed": parsed,
+                "raws": raws,
+                "n": n,
+            }
+
+        score = round(float(statistics.median(parsed)), 2)
+        reason = None
+        if failures:
+            reason = f"{len(parsed)}/{n} 次拿到可用分数，其余失败：" + "；".join(failures)
+            logger.warning(f"LLM-as-Judge「{dimension}」部分采样失败，中位数取自已成功的那几次：{reason}")
+        return {
+            "score": score,
+            "source": "llm_median",
+            "reason": reason,
+            "parsed": parsed,
+            "raws": raws,
+            "n": n,
+        }
 
     def _heuristic_score(self, dimension: str, answer: str, context: str) -> float:
         """无 LLM 时的启发式评分（粗糙但可运行）"""
@@ -265,9 +455,12 @@ class EvaluationEngine:
 
         # 层2：生成质量（LLM-as-Judge）
         context = "\n".join([d["text"][:500] for d in retrieved_docs[:3]])
-        report["generation_quality"] = self.evaluate_generation(
-            question, answer, context, judge_model, judge_tokenizer
+        gen = self.evaluate_generation(
+            question, answer, context, judge_model, judge_tokenizer, return_meta=True
         )
+        report["generation_quality"] = gen["scores"]
+        # 兜底来源单独放（不污染分数结构）：报告层可据此标出「这个分不是裁判给的」
+        report["generation_meta"] = gen["meta"]
 
         # 层3：传统指标
         if reference_answer:

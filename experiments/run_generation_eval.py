@@ -24,9 +24,11 @@
 
 成本与密钥纪律：
 - API key **只从环境变量 `DEEPSEEK_API_KEY` 读**，绝不写入任何文件/日志/报告/缓存/异常文本。
-- 每样本只调 1 次（一次返回 3 维）、temperature=0、max_tokens 收紧、响应落盘缓存
+- 默认每样本只调 1 次（一次返回 3 维）、temperature=0、max_tokens 收紧、响应落盘缓存
   （`experiments/results/api_judge_cache.json`，内容不含 key）；重跑优先读缓存，不重复花钱。
-- 费用硬上限 ¥0.5：预估超限直接拒绝启动 API 臂；运行中累计超限立即停止并在报告里写明。
+- `--judge-samples N` 可对同一样本调 N 次取中位数（N=1 与历史行为一致）。
+  缓存 key 里带 N / 第几次 / temperature，**N=1 的缓存不会被 N=3 命中**（否则中位数会被单次值污染）。
+- 费用硬上限 ¥0.5：预估（已按 N 放大）超限直接拒绝启动 API 臂；运行中累计超限立即停止并在报告里写明。
 """
 
 import argparse
@@ -36,6 +38,7 @@ import json
 import math
 import os
 import re
+import statistics
 import sys
 import time
 import urllib.request
@@ -475,15 +478,26 @@ def cost_cny(prompt_tokens: int, completion_tokens: int, ts: float) -> float:
 class RecordingLM:
     """包装本地模型，记录裁判每次输出的原始文本（**不改 src/**）。
 
-    `EvaluationEngine._judge_single_dim` 在校验解析失败时会静默返回中性分 3.0，
-    不记录原始输出就无法区分「真的打了 3 分」与「没解析出来」——
-    而这恰恰是判断小模型裁判可信度的关键证据。
+    `evaluation.py` 从 2026-10-20 起自己返回 `meta.details[dim]["raws"]`，
+    这个包装器只作为「模型对象」的薄壳保留（并提供 `device` 透传），
+    方便对照「引擎记录的原始输出」与「模型真的输出什么」是否一致。
     """
 
     def __init__(self, model, tokenizer):
         self.model = model
         self.tokenizer = tokenizer
         self.records: List[str] = []
+
+    @property
+    def device(self):
+        """把内层模型的设备透出去（`evaluation.py` 用它决定输入张量搬到哪）。
+
+        为什么必须透传：裁判引擎按 `model.device` 搬张量；包装类若没有这个属性，
+        引擎只能退回 CPU —— 那正是「张量在 CPU、权重在 GPU」崩溃的原始成因。
+        """
+        return getattr(self.model, "device", None) or getattr(
+            self.tokenizer, "device", None
+        )
 
     def generate(self, **kwargs):
         input_ids = kwargs.get("input_ids")
@@ -500,31 +514,6 @@ class RecordingLM:
         except Exception:  # noqa: BLE001 —— 记录失败不能影响评测本身
             self.records.append("<decode failed>")
         return out
-
-
-class DeviceTokenProxy:
-    """把 tokenizer 的编码结果搬到模型所在设备（补齐 src/evaluation.py 缺的一步）。
-
-    为什么需要：`EvaluationEngine._judge_single_dim` 用 `tokenizer(text, return_tensors="pt")`
-    得到的是 **CPU** 张量，却直接喂给 `device_map="cuda"` 的模型。GPU 上实测必报
-    `Expected all tensors to be on the same device ...`，而该异常被 try/except 吞掉后
-    **静默回退到「按回答长度打分」的启发式**——这正是「生成层有实现、零实测」被掩盖的方式。
-    （生成路径 `src/generation.py::_generate_local` 做了设备搬运，评测路径漏了。）
-
-    为什么用代理而不是直接改 src：评测实验不该顺手改业务代码；但缺陷已如实写进报告，
-    并给出最小修复建议（`inputs = {k: v.to(target_device) ...}`，与 generation.py 同款）。
-    """
-
-    def __init__(self, tokenizer, device):
-        self._tok = tokenizer
-        self._device = device
-
-    def __getattr__(self, item):
-        return getattr(self._tok, item)
-
-    def __call__(self, *args, **kwargs):
-        out = self._tok(*args, **kwargs)
-        return {k: v.to(self._device) for k, v in out.items()}
 
 
 # ---------------------------------------------------------------- 数据与上下文
@@ -642,8 +631,39 @@ def save_api_cache(cache: Dict) -> None:
 
 
 def cache_key(messages: List[Dict], model: str) -> str:
+    """历史缓存 key（不含采样次数）——只为兼容已付费的旧缓存而保留。"""
     blob = model + "\n" + "\n".join(m["role"] + ":" + m["content"] for m in messages)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
+
+def cache_key_n(
+    messages: List[Dict], model: str, judge_samples: int, sample_index: int, temperature: float
+) -> str:
+    """带采样次数/第几次采样/temperature 的缓存 key。
+
+    为什么必须带 N：N=1 的缓存若被 N=3 命中，三次采样会拿到同一条响应，
+    中位数就等于单次值——数字被污染且看不出来。temperature 一并进 key 同理。
+    """
+    blob = "\n".join(
+        [
+            f"model={model}",
+            f"n={judge_samples}",
+            f"i={sample_index}",
+            f"t={temperature}",
+            "\n".join(m["role"] + ":" + m["content"] for m in messages),
+        ]
+    )
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
+
+def cache_keys(
+    messages: List[Dict], model: str, judge_samples: int, sample_index: int, temperature: float
+) -> List[str]:
+    """候选 key（按优先级）。仅 N=1 且首次采样时，额外允许命中历史「无 N」的 key。"""
+    keys = [cache_key_n(messages, model, judge_samples, sample_index, temperature)]
+    if judge_samples == 1 and sample_index == 0 and temperature == 0.0:
+        keys.append(cache_key(messages, model))
+    return keys
 
 
 def call_api_chat(
@@ -685,31 +705,41 @@ def call_api_chat(
 
 
 def call_api_judge(
-    key: str, messages: List[Dict], cache: Dict, max_retry: int = 2
+    key: str,
+    messages: List[Dict],
+    cache: Dict,
+    sample_index: int = 0,
+    judge_samples: int = 1,
+    temperature: float = 0.0,
+    max_retry: int = 2,
 ) -> Tuple[Dict, Dict]:
     """一次调用返回 3 维 JSON。优先读缓存；失败最多重试 2 次。
 
+    `judge_samples` / `sample_index` / `temperature` 都进缓存 key：
+    N>1 时第 i 次采样各存各的（重跑不再花钱）；N=1 时仍可命中历史「无 N」缓存。
     返回 (scores, meta)。meta 含 usage / 来源（cache|api）/ 失败原因。
     """
-    ck = cache_key(messages, DEEPSEEK_MODEL)
-    entry = cache.get(ck) or {}
-    if "scores" in entry:
-        return (
-            {d: entry["scores"].get(d) for d in JUDGE_DIMENSIONS},
-            {
-                "source": "cache",
-                "ts": entry.get("ts"),
-                "usage": entry.get("usage", {}),
-                "model_returned": entry.get("model_returned"),
-                "raw": entry.get("raw", ""),
-                "error": None,
-            },
-        )
+    keys = cache_keys(messages, DEEPSEEK_MODEL, judge_samples, sample_index, temperature)
+    for ck in keys:
+        entry = cache.get(ck) or {}
+        if "scores" in entry:
+            return (
+                {d: entry["scores"].get(d) for d in JUDGE_DIMENSIONS},
+                {
+                    "source": "cache",
+                    "ts": entry.get("ts"),
+                    "usage": entry.get("usage", {}),
+                    "model_returned": entry.get("model_returned"),
+                    "raw": entry.get("raw", ""),
+                    "error": None,
+                },
+            )
+    ck = keys[0]
 
     payload = {
         "model": DEEPSEEK_MODEL,
         "messages": messages,
-        "temperature": 0,
+        "temperature": temperature,
         "max_tokens": 96,
         "response_format": {"type": "json_object"},
         "thinking": {"type": "disabled"},
@@ -731,6 +761,9 @@ def call_api_judge(
                 "model_returned": data.get("model"),
                 "ts": ts,
                 "via": "proxy" if use_proxy else "direct",
+                "judge_samples": judge_samples,
+                "sample_index": sample_index,
+                "temperature": temperature,
             }
             cache[ck] = entry
             save_api_cache(cache)
@@ -847,13 +880,17 @@ def run_api_answers(
 
 
 def run_local_judge(pipe, samples: List[Dict], recording, checkpoint) -> None:
-    """臂 B：调用仓库现有的 evaluate_generation()（不自造 prompt）。"""
-    # 用 tokenizer 代理补齐 src/evaluation.py 漏掉的设备搬运（见 DeviceTokenProxy 说明）
-    judge_tokenizer = DeviceTokenProxy(
-        pipe.generator.tokenizer,
-        getattr(pipe.generator.model, "device", None) or "cpu",
-    )
+    """臂 B：调用仓库现有的 evaluate_generation()（不自造 prompt）。
+
+    2026-10-20 起：设备搬运与兜底标记都在 `src/evaluation.py` 内部完成，
+    这里**不再需要 tokenizer 代理**（旧的 DeviceTokenProxy 已删除）。
+    每个维度的分数来源（`llm` / `llm_median` / `heuristic` / `neutral_unparsed`）
+    由 `evaluate_generation(return_meta=True)` 返回，记进 `judge.local.fallbacks`，
+    报告层逐条打印——兜底不再静默。
+    """
+    judge_tokenizer = pipe.generator.tokenizer
     judge_model = recording
+    n = pipe.evaluator.judge_samples
     for s in samples:
         if s.get("judge", {}).get("local"):
             continue
@@ -864,83 +901,162 @@ def run_local_judge(pipe, samples: List[Dict], recording, checkpoint) -> None:
         recording.records.clear()
         t0 = time.time()
         try:
-            scores = pipe.evaluator.evaluate_generation(
-                s["question"], s["answer"], s["context"], judge_model, judge_tokenizer
+            res = pipe.evaluator.evaluate_generation(
+                s["question"],
+                s["answer"],
+                s["context"],
+                judge_model,
+                judge_tokenizer,
+                return_meta=True,
             )
-            raws = list(recording.records)
+            scores = res["scores"]
+            meta = res["meta"]
         except Exception as e:  # noqa: BLE001
             s.setdefault("judge", {})["local"] = {"error": f"{type(e).__name__}: {str(e)[:300]}"}
             checkpoint()
             print(f"  [ERR] {s['id']} 本地裁判失败：{s['judge']['local']['error']}")
             continue
+        details = meta.get("details") or {}
         detail = {}
-        for dim, raw in zip(JUDGE_DIMENSIONS, raws):
-            m = re.search(r"([1-5])", raw)
+        for dim in JUDGE_DIMENSIONS:
+            d = details.get(dim) or {}
             detail[dim] = {
                 "score": scores.get(dim),
-                "raw": raw,
-                "parsed": int(m.group(1)) if m else None,
+                # source：llm / llm_median = 分数来自裁判；heuristic / neutral_unparsed = 兜底
+                "source": d.get("source"),
+                "raws": d.get("raws") or [],
+                "parsed": d.get("parsed") or [],
+                "raw": " / ".join(d.get("raws") or []),
+                "reason": d.get("reason"),
             }
+        fallbacks = [
+            {
+                "dim": f.get("dim"),
+                "source": f.get("source"),
+                "score": f.get("score"),
+                "reason": f.get("reason"),
+            }
+            for f in (meta.get("fallbacks") or [])
+        ]
         s.setdefault("judge", {})["local"] = {
             "scores": {d: scores.get(d) for d in JUDGE_DIMENSIONS},
             "detail": detail,
-            "unparsed": [d for d, v in detail.items() if v["parsed"] is None],
-            # 关键证据：这些维度的分数不是模型给的，而是 src/evaluation.py 异常兜底后的启发式
-            "used_heuristic": [
-                d
-                for d, v in detail.items()
-                if v["raw"] in ("<generate failed>", "<decode failed>") or v["raw"] == ""
-            ],
+            "judge_samples": meta.get("judge_samples", n),
+            "fallbacks": fallbacks,
+            "unparsed": [f["dim"] for f in fallbacks if f["source"] == "neutral_unparsed"],
+            # 关键证据：这些维度的分数不是模型给的，而是异常兜底后的启发式
+            "used_heuristic": [f["dim"] for f in fallbacks if f["source"] == "heuristic"],
             "elapsed_s": round(time.time() - t0, 2),
             "model": pipe.config["generation"]["model_name"],
         }
         checkpoint()
-        print(f"  [{s['id']}] local judge {s['judge']['local']['scores']}")
+        fb = ",".join(f"{f['dim']}({f['source']})" for f in fallbacks) or "无"
+        print(f"  [{s['id']}] local judge {s['judge']['local']['scores']} 兜底：{fb}")
 
 
-def run_api_judge(samples: List[Dict], key: str, cache: Dict, checkpoint, report: Dict) -> None:
-    """臂 C：强裁判 API（一次调用 3 维）。含费用硬上限与超限中止。"""
+
+def run_api_judge(
+    samples: List[Dict], key: str, cache: Dict, checkpoint, report: Dict,
+    judge_samples: int = 1, judge_temperature: float = 0.8,
+) -> None:
+    """臂 C：强裁判 API（一次调用 3 维）。含 N 次采样、费用硬上限与超限中止。
+
+    N>1 时同一样本调 N 次（temperature>0），逐维度取中位数；每次调用的 token/费用
+    都记进 `api_meta.calls`，报告里能看到「N 次采样 / 每次 token / 总费用」。
+    N=1 时与历史行为一致（temperature=0、单次、命中旧缓存）。
+    """
     calls = report["api_meta"]["calls"]
     spent = report["api_meta"]["cost_cny"]
+    temp = 0.0 if judge_samples == 1 else judge_temperature
     for s in samples:
         if s.get("judge", {}).get("api"):
             continue
         messages = build_api_judge_messages(s["question"], s["answer"], s["context"])
-        scores, meta = call_api_judge(key, messages, cache)
-        s.setdefault("judge", {})["api"] = {
-            "scores": scores,
-            "raw": meta.get("raw", ""),
-            "model_returned": meta.get("model_returned"),
-            "source": meta.get("source"),
-            "error": meta.get("error"),
-            "via": (cache.get(cache_key(messages, DEEPSEEK_MODEL), {}) or {}).get("via"),
-        }
-        usage = meta.get("usage") or {}
-        pt, ct = usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0)
-        if meta.get("source") == "api" and usage:
-            c = cost_cny(pt, ct, meta.get("ts") or time.time())
-            spent += c
-            calls.append(
+        per_call: List[Dict] = []
+        dim_values: Dict[str, List[float]] = {d: [] for d in JUDGE_DIMENSIONS}
+        errors: List[str] = []
+        aborted = False
+        for i in range(judge_samples):
+            scores, meta = call_api_judge(
+                key, messages, cache,
+                sample_index=i, judge_samples=judge_samples, temperature=temp,
+            )
+            usage = meta.get("usage") or {}
+            pt, ct = usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0)
+            c = 0.0
+            if meta.get("source") == "api" and usage:
+                c = cost_cny(pt, ct, meta.get("ts") or time.time())
+                spent += c
+                calls.append(
+                    {
+                        "id": s["id"],
+                        "sample_index": i,
+                        "judge_samples": judge_samples,
+                        "prompt_tokens": pt,
+                        "completion_tokens": ct,
+                        "cache_hit_tokens": usage.get("prompt_cache_hit_tokens", 0),
+                        "cost_cny": round(c, 6),
+                        "peak": is_peak(meta.get("ts") or time.time()),
+                    }
+                )
+            elif meta.get("source") == "cache":
+                report["api_meta"]["cache_hits"] += 1
+            if meta.get("error"):
+                errors.append(f"第{i + 1}次: {meta['error']}")
+            for d in JUDGE_DIMENSIONS:
+                v = (scores or {}).get(d)
+                if isinstance(v, (int, float)):
+                    dim_values[d].append(float(v))
+            per_call.append(
                 {
-                    "id": s["id"],
+                    "scores": scores,
+                    "source": meta.get("source"),
+                    "raw": meta.get("raw", ""),
                     "prompt_tokens": pt,
                     "completion_tokens": ct,
-                    "cache_hit_tokens": usage.get("prompt_cache_hit_tokens", 0),
                     "cost_cny": round(c, 6),
-                    "peak": is_peak(meta.get("ts") or time.time()),
                 }
             )
-        elif meta.get("source") == "cache":
-            report["api_meta"]["cache_hits"] += 1
-        report["api_meta"]["cost_cny"] = round(spent, 6)
-        checkpoint()
+            report["api_meta"]["cost_cny"] = round(spent, 6)
+            checkpoint()
+            if spent > MAX_BUDGET_CNY:
+                print(f"[STOP] API 费用累计 ¥{spent:.4f} 超过硬上限 ¥{MAX_BUDGET_CNY}，停止 API 臂。")
+                report["api_meta"]["aborted"] = True
+                aborted = True
+                break
+
+        # 逐维度中位数（N=1 时即该次的值；有缺失维度只用已成功的采样）
+        agg: Dict[str, Optional[float]] = {}
+        for d in JUDGE_DIMENSIONS:
+            vals = dim_values[d]
+            if not vals:
+                agg[d] = None
+            elif len(vals) == 1:
+                agg[d] = vals[0]
+            else:
+                agg[d] = round(float(statistics.median(vals)), 2)
+
+        s.setdefault("judge", {})["api"] = {
+            "scores": agg,
+            "raw": per_call[-1]["raw"] if per_call else "",
+            "per_call": per_call,
+            "judge_samples": judge_samples,
+            "sample_scores": {d: dim_values[d] for d in JUDGE_DIMENSIONS},
+            "model_returned": (cache.get(cache_keys(
+                messages, DEEPSEEK_MODEL, judge_samples, 0, temp
+            )[0], {}) or {}).get("model_returned"),
+            "source": per_call[-1]["source"] if per_call else None,
+            "error": "；".join(errors) or None,
+            "via": (cache.get(cache_keys(
+                messages, DEEPSEEK_MODEL, judge_samples, 0, temp
+            )[0], {}) or {}).get("via"),
+        }
+        total_tok = sum(c["prompt_tokens"] + c["completion_tokens"] for c in per_call)
         print(
-            f"  [{s['id']}] api judge {scores} "
-            f"({meta.get('source')}, {usage.get('total_tokens', 0)} tok, 累计 ¥{spent:.4f})"
+            f"  [{s['id']}] api judge {agg} "
+            f"(N={judge_samples}, {total_tok} tok, 累计 ¥{spent:.4f})"
         )
-        if spent > MAX_BUDGET_CNY:
-            print(f"[STOP] API 费用累计 ¥{spent:.4f} 超过硬上限 ¥{MAX_BUDGET_CNY}，停止 API 臂。")
-            report["api_meta"]["aborted"] = True
+        if aborted:
             return
 
 
@@ -1039,19 +1155,41 @@ def compute_report(samples: List[Dict], arms: List[str], report: Dict) -> None:
     }
     report["arms_run"] = arms
 
-    # 本地裁判诊断：区分「模型真的打了这个分」与「src 异常兜底后的启发式分」
-    heur, unparsed = [], []
+    # 本地裁判诊断：区分「模型真的打了这个分」与「兜底值」
+    # （2026-10-20 起 evaluate_generation 直接返回 meta.fallbacks，不再靠猜原始输出）
+    heur, unparsed, fallback_rows = [], [], []
     raws = set()
     for s in samples:
         jl = (s.get("judge") or {}).get("local") or {}
         if jl.get("used_heuristic"):
             heur.append(s["id"])
-        unparsed.extend(f"{s['id']}:{d}" for d in jl.get("unparsed", []))
+        for f in jl.get("fallbacks") or []:
+            fallback_rows.append(
+                {
+                    "id": s["id"],
+                    "dim": f.get("dim"),
+                    "source": f.get("source"),
+                    "score": f.get("score"),
+                    "reason": f.get("reason"),
+                }
+            )
+        for d in jl.get("unparsed") or []:
+            unparsed.append(f"{s['id']}:{d}")
         for v in (jl.get("detail") or {}).values():
+            for r in (v.get("raws") or []):
+                if r:
+                    raws.add(r)
             if v.get("raw"):
                 raws.add(v["raw"])
     report["local_judge_diagnostics"] = {
         "samples_using_heuristic_fallback": heur,
+        "fallbacks": fallback_rows,
+        "n_fallbacks": len(fallback_rows),
+        "judge_samples": (
+            ((samples[0].get("judge") or {}).get("local") or {}).get("judge_samples")
+            if samples
+            else None
+        ),
         "unparsed_dims": unparsed,
         "distinct_raw_outputs": sorted(raws),
     }
@@ -1119,6 +1257,31 @@ def _fmt(v, nd=2):
     return str(v)
 
 
+def _fmt_parsed(v):
+    """渲染某维度的解析结果：N=1 时是单值，N>1 时是多次采样（用 / 分隔）。"""
+    if v is None:
+        return "未解析"
+    if isinstance(v, (list, tuple)):
+        if not v:
+            return "未解析"
+        return "/".join(
+            str(int(x)) if isinstance(x, float) and x.is_integer() else str(x) for x in v
+        )
+    return str(int(v)) if isinstance(v, float) and v.is_integer() else str(v)
+
+
+def _judge_samples_of(report: Dict) -> int:
+    """报告里的本地裁判采样次数（旧 JSON 没有该字段 → 视为 1，历史口径）。"""
+    diag = report.get("local_judge_diagnostics") or {}
+    if diag.get("judge_samples"):
+        return int(diag["judge_samples"])
+    for s in report.get("samples") or []:
+        n = ((s.get("judge") or {}).get("local") or {}).get("judge_samples")
+        if n:
+            return int(n)
+    return 1
+
+
 def render_md(report: Dict) -> str:
     samples = report["samples"]
     dims = JUDGE_DIMENSIONS
@@ -1143,8 +1306,8 @@ def render_md(report: Dict) -> str:
     L.append(f"| 生成解码 | temperature=0（贪心，可复现）、top_p={env['top_p']}、max_new_tokens={env['max_new_tokens']} |")
     L.append(f"| 检索 | `{env['retrieval_mode']}`，top_k=5，embedding=`{env['embedding_model']}` |")
     L.append(f"| 上下文（三臂共用） | 检索 top-{CONTEXT_TOP_K} 各截断 {CONTEXT_MAX_CHARS} 字符后拼接（与 `EvaluationEngine.full_evaluation` 一致） |")
-    L.append(f"| 本地裁判（臂 B） | 与生成模型**同款**（自评），逐维度单独生成，max_new_tokens=5、do_sample=False |")
-    L.append(f"| 强裁判（臂 C） | DeepSeek `{report['api_meta']['model']}`（实际返回 `{report['api_meta'].get('model_returned') or '未调用'}`），一次调用返回 3 维 JSON、temperature=0、max_tokens=96 |")
+    L.append(f"| 本地裁判（臂 B） | 与生成模型**同款**（自评），逐维度单独生成，max_new_tokens=5，N={_judge_samples_of(report)} 次采样取中位数（N=1 时贪心） |")
+    L.append(f"| 强裁判（臂 C） | DeepSeek `{report['api_meta']['model']}`（实际返回 `{report['api_meta'].get('model_returned') or '未调用'}`），一次调用返回 3 维 JSON、max_tokens=96、N={report['api_meta'].get('judge_samples', 1)} 次采样取中位数（N=1 时 temperature=0） |")
     L.append(f"| rubric | 两臂同一套判据文本（与 `src/evaluation.py` 逐字一致，有单测守） |")
     L.append(f"| 机器 | {env['platform']} / Python {env['python']} / torch {env.get('torch')} |")
     L.append("")
@@ -1310,21 +1473,41 @@ def render_md(report: Dict) -> str:
 
     # ---------- 3.5 本地裁判原始输出诊断
     diag = report.get("local_judge_diagnostics", {})
-    L.append("### 3.5 本地裁判原始输出诊断（为什么不能只看分数）\n")
+    L.append("### 3.5 本地裁判原始输出与兜底诊断（为什么不能只看分数）\n")
     L.append("| 项 | 值 |")
     L.append("|---|---|")
+    L.append(f"| 本地裁判采样次数 N | {_judge_samples_of(report)}（N>1 时逐维度取中位数） |")
     L.append(f"| 未被启发式兜底覆盖的样本 | {len(samples) - len(diag.get('samples_using_heuristic_fallback', []))}/{len(samples)} |")
     L.append(f"| 走了启发式兜底的样本 | {', '.join(diag.get('samples_using_heuristic_fallback', [])) or '无'} |")
+    fb_rows = diag.get("fallbacks") or []
+    L.append(f"| 兜底维度总数（启发式 + 不可解析中性分） | {len(fb_rows)} |")
     L.append(f"| 裁判原始输出无法解析出数字的维度数 | {len(diag.get('unparsed_dims', []))} |")
     L.append(f"| 无法解析的维度明细 | {', '.join(diag.get('unparsed_dims', [])) or '无'} |")
     raws = diag.get("distinct_raw_outputs", [])
     L.append(f"| 裁判出现过的原始输出 | {json.dumps(raws[:12], ensure_ascii=False)} |")
     L.append("")
+    if fb_rows:
+        L.append("**兜底明细（这些分数不是 LLM 裁判给的）**：")
+        L.append("")
+        L.append("| 样本 | 维度 | 来源 | 分数 | 原因 |")
+        L.append("|---|---|---|---|---|")
+        for f in fb_rows[:40]:
+            L.append(
+                f"| `{f.get('id')}` | {f.get('dim')} | `{f.get('source')}` | "
+                f"{_fmt(f.get('score'))} | {(f.get('reason') or '')[:160]} |"
+            )
+        if len(fb_rows) > 40:
+            L.append(f"| … | 其余 {len(fb_rows) - 40} 条 | — | — | 见 JSON 的 `local_judge_diagnostics.fallbacks` |")
+        L.append("")
+    else:
+        L.append("> 本报告**零兜底**：每个分数都来自裁判模型的真实输出（`source` = `llm` / `llm_median`）。")
+        L.append("")
     L.append(
-        "> 说明：`src/evaluation.py::_judge_single_dim` 在异常时**静默**返回"
-        "「按回答长度打分」的启发式（`_heuristic_score`），解析不出数字时给中性分 3。"
-        "不记录原始输出，就无法分辨「模型给了 3 分」与「模型输出没法解析」——"
-        "这也是本报告必须记录逐维度原始输出的原因。"
+        "> 说明：`src/evaluation.py::_judge_single_dim` 的两类兜底都不再静默——"
+        "异常（含设备不一致）→ `_heuristic_score` 且 `source=heuristic`；"
+        "裁判输出解析不出数字 → 中性 3.0 且 `source=neutral_unparsed`。"
+        "两者都会写进 `meta.fallbacks`（上一张表）并以 warning 日志点名，"
+        "所以「模型给了 3 分」与「没解析出来」在这里可以分辨。"
     )
     L.append("")
 
@@ -1341,7 +1524,13 @@ def render_md(report: Dict) -> str:
         sl = jl.get("scores", {}).get("faithfulness")
         sa = ja.get("scores", {}).get("faithfulness")
         raw = jl.get("detail", {})
-        raw_txt = "/".join(_fmt(raw.get(d, {}).get("parsed")) for d in dims) if raw else "—"
+        # N>1 时维度内已有 `/`，维度之间改用 `；` 分隔，避免「1/1/3/1/1/1」看不出分组
+        dim_sep = "；" if _judge_samples_of(report) > 1 else "/"
+        raw_txt = (
+            dim_sep.join(_fmt_parsed(raw.get(d, {}).get("parsed")) for d in dims)
+            if raw
+            else "—"
+        )
         man = MANUAL_LABELS.get(s["id"], {}).get("label")
         L.append(
             f"| {i} | `{s['id']}` | {s['question']} | {len(s.get('retrieved') or [])} | {_fmt(rule.get('rule_faithfulness'))} | "
@@ -1358,6 +1547,11 @@ def render_md(report: Dict) -> str:
         "「B 裁判原始输出」列是 1.5B 裁判逐维度输出的原始数字（f/r/c = faithfulness/relevance/completeness），"
         "保留它是为了区分「真的打 3 分」与「输出无法解析被兜底成中性分」。"
     )
+    if _judge_samples_of(report) > 1:
+        L.append(
+            f"> 本轮 N={_judge_samples_of(report)}：该列每个维度内是 N 次采样的原始输出（用 `/` 分隔），"
+            "表中的分数是它们的中位数（偶数次取中间两数均值）。"
+        )
     L.append("")
 
     # ---------- 六、规则判据校准
@@ -1408,10 +1602,15 @@ def render_md(report: Dict) -> str:
     L.append(f"| 连通性探测（代理 {PROXY}） | {json.dumps(report['api_probe'].get('proxy_7897', {}), ensure_ascii=False)} |")
     L.append(f"| 新调用次数 | {len(am['calls'])} |")
     L.append(f"| 命中缓存次数 | {am['cache_hits']} |")
+    L.append(f"| 采样次数 N（每样本） | {am.get('judge_samples', 1)} |")
+    n_calls = len(am["calls"]) or 1
+    n_samples_api = max(1, sum(1 for s in samples if (s.get("judge") or {}).get("api")))
+    L.append(f"| 每次调用平均 token | 输入 {round(am['prompt_tokens'] / n_calls, 1)} / 输出 {round(am['completion_tokens'] / n_calls, 1)} |")
+    L.append(f"| 每样本平均 token | 输入 {round(am['prompt_tokens'] / n_samples_api, 1)} / 输出 {round(am['completion_tokens'] / n_samples_api, 1)} |")
     L.append(f"| 输入 token | {am['prompt_tokens']} |")
     L.append(f"| 输出 token | {am['completion_tokens']} |")
     L.append(f"| 缓存命中 token | {am['cache_hit_tokens']} |")
-    L.append(f"| 估算费用 | ¥{am['cost_cny']:.4f}（上限 ¥{MAX_BUDGET_CNY}，{ '已超出' if am.get('aborted') else '未超' }） |")
+    L.append(f"| 估算费用（N={am.get('judge_samples', 1)} 次采样合计） | ¥{am['cost_cny']:.4f}（上限 ¥{MAX_BUDGET_CNY}，{ '已超出' if am.get('aborted') else '未超' }） |")
     L.append(
         f"| 计价口径 | DeepSeek 官方价（USD/1M tok）：输入 cache-miss 峰时 $0.30 / 闲时 $0.15，输出峰时 $1.20 / 闲时 $0.60；按每次调用时刻判峰/闲；汇率按 1 USD = ¥{USD_TO_CNY} 粗估 |"
     )
@@ -1424,7 +1623,7 @@ def render_md(report: Dict) -> str:
     L.append(f"3. **裁判身份与版本**：强裁判为 DeepSeek `deepseek-chat`（当前解析到 `{am.get('model_returned') or '未调用'}`，官方页面标注版本 DeepSeek-V4.1-Flash-1017）。API 侧模型会滚动更新，重跑可能得到不同的绝对值；本地裁判版本固定为仓库配置的 Qwen2.5-1.5B-Instruct。")
     L.append("4. **裁判本身不是真值**：强裁判也有立场偏差（偏好长答案、偏好与上下文用词一致的答案）。本报告只做**两裁判一致性**，不是与人类标注对齐的准确性。")
     L.append(f"5. **阈值与误判模式**：规则判据的归因阈值为 {ATTRIBUTION_THRESHOLD}（字符 2-gram 多重集覆盖率），已知 5 类误判见第五节；规则分是 1-5 的**粗映射**，请当作「有据/无据」的二分类看，不要当连续分。")
-    L.append("6. **API 只调一次/样本**：为保证费用可控，强裁判每样本只调用一次、temperature=0，**没有做多次采样取中位数**——所以无法给出裁判自身的方差（README 里「多次评分取中位数」仍是未实现项）。")
+    L.append(f"6. **多次采样取中位数：已实现，但本轮只跑了 N={_judge_samples_of(report)}**：`evaluation.judge_samples`（CLI `--judge-samples N`）支持同一样本调 N 次取中位数，N=1 与历史行为逐比特一致；**本报告的数字全部来自 N=1 单次采样**，所以「裁判自身方差」本轮仍未实测（要答这个问题得花 N 倍费用重跑）。")
     L.append("7. **检索质量与前序报告一致**：本报告只评生成层，检索指标见 `experiments/results/retrieval_benchmark_2026-10-19.md`。生成层分数建立在默认 vector 检索（top_k=5）之上。")
     L.append("8. **不可答样本是本仓库新造的**：`data/sample/test_qa_unanswerable.json` 的问题由本次实验手写（确认不在知识库中），用于测拒答正确性；它不是原金标，也不代表真实业务的未命中分布。")
     errs = [s["id"] for s in samples if (s.get("judge", {}).get("local") or {}).get("error")]
@@ -1432,21 +1631,24 @@ def render_md(report: Dict) -> str:
         L.append(f"9. **本地臂有失败样本**：{', '.join(errs)}（详见 JSON 里的 error 字段）。")
     L.append("")
 
-    L.append("### 附：评测层发现的一处 `src/` 缺陷（本实验未改 `src/`，仅记录）\n")
+    L.append("### 附：曾发现并已修复的一处 `src/` 缺陷（设备搬运缺失）\n")
     L.append(
-        "`src/evaluation.py::_judge_single_dim` 把 `tokenizer(text, return_tensors=\"pt\")` 产生的 **CPU** 张量"
-        "直接喂给 `device_map=\"cuda\"` 的裁判模型，GPU 上必抛"
-        "`Expected all tensors to be on the same device, but got index is on cpu`；"
-        "该异常被 `try/except` 吞掉后**静默回退**到「按回答长度打分」的启发式。"
+        "**修复前**：`src/evaluation.py::_judge_single_dim` 把 `tokenizer(text, return_tensors=\"pt\")` "
+        "产生的 **CPU** 张量直接喂给 `device_map=\"cuda\"` 的裁判模型，GPU 上必抛"
+        "`Expected all tensors to be on the same device`；该异常被 `try/except` 吞掉后"
+        "**静默回退**到「按回答长度打分」的启发式——报告里看着有分数，其实不是裁判给的。"
     )
     L.append("")
-    L.append("本实验的处理：用 tokenizer 代理在外部补上设备搬运（三行包装，不动业务代码），")
-    L.append("所以臂 B 的分数是模型真实输出；逐样本原始输出见 3.5 与 JSON。")
-    L.append("建议的最小修复（与 `src/generation.py::_generate_local` 同款）：")
+    L.append(
+        "**修复后（2026-10-20）**：`_generate_judge_raw` 在 `generate` 前把输入搬到"
+        "`model.device`（无该属性时退回 tokenizer / CPU），并用 `meta.fallbacks` 标记任何兜底；"
+        "实验侧已删除当时的 tokenizer 代理 workaround（`DeviceTokenProxy`），"
+        "臂 B 直接走 `EvaluationEngine.evaluate_generation`。"
+    )
     L.append("")
-    L.append("```python")
-    L.append("inputs = {k: v.to(model.device) for k, v in inputs.items()}  # 在 model.generate 之前")
-    L.append("```")
+    L.append("验证方式：① 离线单测用假模型断言送进 `generate` 的张量都在 `model.device`；")
+    L.append("② 本报告 3.5 节的兜底表为「零兜底」即证分数来自模型真实输出；")
+    L.append("③ `--no-api` 重跑逐条比对本地裁判三维分数与此前绕过版一致（见提交说明）。")
     L.append("")
 
     L.append("## 八、复现命令\n")
@@ -1457,6 +1659,8 @@ def render_md(report: Dict) -> str:
     L.append("DEEPSEEK_API_KEY=... python experiments/run_generation_eval.py")
     L.append("# 冒烟：只跑前 3 条、只跑规则臂")
     L.append("python experiments/run_generation_eval.py --limit 3 --arms rule")
+    L.append("# 多次采样取中位数（N=3；费用/耗时约为 N=1 的 3 倍，预算护栏按 N 放大预估）")
+    L.append("python experiments/run_generation_eval.py --judge-samples 3")
     L.append("# 由已保存的 JSON 重新渲染报告（不重跑模型/不花钱）")
     L.append("python experiments/run_generation_eval.py --render-only experiments/results/generation_eval_%s.json" % report["date"])
     L.append("```")
@@ -1507,6 +1711,9 @@ def main():
     )
     ap.add_argument("--answer-source", default="local", choices=["local", "api"],
                     help="答案来源：local=本地 1.5B（默认）；api=用强裁判模型生成（本机显存不足时的降级，报告会标注）")
+    ap.add_argument("--judge-samples", type=int, default=None,
+                    help="同一样本调裁判 N 次取中位数（默认取 config.yaml 的 evaluation.judge_samples=1；"
+                         "N=1 与历史行为一致，N>1 的 API 费用约为 N 倍，预算预估与硬上限都按 N 放大）")
     args = ap.parse_args()
 
     today = datetime.date.today().isoformat()
@@ -1561,9 +1768,21 @@ def main():
             "cache_hit_tokens": 0,
             "cost_cny": 0.0,
             "aborted": False,
+            "judge_samples": 1,
         },
     }
-    print(f"[setup] 样本 {len(samples)} 条，臂 {arms}")
+    # 采样次数：命令行优先，其次 config.yaml 的 evaluation.judge_samples（默认 1 = 历史行为）
+    from src.evaluation import EvaluationEngine
+    from src.utils import load_config
+
+    configured_n = (load_config(str(ROOT / "config.yaml")).get("evaluation") or {}).get(
+        "judge_samples", 1
+    )
+    judge_samples = EvaluationEngine.validate_judge_samples(
+        args.judge_samples if args.judge_samples is not None else configured_n
+    )
+    report["api_meta"]["judge_samples"] = judge_samples
+    print(f"[setup] 样本 {len(samples)} 条，臂 {arms}，裁判采样次数 N={judge_samples}")
 
     # ---- API 前置：key + 连通性 + 预算预估（在加载 3GB 权重之前做，省时间）
     key = None
@@ -1582,12 +1801,19 @@ def main():
             direct_ok = report["api_probe"].get("direct", {}).get("ok")
             print(f"[api] 连通性：direct={'OK' if direct_ok else 'FAIL'}，"
                   f"proxy={report['api_probe'].get('proxy_7897', {}).get('ok')}")
-            # 预算粗估：中文按 1 字符 ≈ 0.6 token 估；单样本上限 = prompt + 96 输出
+            # 预算粗估：中文按 1 字符 ≈ 0.6 token 估；单样本上限 = prompt + 96 输出；N 次采样线性放大
             est_tokens_in = sum(
                 len(s["question"]) + 2400 for s in samples  # rubric+context+answer 粗估
             )
-            est = cost_cny(int(est_tokens_in * 0.6), 96 * len(samples), time.time())
-            print(f"[api] 预算预估 ¥{est:.4f}（硬上限 ¥{MAX_BUDGET_CNY}）")
+            est = cost_cny(
+                int(est_tokens_in * 0.6) * judge_samples,
+                96 * len(samples) * judge_samples,
+                time.time(),
+            )
+            print(
+                f"[api] 预算预估 ¥{est:.4f}（N={judge_samples} 次/样本，"
+                f"硬上限 ¥{MAX_BUDGET_CNY}）"
+            )
             if est > MAX_BUDGET_CNY:
                 print("[STOP] 预估费用超上限，拒绝启动 API 臂。")
                 arms = [a for a in arms if a != "api"]
@@ -1635,6 +1861,9 @@ def main():
 
     out_path = Path(args.out) if args.out else (RESULTS_DIR / f"generation_eval_{today}.json")
 
+    # 把 CLI 的 N 应用到评测引擎（本地臂与 API 臂共用同一口径）
+    pipe.evaluator.set_judge_samples(judge_samples)
+
     def checkpoint():
         dump_json(samples, report, out_path)
 
@@ -1662,14 +1891,16 @@ def main():
     # ---- 臂 B
     if "local" in arms:
         assert pipe is not None and recording is not None
-        print("[arm B] 本地 1.5B 裁判（复用仓库 evaluate_generation）")
+        print(f"[arm B] 本地 1.5B 裁判（复用仓库 evaluate_generation，N={judge_samples}）")
         run_local_judge(pipe, samples, recording, checkpoint)
         report["arms_run"].append("local")
 
     # ---- 臂 C
     if "api" in arms and key:
-        print("[arm C] 强裁判 API（DeepSeek）")
-        run_api_judge(samples, key, cache, checkpoint, report)
+        print(f"[arm C] 强裁判 API（DeepSeek，N={judge_samples}）")
+        run_api_judge(
+            samples, key, cache, checkpoint, report, judge_samples=judge_samples
+        )
         report["arms_run"].append("api")
         usages = [c for c in report["api_meta"]["calls"]]
         report["api_meta"]["prompt_tokens"] = sum(c["prompt_tokens"] for c in usages)

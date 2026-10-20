@@ -103,7 +103,7 @@ rag-eval-platform/
 |---|---|
 | `HF_HUB_OFFLINE=1` / `TRANSFORMERS_OFFLINE=1` | runner 上没有 BGE 模型缓存。这两条把"模型缺失"从**静默联网下载几百 MB**变成**立刻报错**（本机清空 `HF_HOME` 实测：`OSError: We couldn't connect to 'https://huggingface.co'`）——宁可红得明确，不要绿得含糊 |
 
-**门禁的能力缺口**：27 个用例里有 **1 个必须加载真实 BGE 模型 + GPU**（`tests/test_pipeline.py::test_embedding`：构造 `EmbeddingEngine` 即 `SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")`），CI 上必然失败，已用 `--deselect` 在**命令行显式排除**（没改测试代码，汇总行会报 `1 deselected`，配额对不上就是配置漂了）。其余 26 个用例（切分 / BM25 / RRF / 三档检索模式 / 重排覆盖 / 查询改写）都是手写小矩阵 + 桩对象，离线确定性，CI 全跑。
+**门禁的能力缺口**：78 个用例里有 **1 个必须加载真实 BGE 模型 + GPU**（`tests/test_pipeline.py::test_embedding`：构造 `EmbeddingEngine` 即 `SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")`），CI 上必然失败，已用 `--deselect` 在**命令行显式排除**（没改测试代码，汇总行会报 `1 deselected`，配额对不上就是配置漂了）。其余 77 个用例（切分 / BM25 / RRF / 三档检索模式 / 重排覆盖 / 查询改写 / 生成层规则判据 / 裁判引擎的设备搬运与兜底标记 / 多次采样取中位数 / 配置校验）都是手写小矩阵 + 桩对象，离线确定性，CI 全跑。
 
 本地一键复现同一条门禁（照抄可跑）：
 
@@ -113,7 +113,7 @@ python -m pip install -r requirements.txt && python -m pytest -q -rs \
 ```
 
 ```text
-26 passed, 1 deselected in 6.26s
+77 passed, 1 deselected in 6.91s
 ```
 
 本地**全量**（含那 1 个需要 BGE 缓存的用例；本机有缓存 + GPU）：
@@ -123,7 +123,7 @@ python -m pytest -q -rs
 ```
 
 ```text
-27 passed in 6.66s
+78 passed in 6.91s
 ```
 
 ## 用代码验证
@@ -278,13 +278,13 @@ retrieval:
 
 **一句话结论（含对我们不利的实测）**：本批样本上**本地 1.5B 的裁判分数与强裁判几乎不相关（r≈0），且"中庸化回归"**——强裁判判低（≤2）的样本它偏**高**（本地均 3.17 vs 强裁判 1.67），判高（≥4）的偏**低**（3.11 vs 4.85），最该抓的编造（`unanswerable#2` 川菜菜谱幻觉）反被放行。反而**零成本、离线的规则判据更贴近强裁判**（faithfulness MAE 0.92 vs 1.82，精确一致 0.55 vs 0.21）。因此「用本地 1.5B 做裁判」在本批样本上**不成立**——不是"有点噪声"，而是"与目标信号无关"。它仍可用于「明显编造 vs 明显有据」的两端粗筛，或网络/预算完全不可用时的占位；需要排序、需要区分"好与更好"的场景都不该用它。
 
-**边界（详见报告第七节）**：样本量小（33 条）只能给量级判断；臂 B 是**自评**（判分模型＝生成模型），绝对分不可作为质量证据；只做两裁判一致性、不是与人类标注对齐；强裁判本身也不是真值；强裁判每样本只调一次，未做多次采样，故裁判自身方差未知。费用：29 次新调用 + 4 次缓存命中，输入 19,248 / 输出 638 token，估 **¥0.0232**（硬上限 ¥0.5）。
+**边界（详见报告第七节）**：样本量小（33 条）只能给量级判断；臂 B 是**自评**（判分模型＝生成模型），绝对分不可作为质量证据；只做两裁判一致性、不是与人类标注对齐；强裁判本身也不是真值；本轮强裁判每样本只调一次（N=1），未做多次采样，故裁判自身方差未知——多次采样取中位数**已实现**（`evaluation.judge_samples` / `--judge-samples N`，默认 1，N=1 与历史行为一致），但**本轮未花 N 倍费用实测 N>1**。费用：29 次新调用 + 4 次缓存命中，输入 19,248 / 输出 638 token，估 **¥0.0232**（硬上限 ¥0.5）。
 
 ## 评测口径
 
 - 评测数据集 `data/sample/test_qa.json` 使用**文档级标注**（`relevant_sources`）：chunk 边界随切分策略变化，chunk 索引无法跨策略对照，因此以「是否检索到正确文档」为稳定口径，由 `EvaluationEngine.evaluate_retrieval_doc_level` 计算（内部复用 Recall / Precision / MRR 公式）。
 - 三层指标：检索层（Recall@3 / Recall@5 / Precision@3 / MRR）、生成层（faithfulness / relevance / completeness，LLM-as-Judge）、传统层（BLEU / ROUGE-L）。
-- 生成层需要 Qwen 模型或 API；未配置时回退到启发式评分（仅用于跑通流程，不作为正式指标）。
+- 生成层需要 Qwen 模型或 API；未配置时回退到启发式评分（仅用于跑通流程，不作为正式指标）。**该回退不再静默**：`evaluate_generation(return_meta=True)` 会在 `meta.fallbacks` 里标出哪些维度用了兜底、原因是什么（报告层可直接打印）。
 - 生成层的判分**质量**有实测：见上文「生成层忠实度实测」与 [`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)——本地 1.5B 裁判与强裁判几乎不相关（faithfulness r≈0），库内小规模场景建议用规则判据做回归门禁、用 API 做正式裁判，不要默认信任本地小模型当裁判。
 
 ## 设计决策
@@ -293,10 +293,12 @@ retrieval:
 > `experiments/run_strategy_comparison.py` 提供 128–1024 的完整扫描入口，可一键复跑。在仓库自带的样例数据集上各粒度 `recall@3` 均为 1.0、无显著差异；512 是工程默认值，面向「一个 chunk 覆盖一段完整技术要点」的常见文档形态，更大规模语料下的选型需要更大评测集验证。
 
 **Q: LLM-as-Judge 打分准吗？**
-> **已实测，答案是不准——至少本机 1.5B 这一档不准。** 实测（33 条，2026-10-19）：用仓库自带的 `Qwen2.5-1.5B-Instruct`（与生成模型同款，即自评）当裁判，其 faithfulness 分与强裁判（DeepSeek）**Pearson r ≈ −0.03、MAE 1.82、精确一致率仅 0.21**，且呈"中庸化回归"（低分样本偏高、高分样本偏低），把一条明确的编造答案放行。反直觉的是：**零成本、离线的规则判据反而更贴近强裁判**（MAE 0.92、精确一致 0.55）。结论与取舍——正式裁判用强模型/API，回归门禁用确定性规则判据，本地 1.5B 裁判只在「两端粗筛/离线占位」时用。完整数据、分段结论与规则判据的 5 类已知误判见 [`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)。当前实现仍是**每样本只评一次**，「多次评分取中位数」仍是未实现项（也在报告的诚实边界里标注了）。
+> **已实测，答案是不准——至少本机 1.5B 这一档不准。** 实测（33 条，2026-10-19）：用仓库自带的 `Qwen2.5-1.5B-Instruct`（与生成模型同款，即自评）当裁判，其 faithfulness 分与强裁判（DeepSeek）**Pearson r ≈ −0.03、MAE 1.82、精确一致率仅 0.21**，且呈"中庸化回归"（低分样本偏高、高分样本偏低），把一条明确的编造答案放行。反直觉的是：**零成本、离线的规则判据反而更贴近强裁判**（MAE 0.92、精确一致 0.55）。结论与取舍——正式裁判用强模型/API，回归门禁用确定性规则判据，本地 1.5B 裁判只在「两端粗筛/离线占位」时用。完整数据、分段结论与规则判据的 5 类已知误判见 [`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)。
+>
+> 实现层面有两点值得单独说（2026-10-20）：**①「多次评分取中位数」已实现但本轮未实测 N>1**——`config.yaml` 的 `evaluation.judge_samples`（CLI `--judge-samples N`）支持同一答案调 N 次取中位数，N=1 时与历史行为逐比特一致；上面报告的 33 条数字全部是 N=1 跑出来的，所以裁判方差仍未测。**②裁判的静默降级已修掉**：此前 `_judge_single_dim` 缺设备搬运（CPU 张量喂 CUDA 模型）+ 异常被吞，导致 GPU 上裁判分**全部**退化成按回答长度打分的启发式且看不出来；现在兜底会写进 `meta.fallbacks`、以 warning 日志点名、并由报告层逐条打印（详见 [`docs/architecture.md`](docs/architecture.md) §6.4 附录）。
 
 **Q: 为什么检索是 NumPy 而不是向量数据库？**
-> 本项目的知识库规模是「单机小知识库」（几十~几百个 chunk），暴力余弦检索在这个量级下复杂度完全不构成瓶颈，且零额外依赖、行为完全可解释。config 中保留了向量库相关的配置位，规模上量后（万级以上 chunk）可平滑替换为 Faiss / Chroma 等服务。
+> 本项目的知识库规模是「单机小知识库」（几十~几百个 chunk），暴力余弦检索在这个量级下复杂度完全不构成瓶颈，且零额外依赖、行为完全可解释。`config.yaml` 里 `retrieval.vector_store` 目前**只接受 `numpy`**：写 `chromadb` / `faiss` 会在加载配置时直接报错并提示改回 `numpy`（不再保留「配置里有个永远不生效的选项」这种不诚实的预留）。规模上量后（万级以上 chunk）需要先真正实现向量库接入，再放开这个白名单。
 
 ## 技术栈
 
