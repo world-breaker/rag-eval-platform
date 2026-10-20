@@ -1,0 +1,1104 @@
+{
+  "date": "2026-10-20",
+  "script": "experiments/run_generation_eval.py",
+  "args": {
+    "no_api": true,
+    "judge_samples": 7
+  },
+  "seeds": {
+    "generation": "greedy（temperature=0、do_sample=False，答案与 2026-10-19 逐条一致）",
+    "judge_sampling": null,
+    "bootstrap": null,
+    "note": "脚本与 bootstrap 均未固定随机种子；生成端为贪心解码故无抽样方差"
+  },
+  "n_samples": 33,
+  "judge_temperature": 0.8,
+  "fallbacks": 0,
+  "items": {
+    "realistic#1": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "realistic#2": {
+      "faithfulness": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "relevance": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "completeness": [
+        5,
+        4,
+        5,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#3": {
+      "faithfulness": [
+        5,
+        4,
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "relevance": [
+        5,
+        5,
+        3,
+        4,
+        4,
+        4,
+        3
+      ],
+      "completeness": [
+        4,
+        5,
+        4,
+        5,
+        4,
+        3,
+        3
+      ]
+    },
+    "realistic#4": {
+      "faithfulness": [
+        3,
+        5,
+        3,
+        4,
+        3,
+        4,
+        5
+      ],
+      "relevance": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#5": {
+      "faithfulness": [
+        3,
+        4,
+        4,
+        3,
+        3,
+        3,
+        4
+      ],
+      "relevance": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        4
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#6": {
+      "faithfulness": [
+        3,
+        3,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "relevance": [
+        5,
+        5,
+        4,
+        4,
+        4,
+        5,
+        5
+      ],
+      "completeness": [
+        5,
+        5,
+        3,
+        3,
+        4,
+        3,
+        5
+      ]
+    },
+    "realistic#7": {
+      "faithfulness": [
+        3,
+        3,
+        4,
+        3,
+        5,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#8": {
+      "faithfulness": [
+        5,
+        5,
+        4,
+        5,
+        4,
+        4,
+        5
+      ],
+      "relevance": [
+        5,
+        5,
+        5,
+        4,
+        5,
+        5,
+        5
+      ],
+      "completeness": [
+        4,
+        4,
+        4,
+        4,
+        3,
+        4,
+        4
+      ]
+    },
+    "realistic#9": {
+      "faithfulness": [
+        5,
+        5,
+        4,
+        3,
+        5,
+        3,
+        5
+      ],
+      "relevance": [
+        3,
+        4,
+        3,
+        5,
+        3,
+        5,
+        3
+      ],
+      "completeness": [
+        4,
+        3,
+        3,
+        3,
+        4,
+        3,
+        5
+      ]
+    },
+    "realistic#10": {
+      "faithfulness": [
+        3,
+        5,
+        3,
+        4,
+        4,
+        3,
+        3
+      ],
+      "relevance": [
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        4
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#11": {
+      "faithfulness": [
+        3,
+        4,
+        5,
+        3,
+        3,
+        4,
+        4
+      ],
+      "relevance": [
+        4,
+        3,
+        4,
+        4,
+        4,
+        4,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#12": {
+      "faithfulness": [
+        4,
+        5,
+        3,
+        3,
+        5,
+        4,
+        5
+      ],
+      "relevance": [
+        4,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "completeness": [
+        4,
+        4,
+        5,
+        5,
+        4,
+        4,
+        5
+      ]
+    },
+    "realistic#13": {
+      "faithfulness": [
+        3,
+        4,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        4,
+        3,
+        3,
+        3,
+        4,
+        3
+      ],
+      "completeness": [
+        4,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "realistic#14": {
+      "faithfulness": [
+        5,
+        4,
+        5,
+        4,
+        4,
+        4,
+        5
+      ],
+      "relevance": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "completeness": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "near_dup_stress#1": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "near_dup_stress#2": {
+      "faithfulness": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "near_dup_stress#3": {
+      "faithfulness": [
+        2,
+        1,
+        3,
+        1,
+        1,
+        1,
+        2
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1
+      ]
+    },
+    "near_dup_stress#4": {
+      "faithfulness": [
+        3,
+        5,
+        4,
+        5,
+        4,
+        5,
+        3
+      ],
+      "relevance": [
+        4,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "completeness": [
+        3,
+        4,
+        3,
+        3,
+        3,
+        4,
+        3
+      ]
+    },
+    "near_dup_stress#5": {
+      "faithfulness": [
+        3,
+        3,
+        3,
+        4,
+        3,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "near_dup_stress#6": {
+      "faithfulness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "near_dup_stress#7": {
+      "faithfulness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        2
+      ],
+      "completeness": [
+        3,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2
+      ]
+    },
+    "near_dup_stress#8": {
+      "faithfulness": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "relevance": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      "completeness": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    "sample#1": {
+      "faithfulness": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        3
+      ],
+      "relevance": [
+        3,
+        3,
+        4,
+        3,
+        2,
+        3,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        4,
+        3,
+        3
+      ]
+    },
+    "sample#2": {
+      "faithfulness": [
+        3,
+        3,
+        4,
+        3,
+        3,
+        4,
+        3
+      ],
+      "relevance": [
+        3,
+        3,
+        3,
+        4,
+        2,
+        3,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "sample#3": {
+      "faithfulness": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "relevance": [
+        3,
+        5,
+        5,
+        5,
+        5,
+        5,
+        4
+      ],
+      "completeness": [
+        4,
+        3,
+        5,
+        3,
+        3,
+        3,
+        4
+      ]
+    },
+    "sample#4": {
+      "faithfulness": [
+        5,
+        5,
+        3,
+        5,
+        5,
+        5,
+        5
+      ],
+      "relevance": [
+        4,
+        3,
+        5,
+        5,
+        4,
+        5,
+        3
+      ],
+      "completeness": [
+        3,
+        4,
+        4,
+        3,
+        3,
+        4,
+        3
+      ]
+    },
+    "sample#5": {
+      "faithfulness": [
+        3,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "completeness": [
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "unanswerable#1": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "unanswerable#2": {
+      "faithfulness": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3
+      ],
+      "relevance": [
+        3,
+        3,
+        5,
+        3,
+        4,
+        3,
+        3
+      ],
+      "completeness": [
+        4,
+        3,
+        4,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    "unanswerable#3": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "unanswerable#4": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "unanswerable#5": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "unanswerable#6": {
+      "faithfulness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "relevance": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "completeness": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "summary": {
+    "elapsed_s": 149.3,
+    "n_fallbacks": 0,
+    "answers_identical_to_2026-10-19": true,
+    "item_noise": {
+      "n_cells": 99,
+      "n_per_cell": 7,
+      "identical_cells": 38,
+      "identical_ratio": 0.3838,
+      "range_mean": 0.8586,
+      "range_hist": {
+        "0": 38,
+        "1": 37,
+        "2": 24
+      },
+      "per_cell_sd_mean": {
+        "faithfulness": 0.4137,
+        "relevance": 0.3223,
+        "completeness": 0.2852
+      },
+      "per_cell_sd_max": 0.9258,
+      "sd_convention": "pstdev(ddof=0)：7 个观测的标准差除以 7（不是 6）"
+    },
+    "median_vs_greedy_faithfulness": {
+      "changed_count": 4,
+      "changed_items": [
+        {
+          "id": "realistic#10",
+          "greedy_N1": 4,
+          "median_of_7": 3.0
+        },
+        {
+          "id": "realistic#11",
+          "greedy_N1": 3,
+          "median_of_7": 4.0
+        },
+        {
+          "id": "realistic#12",
+          "greedy_N1": 5,
+          "median_of_7": 4.0
+        },
+        {
+          "id": "unanswerable#2",
+          "greedy_N1": 3,
+          "median_of_7": 4.0
+        }
+      ],
+      "changed_count_other_dims": {
+        "relevance": 7,
+        "completeness": 3
+      },
+      "note": "median-of-7 与 greedy 的差异只在中位数档位上；unanswerable#2 3→4 是更放行幻觉的方向"
+    },
+    "aggregate_vs_strong_judge_faithfulness": {
+      "reference": "臂 C 强裁判分取自 experiments/results/generation_eval_2026-10-19.json（本文件不重复存储）",
+      "greedy_N1": {
+        "mean": 3.1212,
+        "exact": 0.2121,
+        "within1": 0.4848,
+        "mae": 1.8182,
+        "pearson_r": -0.0326
+      },
+      "median_of_7": {
+        "mean": 3.1212,
+        "exact": 0.1818,
+        "within1": 0.4242,
+        "mae": 1.9394,
+        "pearson_r": -0.1436
+      }
+    },
+    "bootstrap_judge_resample": {
+      "scheme": "固定 33 条样本，item 内有放回重抽裁判观测；B=4000；seed 未随结果保存",
+      "estimators": {
+        "single": {
+          "mae_mean": 1.9337,
+          "mae_sd": 0.0869,
+          "r_mean": -0.152,
+          "r_sd": 0.0537
+        },
+        "median_of_3": {
+          "mae_mean": 1.9262,
+          "mae_sd": 0.0745,
+          "r_mean": -0.147,
+          "r_sd": 0.0461
+        },
+        "median_of_7": {
+          "mae_mean": 1.9207,
+          "mae_sd": 0.0619,
+          "r_mean": -0.143,
+          "r_sd": 0.0383
+        },
+        "median_of_15": {
+          "mae_mean": 1.9182,
+          "mae_sd": 0.0513,
+          "r_mean": -0.1401,
+          "r_sd": 0.0314
+        }
+      },
+      "mae_sd_reduction_vs_single": {
+        "median_of_3": -0.14,
+        "median_of_7": -0.29,
+        "median_of_15": -0.41
+      },
+      "r_sd_reduction_vs_single": {
+        "median_of_7": -0.29
+      },
+      "r_90pct_interval": {
+        "single": [
+          -0.244,
+          -0.066
+        ],
+        "median_of_7": [
+          -0.206,
+          -0.081
+        ]
+      },
+      "share_r_below_zero": {
+        "single": 0.999
+      },
+      "caveat": "7 个观测做非参数 bootstrap，只能看抽样波动的量级；B=4000、seed 未保存，重跑会有 ~1e-3 级差异"
+    },
+    "boundaries": [
+      "33 条样本，只能给量级判断；r 不宜引用到小数点后四位（|r| < 0.25 + 90% 区间）",
+      "greedy 的 N=1 不是采样分布的一次抽样（取众数、运行间方差为 0），与典型抽样在水平上不同",
+      "本轮只跑离线臂（rule + local），未调用强裁判 API，费用 0",
+      "本地裁判与生成模型同款（自评），绝对分不可作为质量证据"
+    ]
+  }
+}
