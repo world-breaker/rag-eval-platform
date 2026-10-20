@@ -1,8 +1,10 @@
 # RAG 知识库问答 + 评测平台
 
+[![CI](https://github.com/world-breaker/rag-eval-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/world-breaker/rag-eval-platform/actions/workflows/ci.yml)
+
 > 一个可复现的 RAG 实验平台：模块化流水线 + 三层评测体系 + 切分策略对比实验。
 
-**仓库地址**：https://gitee.com/tmlKevin/rag-eval-platform
+**仓库地址**：Gitee https://gitee.com/tmlKevin/rag-eval-platform ｜ GitHub https://github.com/world-breaker/rag-eval-platform
 
 ---
 
@@ -100,9 +102,11 @@ rag-eval-platform/
 
 `ubuntu-latest` + Python 3.12 + `pip` 依赖缓存 + `pytest`，**离线可跑、不需要密钥、不下载模型**。
 
-> **宿主如实说明**：本仓库托管在 **Gitee（公开仓库）**，Gitee 不会执行 GitHub Actions，也还没接 Gitee Go。
+> **宿主如实说明**：本仓库**同时托管在 Gitee 与 GitHub**（两边是同一份历史、同一批 commit SHA）。
+> **GitHub 侧 Actions 会执行**：每次 push / PR 自动跑一遍测试（本文顶部的徽章是真实运行状态，不是摆设）；
+> Gitee 侧不执行 GitHub Actions（若日后接 Gitee Go 另配）。
 > 这份 YAML 用的是**通用 GitHub Actions 格式**——镜像一份到 GitHub 即可直接生效，但在 Gitee 侧目前不是自动跑的流水线。
-> 也因此 README 里**不放 CI 徽章**：**Gitee 不执行 GitHub Actions，徽章指向 GitHub 会 404**。
+> 因此 README **挂 CI 徽章**：它指向 GitHub Actions 的真实运行状态（仓库已镜像到 GitHub）。
 
 **本仓库比另外两个多一个坑：装 torch。** Linux 上从默认 index 装 torch 会拉 **CUDA 版（2–3GB）**，而 runner 没有 GPU——纯浪费带宽。所以 workflow 先用 **CPU 版官方 index**（`--index-url https://download.pytorch.org/whl/cpu`）显式装 CPU-only torch，再装 `requirements.txt`；因为 `torch>=2.0.0` 已被满足，第二步不会再把 CUDA 版拉回来（本机 `pip install --dry-run -r requirements.txt` 实测输出 `Requirement already satisfied: torch>=2.0.0 ... (2.14.0+cu132)`）。
 

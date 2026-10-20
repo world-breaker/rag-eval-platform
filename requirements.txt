@@ -20,3 +20,6 @@ requests>=2.28.0
 # 可选：API 加速
 # accelerate>=0.28.0
 # bitsandbytes>=0.43.0
+
+# 测试依赖（另两个仓库同样放在 requirements.txt 里；CI 装完就能直接跑 pytest）
+pytest==9.1.1

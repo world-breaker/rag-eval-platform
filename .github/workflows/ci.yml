@@ -1,8 +1,7 @@
 # rag-eval-platform · CI 门禁（通用 GitHub Actions 格式）
 #
-# 宿主说明：本仓库托管在 **Gitee（私有）**，Gitee 不会执行 GitHub Actions，也还没接 Gitee Go。
-# 所以本文件是"可执行的、可直达的门禁定义"：镜像一份到 GitHub 即可直接生效，
-# 但在 Gitee 侧目前不是自动跑的流水线（README 里也据此不放 CI 徽章）。
+# 宿主说明（本仓库 2026-10-20 已镜像到 GitHub）：Actions **会**执行本文件，
+# 每次 push / PR 自动跑一遍测试；Gitee 侧不执行 GitHub Actions（若接 Gitee Go 另配）。
 #
 # 三条设计取舍，每条都对着一个真实坑（不是仪式感）：
 #
