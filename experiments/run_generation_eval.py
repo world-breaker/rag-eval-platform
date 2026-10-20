@@ -935,6 +935,9 @@ def run_local_judge(pipe, samples: List[Dict], recording, checkpoint) -> None:
                 "source": f.get("source"),
                 "score": f.get("score"),
                 "reason": f.get("reason"),
+                # 部分采样失败（source=llm_median_partial）：记下失败了几次 / 共几次
+                "n_failed": f.get("n_failed"),
+                "n": f.get("n"),
             }
             for f in (meta.get("fallbacks") or [])
         ]
@@ -943,6 +946,9 @@ def run_local_judge(pipe, samples: List[Dict], recording, checkpoint) -> None:
             "detail": detail,
             "judge_samples": meta.get("judge_samples", n),
             "fallbacks": fallbacks,
+            # 部分采样失败（N>1 时有些次数没拿到可用分数）：分数仍来自裁判，
+            # 但不是 N 次全成功——报告里必须单独披露，不许混进「零兜底」。
+            "partial_failures": meta.get("partial_failures") or {},
             "unparsed": [f["dim"] for f in fallbacks if f["source"] == "neutral_unparsed"],
             # 关键证据：这些维度的分数不是模型给的，而是异常兜底后的启发式
             "used_heuristic": [f["dim"] for f in fallbacks if f["source"] == "heuristic"],
@@ -1158,6 +1164,7 @@ def compute_report(samples: List[Dict], arms: List[str], report: Dict) -> None:
     # 本地裁判诊断：区分「模型真的打了这个分」与「兜底值」
     # （2026-10-20 起 evaluate_generation 直接返回 meta.fallbacks，不再靠猜原始输出）
     heur, unparsed, fallback_rows = [], [], []
+    partial_cells = []  # 部分采样失败（N>1 时有几次没拿到可用分数）
     raws = set()
     for s in samples:
         jl = (s.get("judge") or {}).get("local") or {}
@@ -1171,8 +1178,19 @@ def compute_report(samples: List[Dict], arms: List[str], report: Dict) -> None:
                     "source": f.get("source"),
                     "score": f.get("score"),
                     "reason": f.get("reason"),
+                    "n_failed": f.get("n_failed"),
+                    "n": f.get("n"),
                 }
             )
+            if f.get("source") == "llm_median_partial":
+                partial_cells.append(
+                    {
+                        "id": s["id"],
+                        "dim": f.get("dim"),
+                        "failed": f.get("n_failed"),
+                        "n": f.get("n"),
+                    }
+                )
         for d in jl.get("unparsed") or []:
             unparsed.append(f"{s['id']}:{d}")
         for v in (jl.get("detail") or {}).values():
@@ -1185,6 +1203,10 @@ def compute_report(samples: List[Dict], arms: List[str], report: Dict) -> None:
         "samples_using_heuristic_fallback": heur,
         "fallbacks": fallback_rows,
         "n_fallbacks": len(fallback_rows),
+        # 部分采样失败单独计数：它是「部分实测」而不是「兜底」，
+        # 但同样必须在报告里露出来（否则「零兜底」会掩盖 N 次里失败了 2 次）。
+        "n_partial_failures": len(partial_cells),
+        "partial_failure_cells": partial_cells,
         "judge_samples": (
             ((samples[0].get("judge") or {}).get("local") or {}).get("judge_samples")
             if samples
@@ -1480,14 +1502,30 @@ def render_md(report: Dict) -> str:
     L.append(f"| 未被启发式兜底覆盖的样本 | {len(samples) - len(diag.get('samples_using_heuristic_fallback', []))}/{len(samples)} |")
     L.append(f"| 走了启发式兜底的样本 | {', '.join(diag.get('samples_using_heuristic_fallback', [])) or '无'} |")
     fb_rows = diag.get("fallbacks") or []
-    L.append(f"| 兜底维度总数（启发式 + 不可解析中性分） | {len(fb_rows)} |")
+    partial_cells = diag.get("partial_failure_cells") or []
+    hard_fb = [f for f in fb_rows if f.get("source") != "llm_median_partial"]
+    L.append(f"| 兜底维度总数（启发式 + 不可解析中性分） | {len(hard_fb)} |")
+    L.append(
+        f"| 部分采样失败（N>1 时有几次没拿到可用分数） | {len(partial_cells)}"
+        + (
+            "（"
+            + "；".join(
+                f"{c.get('id')}/{c.get('dim')}：{c.get('failed')}/{c.get('n')} 次失败"
+                for c in partial_cells[:8]
+            )
+            + ("…" if len(partial_cells) > 8 else "")
+            + "）"
+            if partial_cells
+            else "（无）"
+        )
+    )
     L.append(f"| 裁判原始输出无法解析出数字的维度数 | {len(diag.get('unparsed_dims', []))} |")
     L.append(f"| 无法解析的维度明细 | {', '.join(diag.get('unparsed_dims', [])) or '无'} |")
     raws = diag.get("distinct_raw_outputs", [])
     L.append(f"| 裁判出现过的原始输出 | {json.dumps(raws[:12], ensure_ascii=False)} |")
     L.append("")
     if fb_rows:
-        L.append("**兜底明细（这些分数不是 LLM 裁判给的）**：")
+        L.append("**兜底明细（这些分数不是 LLM 裁判给的，或不是全量采样实测的）**：")
         L.append("")
         L.append("| 样本 | 维度 | 来源 | 分数 | 原因 |")
         L.append("|---|---|---|---|---|")
@@ -1499,6 +1537,16 @@ def render_md(report: Dict) -> str:
         if len(fb_rows) > 40:
             L.append(f"| … | 其余 {len(fb_rows) - 40} 条 | — | — | 见 JSON 的 `local_judge_diagnostics.fallbacks` |")
         L.append("")
+    if hard_fb:
+        L.append("> ⚠️ 本报告**存在兜底**：上表中 `heuristic` / `neutral_unparsed` 的分数**不是**裁判模型给的。")
+        L.append("")
+    elif partial_cells:
+        L.append(
+            "> 本报告**零兜底**（没有启发式/中性兜底分），但存在**部分采样失败**："
+            f"{len(partial_cells)} 个「样本×维度」的 N 次采样里有几次没拿到可用分数，"
+            "中位数只取自已成功的那几次（`source=llm_median_partial`）。"
+        )
+        L.append("")
     else:
         L.append("> 本报告**零兜底**：每个分数都来自裁判模型的真实输出（`source` = `llm` / `llm_median`）。")
         L.append("")
@@ -1508,6 +1556,8 @@ def render_md(report: Dict) -> str:
         "裁判输出解析不出数字 → 中性 3.0 且 `source=neutral_unparsed`。"
         "两者都会写进 `meta.fallbacks`（上一张表）并以 warning 日志点名，"
         "所以「模型给了 3 分」与「没解析出来」在这里可以分辨。"
+        "第三类不是兜底但同样要显式：**N>1 时部分采样失败**（`source=llm_median_partial`），"
+        "分数仍来自裁判，只是中位数取自已成功的那几次——因此「零兜底」不等于「全量实测」。"
     )
     L.append("")
 
@@ -1619,7 +1669,7 @@ def render_md(report: Dict) -> str:
     # ---------- 八、诚实边界
     L.append("## 七、诚实边界（结论的适用条件）\n")
     L.append(f"1. **样本量小**：{len(samples)} 条（27 条原金标 + 6 条**本次新造**的拒答样本）。33 条只能给出量级判断，不能当分布估计；一致率的小数点后一位都不宜当基准线。")
-    L.append(f"2. **本地裁判是自评**：臂 B 的判分模型与生成模型是同一个 `Qwen2.5-1.5B-Instruct`（config.yaml 的 `judge_model` 注释就写了「用同款模型自评」）。自评天然偏袒自己的输出，因此**臂 B 的绝对分不可作为答案质量的证据**，只能看它与臂 C 的偏离方向与幅度。")
+    L.append(f"2. **本地裁判是自评**：臂 B 的判分模型与生成模型是同一个 `Qwen2.5-1.5B-Instruct`——**裁判恒等于生成模型（自评），配置里没有独立裁判开关**（`config.yaml` 无 `judge_model` 键，裁判模型永远取自 `generation`）。自评天然偏袒自己的输出，因此**臂 B 的绝对分不可作为答案质量的证据**，只能看它与臂 C 的偏离方向与幅度。")
     L.append(f"3. **裁判身份与版本**：强裁判为 DeepSeek `deepseek-chat`（当前解析到 `{am.get('model_returned') or '未调用'}`，官方页面标注版本 DeepSeek-V4.1-Flash-1017）。API 侧模型会滚动更新，重跑可能得到不同的绝对值；本地裁判版本固定为仓库配置的 Qwen2.5-1.5B-Instruct。")
     L.append("4. **裁判本身不是真值**：强裁判也有立场偏差（偏好长答案、偏好与上下文用词一致的答案）。本报告只做**两裁判一致性**，不是与人类标注对齐的准确性。")
     L.append(f"5. **阈值与误判模式**：规则判据的归因阈值为 {ATTRIBUTION_THRESHOLD}（字符 2-gram 多重集覆盖率），已知 5 类误判见第五节；规则分是 1-5 的**粗映射**，请当作「有据/无据」的二分类看，不要当连续分。")
@@ -1647,7 +1697,7 @@ def render_md(report: Dict) -> str:
     )
     L.append("")
     L.append("验证方式：① 离线单测用假模型断言送进 `generate` 的张量都在 `model.device`；")
-    L.append("② 本报告 3.5 节的兜底表为「零兜底」即证分数来自模型真实输出；")
+    L.append("② 本报告 3.5 节的兜底表为「零兜底」且「无部分采样失败」即证分数来自模型真实输出；")
     L.append("③ `--no-api` 重跑逐条比对本地裁判三维分数与此前绕过版一致（见提交说明）。")
     L.append("")
 

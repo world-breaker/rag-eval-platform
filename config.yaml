@@ -62,9 +62,11 @@ evaluation:
   # 检索质量
   retrieval_metrics: ["recall@3", "recall@5", "precision@3", "mrr"]
   # 生成质量（LLM-as-Judge）
-  # 注意：judge_model 与生成模型同款，属于「自评」——它的可信度实测见
-  # experiments/results/generation_eval_*.md（与强裁判 API 的三臂一致率对照）
-  judge_model: "Qwen/Qwen2.5-1.5B-Instruct"  # 用同款模型自评
+  # 注意：**裁判恒等于生成模型（自评）——配置里没有独立裁判开关**。
+  # 也就是说本仓库没有「换个 judge_model 就换裁判」这回事：代码里裁判模型
+  # 永远取自 generation（见 src/pipeline.py::batch_evaluate）。
+  # 自评这一档的可信度实测见 experiments/results/generation_eval_*.md
+  # （与强裁判 API 的三臂一致率对照）；正式评测请用外部强裁判 API。
   judge_dimensions: ["faithfulness", "relevance", "completeness"]
   # 同一样本调 N 次裁判取中位数（N=1 = 历史行为：单次贪心解码，逐比特可复现）。
   # N>1 时裁判改为按 judge_temperature 采样，用中位数压制单次抖动；费用/耗时线性增长。

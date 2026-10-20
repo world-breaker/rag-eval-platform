@@ -206,6 +206,9 @@ def test_median_of_three_samples():
     # N>1 才走采样（否则三次贪心必然同分，中位数没有意义）
     assert all(c["do_sample"] is True for c in model.calls)
     assert all(c["temperature"] == pytest.approx(0.8) for c in model.calls)
+    # 零失败 → 不产生任何兜底/部分失败记录（正常路径不算兜底）
+    assert out["meta"]["fallbacks"] == []
+    assert out["meta"]["partial_failures"] == {}
 
 
 def test_n_equals_one_matches_legacy_behavior():
@@ -236,7 +239,15 @@ def test_median_skips_failed_samples_and_records_reason():
     assert d["parsed"] == [5.0, 2.0]
     assert out["scores"][DIM] == 3.5  # 中位数 = 中间两数均值
     assert "1/3 次" in (d["reason"] or "") or "2/3 次" in (d["reason"] or "")
-    assert out["meta"]["fallbacks"] == [], "有可用分数就不算兜底，但失败原因仍要留证"
+    # 2026-10-20 修：部分采样失败**必须**被显式标出来（此前它不进 fallbacks，
+    # 报告里于是写「零兜底：每个分数都来自裁判模型的真实输出」，掩盖了「7 次里失败了 2 次」）
+    assert out["meta"]["fallbacks"], "部分采样失败必须出现在 meta.fallbacks 里"
+    fb = out["meta"]["fallbacks"][0]
+    assert fb["dim"] == DIM
+    assert fb["source"] == "llm_median_partial"
+    assert fb["n_failed"] == 1 and fb["n"] == 3
+    assert out["meta"]["partial_failures"][DIM]["failed"] == 1
+    assert d["source"] == "llm_median_partial"
 
 
 def test_default_return_is_plain_scores_for_backward_compat():
@@ -264,6 +275,36 @@ def test_project_config_is_valid_and_defaults_to_one_sample():
     cfg = load_config(str(Path(__file__).parent.parent / "config.yaml"))
     assert cfg["retrieval"]["vector_store"] == "numpy"
     assert cfg["evaluation"]["judge_samples"] == 1, "默认必须是 1（与历史行为一致）"
+
+
+def test_config_has_no_judge_model_key():
+    """`evaluation.judge_model` 是死配置（写了不生效）——2026-10-20 已从 config.yaml 删除。
+
+    裁判恒等于生成模型（自评），代码里没有「换个 judge_model 就换裁判」这回事；
+    留着这个键会让人以为可以配置裁判模型（文档也一度把它当证据引用）。
+    这个断言的作用是：**防止它以后又被加回来**。
+    """
+    cfg = load_config(str(Path(__file__).parent.parent / "config.yaml"))
+    assert "judge_model" not in cfg["evaluation"], (
+        "config.yaml 不该再有 judge_model 键：裁判恒等于生成模型（自评），"
+        "配置里没有独立裁判开关"
+    )
+    assert "judge_model" not in str(cfg), "整个配置里都不该出现 judge_model"
+
+
+def test_judge_model_is_the_generation_model():
+    """裁判来源就是生成模型本身（自评）——与「配置里没有独立裁判开关」一致。"""
+    cfg = load_config(str(Path(__file__).parent.parent / "config.yaml"))
+    gen_model = cfg["generation"]["model_name"]
+    engine = EvaluationEngine(cfg)
+    # EvaluationEngine 不接受任何裁判模型参数：裁判模型由调用方从 generation 传入
+    import inspect
+
+    sig = inspect.signature(engine.evaluate_generation)
+    assert "judge_model" in sig.parameters, "裁判模型仍由调用方传入（=生成模型）"
+    assert gen_model  # 生成模型存在
+    # 文档口径：裁判模型恒等于生成模型
+    assert cfg["generation"]["model_name"] == gen_model
 
 
 def test_chromadb_vector_store_fails_loudly(tmp_path):

@@ -9,6 +9,14 @@
 2. 裁判输出解析不出 1-5 数字 → 中性兜底 3.0。
 两者都会写进 `meta.fallbacks`（维度 + 原因 + 原始输出）并以 warning 级日志点名，
 报告层可直接打印，避免「报告里有数、其实是兜底值」。
+
+第三类「不是兜底、但也不是全量实测」的情况同样要显式（2026-10-20 修）：
+N>1 多次采样时**部分采样失败**（异常或输出不可解析），中位数只能取自已成功的那几次。
+这种分数**来自裁判**，但不是 N 次全成功的结果——若不标出来，报告里的
+「零兜底：每个分数都来自裁判模型的真实输出」就会掩盖「7 次里失败了 2 次」。
+因此部分失败单独用 `source="llm_median_partial"` 标出，并进 `meta.fallbacks`
+（维度 + 失败次数/总次数 + 原因）与 `meta.partial_failures`。
+注意：N>1 且**零失败**时不产生任何 fallback 记录（正常路径不算兜底）。
 """
 
 import re
@@ -19,8 +27,12 @@ from typing import List, Dict, Tuple, Optional
 from collections import defaultdict
 from src.utils import logger, timer
 
-# 兜底来源（出现在 meta.fallbacks 里的两种 source；其余 source 表示分数确实来自裁判）
-FALLBACK_SOURCES = ("heuristic", "neutral_unparsed")
+# 兜底来源（出现在 meta.fallbacks 里的三种 source；其余 source 表示分数确实来自裁判）
+# - heuristic：异常兜底，分数是启发式算的，不是裁判给的
+# - neutral_unparsed：裁判输出解析不出数字，取中性 3.0
+# - llm_median_partial：N>1 多次采样里**部分失败**，中位数取自已成功的几次
+#   （分数来自裁判，但不是 N 次全成功——属「部分实测」，必须能被看见）
+FALLBACK_SOURCES = ("heuristic", "neutral_unparsed", "llm_median_partial")
 
 
 class EvaluationEngine:
@@ -150,12 +162,20 @@ class EvaluationEngine:
         scores: Dict[str, float] = {}
         details: Dict[str, Dict] = {}
         fallbacks: List[Dict] = []
+        partial_failures: Dict[str, Dict] = {}
         for dim in self.judge_dimensions:
             r = self._judge_single_dim(
                 dim, question, answer, context, judge_model, judge_tokenizer
             )
             scores[dim] = r["score"]
             details[dim] = r
+            if r["source"] == "llm_median_partial":
+                # 部分采样失败：分数来自裁判，但不是 N 次全成功——单独记一份结构化信息
+                partial_failures[dim] = {
+                    "failed": r.get("n_failed"),
+                    "n": r.get("n"),
+                    "source": r["source"],
+                }
             if r["source"] in FALLBACK_SOURCES:
                 fallbacks.append(
                     {
@@ -164,6 +184,8 @@ class EvaluationEngine:
                         "score": r["score"],
                         "reason": r["reason"],
                         "raws": r["raws"],
+                        "n_failed": r.get("n_failed"),
+                        "n": r.get("n"),
                     }
                 )
 
@@ -173,6 +195,7 @@ class EvaluationEngine:
                 "meta": {
                     "judge_samples": self.judge_samples,
                     "fallbacks": fallbacks,
+                    "partial_failures": partial_failures,
                     "details": details,
                 },
             }
@@ -239,8 +262,10 @@ class EvaluationEngine:
         """单维度 LLM 评判（1-5分）。
 
         返回结构化结果，而不是裸分数：
-        `{"score", "source", "reason", "parsed", "raws", "n"}`
-        - source="llm"（N=1 单次）/ "llm_median"（N>1 取中位数）：分数来自裁判；
+        `{"score", "source", "reason", "parsed", "raws", "n", "n_failed"}`
+        - source="llm"（N=1 单次）/ "llm_median"（N>1 全部成功，取中位数）：分数来自裁判；
+        - source="llm_median_partial"（N>1 但**部分采样失败**）：分数仍来自裁判，
+          但中位数只取自已成功的几次——属「部分实测」，必须被显式标出；
         - source="heuristic"：异常兜底（分数是 `_heuristic_score`，**不是**裁判给的）；
         - source="neutral_unparsed"：裁判输出解析不出数字，给中性兜底 3.0。
 
@@ -284,6 +309,7 @@ class EvaluationEngine:
                 "parsed": [],
                 "raws": [],
                 "n": 0,
+                "n_failed": 0,
             }
 
         import torch
@@ -324,6 +350,7 @@ class EvaluationEngine:
                     "parsed": [],
                     "raws": raws,
                     "n": n,
+                    "n_failed": n,
                 }
             logger.warning(
                 f"LLM-as-Judge「{dimension}」裁判输出无法解析出数字，"
@@ -336,6 +363,7 @@ class EvaluationEngine:
                 "parsed": [],
                 "raws": raws,
                 "n": n,
+                "n_failed": n,
             }
 
         if n == 1:
@@ -347,6 +375,7 @@ class EvaluationEngine:
                 "parsed": parsed,
                 "raws": raws,
                 "n": n,
+                "n_failed": len(failures),
             }
 
         score = round(float(statistics.median(parsed)), 2)
@@ -356,11 +385,14 @@ class EvaluationEngine:
             logger.warning(f"LLM-as-Judge「{dimension}」部分采样失败，中位数取自已成功的那几次：{reason}")
         return {
             "score": score,
-            "source": "llm_median",
+            # 有失败 → llm_median_partial（分数来自裁判，但不是 N 次全成功，必须被看见）
+            # 零失败 → llm_median（正常路径，不进 fallbacks）
+            "source": "llm_median_partial" if failures else "llm_median",
             "reason": reason,
             "parsed": parsed,
             "raws": raws,
             "n": n,
+            "n_failed": len(failures),
         }
 
     def _heuristic_score(self, dimension: str, answer: str, context: str) -> float:

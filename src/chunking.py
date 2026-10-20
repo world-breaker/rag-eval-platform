@@ -4,6 +4,9 @@ import re
 from typing import List, Dict
 from src.utils import logger
 
+# 支持的切分策略（未知策略直接报错，不静默回退）
+SUPPORTED_STRATEGIES = ("fixed_size", "recursive", "semantic")
+
 
 class DocumentChunker:
     """文档切分器：固定窗口 / 递归分隔符 / 语义段落三种策略。"""
@@ -14,6 +17,19 @@ class DocumentChunker:
         self.chunk_size = chunk_cfg["chunk_size"]
         self.chunk_overlap = chunk_cfg["chunk_overlap"]
         self.separators = chunk_cfg.get("separators", ["\n\n", "\n", "。", "."])
+        # 配置写错策略名要立刻炸：静默回退 fixed_size 会让「三种策略对比」
+        # 变成两个策略其实是同一个（假对比），而且看不出来。
+        self.validate_strategy(self.strategy)
+
+    @staticmethod
+    def validate_strategy(strategy: str) -> str:
+        """策略名必须在白名单里，否则 ValueError（对齐 src/utils.py 的 fail-fast 风格）。"""
+        if strategy not in SUPPORTED_STRATEGIES:
+            raise ValueError(
+                f"chunking.strategy={strategy!r} 未接入代码，"
+                f"当前只支持 {SUPPORTED_STRATEGIES}。"
+            )
+        return strategy
 
     def chunk(self, text: str, metadata: dict = None) -> List[Dict]:
         """切分文本，返回带元数据的 chunk 列表"""
@@ -24,8 +40,10 @@ class DocumentChunker:
         elif self.strategy == "semantic":
             chunks = self._semantic_split(text)
         else:
-            logger.warning(f"未知策略 {self.strategy}，回退到 fixed_size")
-            chunks = self._fixed_size(text)
+            # 运行时被改坏（例如 compare_chunk_strategies 直接赋值 strategy）同样要炸
+            raise ValueError(
+                f"未知切分策略 {self.strategy!r}，当前只支持 {SUPPORTED_STRATEGIES}。"
+            )
 
         # 附加元数据
         result = []

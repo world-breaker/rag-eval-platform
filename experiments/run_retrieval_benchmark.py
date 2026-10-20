@@ -13,6 +13,10 @@
 关于「会不会偷偷下载模型」：脚本在跑之前先用 HF 缓存目录做存在性检查，
 没缓存的档位直接标记为「未实测」并跳过，绝不触发下载。
 
+关于「降级档位」（2026-10-20 补）：**重排模型没加载成功**、**查询改写降级**
+（LLM 改写失败 → 实际只跑了原查询单路检索）这两种情况，档位一律标成「未实测」，
+不写进指标表——否则报告声称的实验档位与实际跑的东西不符（假绿）。
+
 延迟口径（写进报告，避免读者误读）：
 - **冷启动（cold）**：切到该档位后的**第一次**查询耗时。含首次懒加载（重排模型/LLM 载入、
   CUDA 首次 kernel 预热、BM25 语料拟合）。它反映「服务刚起来第一次问」的体感。
@@ -175,6 +179,15 @@ def benchmark_mode(pipe: RAGPipeline, spec: dict, qa: list) -> dict:
             warm_ms.append((time.perf_counter() - t0) * 1000)
             last_round[case["question"]] = retrieved
 
+    # 改写降级检测（2026-10-20 修）：LLM 改写失败 → 实际只跑了「原查询单路检索」。
+    # 这种结果不能按「混合 + 改写」口径写进报告（否则声称的档位与实际跑的东西不符）。
+    degraded_queries = {
+        q for q, res in last_round.items()
+        if any(r.get("rewrite_degraded") for r in res)
+    }
+    if any(r.get("rewrite_degraded") for r in first):
+        degraded_queries.add(qa[0]["question"])
+
     # 质量指标（检索确定，取最后一轮即可）
     r3, r5, mrr, per_q = [], [], [], []
     for i, case in enumerate(qa, 1):
@@ -205,8 +218,37 @@ def benchmark_mode(pipe: RAGPipeline, spec: dict, qa: list) -> dict:
         "warm": _percentiles(warm_ms),
         "warm_rounds": rounds,
         "first_query_len": len(first),
+        "rewrite_degraded_queries": len(degraded_queries),
+        "rewrite_degraded_total": len(qa),
         "per_question": per_q,
     }
+
+
+def mark_unmeasured(res: dict, label: str, spec: dict) -> dict:
+    """把「声明了档位、但实际没生效」的档位标成「未实测」。
+
+    两种情况（2026-10-20 修）：
+    1. 声明了重排但模型没加载成功 → 数字其实是**没重排的纯 RRF**；
+    2. 声明了查询改写但 LLM 改写失败（降级）→ 数字其实是**原查询单路检索**。
+
+    这两种情况都不许写进指标表——否则报告声称的实验档位与实际跑的东西不符（假绿）。
+    """
+    if "skipped" in res:
+        return res
+    if spec.get("rerank") and not res.get("rerank_active"):
+        return {
+            "label": label,
+            "skipped": f"重排模型不可用（{res.get('rerank_error')}），未实测",
+        }
+    if res.get("rewrite_degraded_queries"):
+        return {
+            "label": label,
+            "skipped": (
+                f"查询改写降级（{res['rewrite_degraded_queries']}/{res['rewrite_degraded_total']} "
+                "条查询未真正改写，实际为原查询单路检索），未实测"
+            ),
+        }
+    return res
 
 
 def _fmt(v):
@@ -259,12 +301,7 @@ def main():
             logger.info(f"----- [{ds_name}] 档位 {label} -----")
             res = benchmark_mode(pipe, spec, qa)
             res["label"] = label
-            if "skipped" not in res and spec.get("rerank") and not res.get("rerank_active"):
-                # 声明了重排但模型没加载成功 → 如实标注「未实测」，不要拿降级结果冒充重排结果
-                res = {
-                    "label": label,
-                    "skipped": f"重排模型不可用（{res.get('rerank_error')}），未实测",
-                }
+            res = mark_unmeasured(res, label, spec)
             all_results[ds_name]["modes"][key] = res
             if "skipped" not in res:
                 logger.info(

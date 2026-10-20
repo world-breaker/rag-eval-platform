@@ -187,6 +187,10 @@ class RAGPipeline:
 
         返回值结构在各模式下保持一致（score / bm25_score / fusion_score / 各路 rank），
         供 ask / 对比实验 / 批量评测 / Web UI 复用。
+
+        改写路径（`_retrieve_with_rewrites`）的每条结果额外带 `rewrite_degraded: bool`：
+        True 表示 LLM 改写失败、本次实际只做了原查询单路检索——调用方（如检索基准脚本）
+        据此把该档标成「未实测」，不许拿降级结果冒充「改写档」的数字。
         """
         if self.doc_embeddings is None or len(self.chunks) == 0:
             raise RuntimeError("请先调用 build_index() 构建向量库")
@@ -214,6 +218,16 @@ class RAGPipeline:
         rw = rewriter.rewrite(question)
         queries: List[str] = rw["queries"]
         hypothetical = rw.get("hypothetical_doc")
+
+        # 降级标志必须透传出去（2026-10-20 修）：
+        # LLM 改写失败时，本次实际只做了「原查询单路检索」——如果不标出来，
+        # 实验报告会把这一档写成「混合 + multi-query 改写」，声称的档位与实际跑的东西不符。
+        degraded = bool(rw.get("degraded", False))
+        if degraded:
+            logger.warning(
+                "查询改写降级：LLM 改写失败或不可用，本次实际只用原查询单路检索"
+                "（结果已标 rewrite_degraded=True，不应按「改写档」口径引用指标/延迟）"
+            )
 
         # 每路都要全量排名，融合才有意义（top_k=len(chunks)）
         rank_maps: List[Dict[int, int]] = []
@@ -246,6 +260,7 @@ class RAGPipeline:
             row["fusion_score"] = round(float(fused[idx]), 4)
             row["retrieved_rank"] = rank
             row["rewrite_hits"] = sum(1 for rm in rank_maps if idx in rm)
+            row["rewrite_degraded"] = degraded
             results.append(row)
 
         logger.info(

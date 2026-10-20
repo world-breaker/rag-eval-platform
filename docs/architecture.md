@@ -123,7 +123,10 @@ chunk 边界随切分策略/参数变化，chunk 索引无法跨策略对照；
 
 生成层口径补充（2026-10-19 实测后细化，数字见 §6.4）：
 
-- **裁判选择**：`config.yaml` 的 `judge_model` 默认为**与生成模型同款**的 `Qwen2.5-1.5B-Instruct`（即自评）。
+- **裁判选择**：**裁判恒等于生成模型（自评）——配置里没有独立裁判开关**。
+  代码里裁判模型永远取自 `generation`（`src/pipeline.py::batch_evaluate` 把生成模型的
+  `model`/`tokenizer` 直接交给 `EvaluationEngine`），`config.yaml` 里**没有** `judge_model` 键
+  （2026-10-20 已删除：它写了不生效，属于「配置不诚实」）。
   实测表明这一档小模型当裁判**与强裁判几乎不相关**，正式评测应改用强模型 / API；本地 1.5B 裁判只适合两端粗筛或离线占位。
 - **确定性替代**：`experiments/run_generation_eval.py` 的**规则判据臂**（数字/实体落地率、句子归因覆盖率、
   拒答判定、EM/F1/ROUGE-L/BLEU）零成本、离线可复现，实测比本地裁判更贴近强裁判，适合做回归门禁。
@@ -244,6 +247,10 @@ other tensors on cuda:0`；该异常被 `try/except` 吞掉后**静默回退**�
 - **修复**：`_generate_judge_raw` 在 `generate` 前把输入搬到 `model.device`（无该属性时退回 tokenizer / CPU）；
   两类兜底（异常→启发式、输出解析不出数字→中性 3.0）都返回结构化 `source` 并写进 `meta.fallbacks`，
   同时以 warning 日志点名「该分数来自启发式兜底，不是 LLM 裁判」；报告层逐条打印。
+- **第三类也要显式（2026-10-20 补）**：N>1 多次采样时**部分采样失败**（`source=llm_median_partial`）
+  ——分数仍来自裁判，但中位数只取自已成功的那几次。这类情况同样进 `meta.fallbacks`
+  与 `meta.partial_failures`，报告 §3.5 单列「部分采样失败 N/M」。
+  否则「零兜底：每个分数都来自裁判模型的真实输出」会掩盖「7 次里失败了 2 次」。
 - **验证证据（本机 GPU 实测，同一模型同一样本，旧版代码从 `git show HEAD:src/evaluation.py` 加载）**：
 
   | 样本 | 回答字符数 | 修复前（旧版） | 修复后 | 说明 |
