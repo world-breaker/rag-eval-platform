@@ -162,7 +162,8 @@ class HybridRetriever:
 
         rerank_cfg = hybrid_cfg.get("rerank", {})
         self.rerank_enabled = bool(rerank_cfg.get("enabled", False))
-        self.rerank_type = rerank_cfg.get("type", "cross_encoder")
+        # 注：`rerank.type` 只有一个实现（Cross-Encoder），所以它不是运行时开关——
+        # 写别的值会在 load_config() 时 fail-fast（见 src/utils.py::validate_config）。
         self.rerank_model_name = rerank_cfg.get("model", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1")
         self.rerank_top_n = int(rerank_cfg.get("top_n", 20))
         # 重排默认在 CPU 上跑：评测/演示规模（top-N≤20）下 GPU 与 CPU 差距不大，

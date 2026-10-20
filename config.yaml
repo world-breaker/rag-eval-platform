@@ -1,8 +1,12 @@
 # RAG 知识库问答 + 评测平台 配置文件
+#
+# 原则（2026-10-20 起）：**配置里不许有永不生效的选项**。
+# 凡是「写了但代码不读」或「读了但不用」的键，要么接线、要么删掉，
+# 实在要留扩展位就照 retrieval.vector_store 的做法——加载配置时 fail-fast 报错。
 
 # ====== 文档处理 ======
 chunking:
-  strategy: "fixed_size"       # fixed_size | semantic | recursive
+  strategy: "fixed_size"       # fixed_size | semantic | recursive（写错会直接报错，不静默回退）
   chunk_size: 512              # 字符数
   chunk_overlap: 50            # 重叠字符数，防止切断语义
   separators: ["\n\n", "\n", "。", ".", "！", "？", "，", " ", ""]
@@ -13,6 +17,7 @@ embedding:
   device: "cuda"                           # GPU 加速 embedding
   batch_size: 64                       # 批大小（显存足够时可调大）
   cache_dir: "./data/embedding_cache"      # 离线缓存，文档不变不重算
+  # 注：缓存键 = 模型名 + 文本内容的 MD5，换模型即自动失效重算（见 src/embedding.py）
 
 # ====== 检索 ======
 retrieval:
@@ -24,7 +29,6 @@ retrieval:
   # 小规模知识库零依赖足够；规模上量后可平滑切换到 Faiss / Chroma 等方案（**尚未实现**）。
   # 注意：这里若写 numpy 以外的值，load_config() 会**直接报错**（不再假装支持）。
   vector_store: "numpy"        # 当前唯一支持值：numpy；chromadb / faiss 未接入代码
-  persist_dir: "./data/chroma_db"   # 预留位：当前无任何代码读取（vector_store=numpy 时无效）
 
   # 混合检索（retrieval.mode="hybrid" 时生效）：BM25 + 向量双路召回，RRF 融合
   hybrid:
@@ -33,7 +37,7 @@ retrieval:
       b: 0.75                 # BM25 文档长度归一化参数
     rerank:
       enabled: false          # 默认关闭：零额外依赖、离线可跑、结果可复现
-      type: "cross_encoder"   # 交互式重排（Cross-Encoder）
+      type: "cross_encoder"   # 当前唯一支持值：cross_encoder（交互式重排）；写别的值加载配置即报错
       model: "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"  # 已实测（470MB，多语言，CPU 可跑）；中文专用可换 BAAI/bge-reranker-v2-m3（未实测，需 ~2.27GB）
       device: "cpu"           # 重排走 CPU：不占生成模型显存（评测 top-N≤20 时 CPU 足够）
       top_n: 20               # 仅对 RRF 融合后的 top-N 候选做二次精排
@@ -43,8 +47,8 @@ retrieval:
     enabled: false            # 改为 true 启用（复用 generation 里的模型，无需额外权重）
     strategy: "multi_query"   # multi_query | hyde | both
     num_queries: 3            # multi-query 生成几条改写查询
-    max_new_tokens: 256       # 单次改写生成上限
     max_hypothetical_chars: 512  # HyDE 假想文档截断长度
+    # 注：改写生成的 token 上限目前跟随 generation.max_new_tokens（没有独立开关）
 
 # ====== 生成 ======
 generation:
@@ -59,8 +63,6 @@ generation:
 
 # ====== 评测 ======
 evaluation:
-  # 检索质量
-  retrieval_metrics: ["recall@3", "recall@5", "precision@3", "mrr"]
   # 生成质量（LLM-as-Judge）
   # 注意：**裁判恒等于生成模型（自评）——配置里没有独立裁判开关**。
   # 也就是说本仓库没有「换个 judge_model 就换裁判」这回事：代码里裁判模型
@@ -72,14 +74,15 @@ evaluation:
   # N>1 时裁判改为按 judge_temperature 采样，用中位数压制单次抖动；费用/耗时线性增长。
   judge_samples: 1             # CLI 可覆盖：run_generation_eval.py --judge-samples N
   judge_temperature: 0.8       # 仅 judge_samples>1 生效（N=1 仍走贪心）
-  # 传统指标
-  traditional_metrics: ["bleu", "rouge_l"]
-  # 评测数据集
+  # 评测数据集（Web UI「运行评测」按钮读这个路径）
   test_data_path: "./data/sample/test_qa.json"
+  # 注：检索层指标（Recall@K / Precision@3 / MRR）与传统指标（BLEU / ROUGE-L）
+  # 是代码里固定实现的一套，**没有配置开关**——曾有 retrieval_metrics /
+  # traditional_metrics 两个键，读了不用，已删除（配置里不许有永不生效的选项）。
 
 # ====== 应用 ======
 app:
-  title: "RAG 知识库问答 + 评测平台"
+  title: "RAG 知识库问答 + 评测平台"   # Web UI 标题（app.py 读这个键）
   host: "0.0.0.0"
   port: 7860
   share: false                 # 生成公网链接（Gradio）

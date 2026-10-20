@@ -113,8 +113,9 @@ def _apply_mode(pipe: RAGPipeline, spec: dict) -> dict:
         pipe.set_rerank(False)
 
     # 改写配置：改开关后必须重置缓存，才会按新策略重建 rewriter
+    # 注：改写生成的 token 上限跟随 generation.max_new_tokens（config 里没有独立开关）
     rw_cfg = {"enabled": bool(spec.get("rewrite")), "strategy": spec.get("rewrite") or "multi_query",
-              "num_queries": 3, "max_new_tokens": 256, "max_hypothetical_chars": 512}
+              "num_queries": 3, "max_hypothetical_chars": 512}
     pipe.config["retrieval"]["query_rewrite"] = rw_cfg
     pipe.query_rewriter = None
     pipe._rewriter_initialized = False

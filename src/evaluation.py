@@ -40,14 +40,11 @@ class EvaluationEngine:
 
     def __init__(self, config: dict, judge_samples: Optional[int] = None):
         eval_cfg = config["evaluation"]
-        self.retrieval_metrics = eval_cfg.get(
-            "retrieval_metrics", ["recall@3", "recall@5", "mrr"]
-        )
+        # 注：检索层指标（Recall@3/5、Precision@3、MRR）与传统指标（BLEU、ROUGE-L）
+        # 是代码里固定实现的一套，**没有配置开关**（曾经有 retrieval_metrics /
+        # traditional_metrics 两个键：读了不用，属于「配置里永不生效的选项」，已删除）。
         self.judge_dimensions = eval_cfg.get(
             "judge_dimensions", ["faithfulness", "relevance", "completeness"]
-        )
-        self.traditional_metrics = eval_cfg.get(
-            "traditional_metrics", ["bleu", "rouge_l"]
         )
         # 同一样本调 N 次裁判取中位数（N=1 时与历史行为完全一致：单次贪心解码）
         self.judge_samples = self.validate_judge_samples(

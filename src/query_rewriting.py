@@ -79,9 +79,10 @@ class QueryRewriter:
         self.enabled = bool(cfg.get("enabled", False))
         self.strategy = cfg.get("strategy", "multi_query")  # multi_query | hyde | both
         self.num_queries = int(cfg.get("num_queries", 3))
-        self.max_new_tokens = int(cfg.get("max_new_tokens", 256))
         self.max_hypothetical_chars = int(cfg.get("max_hypothetical_chars", 512))
         self.llm_fn = llm_fn
+        # 注：改写生成的 token 上限跟随 generation.max_new_tokens——
+        # 曾经这里有个 query_rewrite.max_new_tokens 键，但从未传给 LLM（读了不用），已删除。
 
     @property
     def active(self) -> bool:

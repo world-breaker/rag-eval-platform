@@ -169,13 +169,14 @@ def run_evaluation(test_json: str = ""):
     if not index_built:
         return "⚠️ 请先构建知识库索引"
 
-    # 使用内置测试数据
-    test_path = Path("data/sample/test_qa.json")
+    # 评测数据集路径来自 config.yaml 的 evaluation.test_data_path（配置项真的被用上）
+    cfg_eval = pipeline.config.get("evaluation", {}) or {}
+    test_path = Path(cfg_eval.get("test_data_path", "data/sample/test_qa.json"))
     if test_path.exists():
         reports = pipeline.batch_evaluate(str(test_path))
         return json.dumps(reports, ensure_ascii=False, indent=2)
     else:
-        return "未找到测试数据文件 data/sample/test_qa.json"
+        return f"未找到测试数据文件 {test_path}"
 
 
 def compare_strategies(text: str):
@@ -199,8 +200,13 @@ def compare_strategies(text: str):
 
 # ====== Gradio 界面 ======
 
-with gr.Blocks(title="RAG 知识库问答 + 评测平台", theme=gr.themes.Soft()) as demo:
-    gr.Markdown("# 📚 RAG 知识库问答 + 评测平台")
+# 界面标题来自 config.yaml 的 app.title（配置项真的被用上）
+APP_TITLE = (pipeline.config.get("app", {}) or {}).get(
+    "title", "RAG 知识库问答 + 评测平台"
+)
+
+with gr.Blocks(title=APP_TITLE, theme=gr.themes.Soft()) as demo:
+    gr.Markdown(f"# 📚 {APP_TITLE}")
     gr.Markdown("上传文档 → 构建知识库 → 自然语言问答 → 系统化评测")
 
     with gr.Tab("📄 文档管理"):

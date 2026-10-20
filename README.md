@@ -300,6 +300,12 @@ retrieval:
 **Q: 为什么检索是 NumPy 而不是向量数据库？**
 > 本项目的知识库规模是「单机小知识库」（几十~几百个 chunk），暴力余弦检索在这个量级下复杂度完全不构成瓶颈，且零额外依赖、行为完全可解释。`config.yaml` 里 `retrieval.vector_store` 目前**只接受 `numpy`**：写 `chromadb` / `faiss` 会在加载配置时直接报错并提示改回 `numpy`（不再保留「配置里有个永远不生效的选项」这种不诚实的预留）。规模上量后（万级以上 chunk）需要先真正实现向量库接入，再放开这个白名单。
 
+**Q: 配置里那些「看起来能调」的键是真的吗？**
+> 2026-10-20 起这条纪律写进了代码与单测（`tests/test_config_honesty.py`）：**配置里不许有永不生效的选项**。
+> - **已删除的死键**：`evaluation.judge_model`（裁判恒等于生成模型，代码从不读它）、`evaluation.retrieval_metrics` 与 `evaluation.traditional_metrics`（读了不用：检索/传统指标是代码里固定的一套）、`retrieval.persist_dir`（没有任何代码读取）、`retrieval.query_rewrite.max_new_tokens`（从未传给 LLM，改写生成的 token 上限跟随 `generation.max_new_tokens`）。
+> - **保留但 fail-fast 的扩展位**：`retrieval.vector_store` 与 `retrieval.hybrid.rerank.type` 只能写当前唯一支持的值（`numpy` / `cross_encoder`），写别的值加载配置即报错并给出替代方案——不静默按默认值跑。
+> - **真的接上线的键**：`app.title` 与 `evaluation.test_data_path` 由 `app.py` 读取（此前 `app.py` 把标题与数据集路径写死在代码里，配置里的同名键是死的）。
+
 ## 技术栈
 
 - **Embedding**：sentence-transformers / BGE-small-zh-v1.5（512 维）
