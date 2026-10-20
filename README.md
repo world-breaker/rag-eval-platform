@@ -78,6 +78,7 @@ rag-eval-platform/
 │   ├── run_hybrid_comparison.py     # 混合检索对比实验 runner（向量 vs 混合 RRF，2026-10-18 快照）
 │   ├── run_retrieval_benchmark.py   # 检索基准：全档位质量 + 延迟（p50/p95，冷/热启动）
 │   ├── run_generation_eval.py       # 生成层忠实度三臂对照（规则 / 本地 1.5B 裁判 / 强裁判 API）
+│   ├── package_variance_json.py     # 把 run_generation_eval 的 raw 打包成紧凑版方差/稳健性 JSON（复现链的第二步）
 │   └── results/                     # 实验原始数据 + 人读报告
 ├── docs/
 │   └── architecture.md     # 架构与设计决策（公开版）
@@ -91,6 +92,7 @@ rag-eval-platform/
     ├── test_embedding_cache.py # embedding 缓存键含模型名 + 原子落盘（不加载真实模型）
     ├── test_chunking.py      # 切分策略 fail-fast（写错策略名直接报错，不静默回退）
     ├── test_config_honesty.py # 配置诚实性（死键不许复活 / 扩展位 fail-fast / 活键被读走）
+    ├── test_package_variance_json.py # 紧凑版方差/稳健性 JSON 打包脚本（产出结构与归档件一致）
     └── test_generation_eval.py  # 生成层评测离线单测（规则判据 / 缓存键 / rubric 防漂移，不调 API、不载大模型）
 ```
 
@@ -108,7 +110,7 @@ rag-eval-platform/
 |---|---|
 | `HF_HUB_OFFLINE=1` / `TRANSFORMERS_OFFLINE=1` | runner 上没有 BGE 模型缓存。这两条把"模型缺失"从**静默联网下载几百 MB**变成**立刻报错**（本机清空 `HF_HOME` 实测：`OSError: We couldn't connect to 'https://huggingface.co'`）——宁可红得明确，不要绿得含糊 |
 
-**门禁的能力缺口**：103 个用例里有 **1 个必须加载真实 BGE 模型 + GPU**（`tests/test_pipeline.py::test_embedding`：构造 `EmbeddingEngine` 即 `SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")`），CI 上必然失败，已用 `--deselect` 在**命令行显式排除**（没改测试代码，汇总行会报 `1 deselected`，配额对不上就是配置漂了）。其余 102 个用例（切分 / BM25 / RRF / 三档检索模式 / 重排覆盖 / 查询改写 / 生成层规则判据 / 裁判引擎的设备搬运与兜底标记 / 多次采样取中位数与部分采样失败 / 配置校验与「死配置不许复活」/ 降级档位标「未实测」/ embedding 缓存键含模型名 / 切分策略 fail-fast / 每臂有效 n）都是手写小矩阵 + 桩对象，离线确定性，CI 全跑。
+**门禁的能力缺口**：106 个用例里有 **1 个必须加载真实 BGE 模型 + GPU**（`tests/test_pipeline.py::test_embedding`：构造 `EmbeddingEngine` 即 `SentenceTransformer("BAAI/bge-small-zh-v1.5", device="cuda")`），CI 上必然失败，已用 `--deselect` 在**命令行显式排除**（没改测试代码，汇总行会报 `1 deselected`，配额对不上就是配置漂了）。其余 105 个用例（切分 / BM25 / RRF / 三档检索模式 / 重排覆盖 / 查询改写 / 生成层规则判据 / 裁判引擎的设备搬运与兜底标记 / 多次采样取中位数与部分采样失败 / 配置校验与「死配置不许复活」/ 降级档位标「未实测」/ embedding 缓存键含模型名 / 切分策略 fail-fast / 每臂有效 n / 紧凑件打包脚本）都是手写小矩阵 + 桩对象，离线确定性，CI 全跑。
 
 本地一键复现同一条门禁（照抄可跑）：
 
@@ -118,10 +120,10 @@ python -m pip install -r requirements.txt && python -m pytest -q -rs \
 ```
 
 ```text
-102 passed, 1 deselected in 17.14s
+105 passed, 1 deselected in 8.82s
 ```
 
-> 实测两次：**17.14s / 13.94s**（本机负载有波动，**用例数才是硬指标**；耗时随机器状态浮动，别当基准线）。
+> 实测两次：**8.82s / 7.66s**（本机负载有波动，**用例数才是硬指标**；耗时随机器状态浮动，别当基准线）。
 
 本地**全量**（含那 1 个需要 BGE 缓存的用例；本机有缓存 + GPU）：
 
@@ -130,10 +132,10 @@ python -m pytest -q -rs
 ```
 
 ```text
-103 passed in 15.01s
+106 passed in 8.63s
 ```
 
-> 实测两次：**15.01s / 15.06s**（多跑的那条要加载 BGE 模型 + GPU，首次更慢）。
+> 实测两次：**8.63s / 7.88s**（多跑的那条要加载 BGE 模型 + GPU，首次更慢）。
 
 ## 用代码验证
 
@@ -266,6 +268,27 @@ retrieval:
 - 报告：[`experiments/results/generation_eval_2026-10-19.md`](experiments/results/generation_eval_2026-10-19.md)
 - 原始数据：[`experiments/results/generation_eval_2026-10-19.json`](experiments/results/generation_eval_2026-10-19.json)
 - 复现：`python experiments/run_generation_eval.py`（离线部分加 `--no-api`；`--from-results` 可只重算规则臂、不重跑模型/不花钱）
+
+**方差 / 稳健性两份报告的复现链（三步，2026-10-20 补齐）**：
+[`judge_variance_2026-10-20.md`](experiments/results/judge_variance_2026-10-20.md)（本地裁判 N=7）与
+[`reference_robustness_2026-10-20.md`](experiments/results/reference_robustness_2026-10-20.md)（强裁判 API 侧 N=3）
+此前**仓库里没有任何代码能产出它们**（紧凑件的 `script` 字段自称来自 `run_generation_eval.py`，
+但那个脚本的输出结构是另一套）。现在补上了中间那一步：
+
+```bash
+# ① raw（含答案/上下文全文）
+python experiments/run_generation_eval.py --no-api --judge-samples 7 --out <临时目录>/n7.json
+# ② 紧凑件（只留裁判档位 + 统计量；统计量现场复算）——新增脚本
+python experiments/package_variance_json.py --input <临时目录>/n7.json \
+  --out <临时目录>/judge_variance.json --elapsed-s 149.3
+# ③ bootstrap 表（读②的紧凑件）
+python experiments/bootstrap_judge_variance.py
+```
+
+用同一份 raw 跑 ②，产出与仓库里归档的紧凑件**逐字段一致**（822 / 810 个字段，数值容差 0），
+唯一差别是 `script` 字段——归档件里它写的是 `run_generation_eval.py`（不实：那个脚本产不出这个结构），
+打包脚本改成指向自己。API 侧的 raw 可由已入库的 `experiments/results/api_judge_cache.json`
+**零花费重放**（缓存 key 含 N / 第几次采样 / temperature）。
 
 三臂的设置（**三臂共用同一份检索上下文**，答案一律由本地 1.5B 在 `temperature=0` 下贪心生成、可复现）：
 

@@ -120,21 +120,38 @@
 5. **本地裁判与生成模型同款（自评）**：绝对分不可作为质量证据，只能看它与强裁判的偏离方向与幅度。
 6. **裁判采样温度固定 0.8**（仓库默认），没有扫温度；温度更低时 item 级噪声可能更小，本报告的降幅数字只在 0.8 下成立。
 
-## 八、复现命令
+## 八、复现命令（三步链：raw → 紧凑件 → bootstrap 表）
 
 ```bash
-# 离线跑 N=7（需要本地 BGE + Qwen 缓存；本机需设 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1）
-python experiments/run_generation_eval.py --no-api --judge-samples 7 --out <临时目录>
+# ① 离线跑 N=7，出 **raw**（含答案/上下文全文）：需要本地 BGE + Qwen 缓存；
+#    本机需设 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+python experiments/run_generation_eval.py --no-api --judge-samples 7 --out <临时目录>/n7.json
 
-# 复算第六节那张 bootstrap 表（固定 33 条、item 内有放回重抽 7 个观测，B=4000、seed=7）
-# 输出 MAE/r 的均值与抽样 sd、MAE sd 降幅、r 的 90% 区间、单次抽样 r<0 的比例
+# ② 把 raw 打包成 **紧凑件**（只留裁判档位 + 统计量；统计量现场复算，不抄归档数字）
+#    --elapsed-s 填原始那轮运行的墙钟耗时（raw JSON 里没有这个字段——它只记逐样本耗时；
+#    不传则记 null，不编造数字）
+python experiments/package_variance_json.py \
+  --input <临时目录>/n7.json \
+  --out <临时目录>/judge_variance.json \
+  --elapsed-s 149.3
+
+# ③ 复算第六节那张 bootstrap 表（固定 33 条、item 内有放回重抽 7 个观测，B=4000、seed=7）
+#    ③ 直接读 ② 的紧凑件（默认 experiments/results/judge_variance_2026-10-20.json）
 python experiments/bootstrap_judge_variance.py            # 等价于 --seed 7 --boot 4000
 
-# 只想看数字对不对：把落盘的 JSON 与 experiments/results/judge_variance_2026-10-20.json 的 items 逐单元比对
-# （items 里存的是每格 7 次裁判的原始档位，重算 median / 极差 / 标准差应与 summary 完全一致）
+# 只想看数字对不对：把 ② 的落盘 JSON 与 experiments/results/judge_variance_2026-10-20.json
+# 逐字段比对（items 里存的是每格 7 次裁判的原始档位，重算 median / 极差 / 标准差
+# 应与 summary 完全一致）
 
 # 离线单测（不加载大模型）
 python -m pytest -q tests/test_generation_eval.py
 ```
+
+> **② 为什么以前缺着**：这份紧凑件此前**仓库里没有任何代码能产出它**——它的 `script` 字段自称来自
+> `run_generation_eval.py`，但那个脚本的输出结构是另一套（raw）。`experiments/package_variance_json.py`
+> 补上了这一环：底层数据一直在 raw 的 `samples[].judge.local.detail[dim].parsed` 里。
+> 用同一份 raw 跑 ②，产出与本仓库归档件**逐字段一致**（822 个字段、差异 0），
+> 唯一例外是 `script` 字段：归档件写的是 `experiments/run_generation_eval.py`（不实——那个脚本
+> 产不出这个结构），打包脚本把它改成指向**自己**。
 
 > 强裁判对照分不在本文件里重复存储：见 `experiments/results/generation_eval_2026-10-19.json` 的臂 C（`samples[*].judge.api.scores.faithfulness`）。

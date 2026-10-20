@@ -128,25 +128,42 @@ item 级抽样标准差（ddof=0，即除以 3 不是除以 2）：
 6. **本地裁判是自评**（判分模型＝生成模型 `Qwen2.5-1.5B-Instruct`）：本地臂的**绝对分**不可作为答案质量证据，只能看它与参照系的偏离方向与幅度。
 7. **参照系本身不是真值**：强裁判也有立场偏差（偏好长答案、偏好与上下文用词一致的答案）。本报告仍然只做**两裁判一致性**，不是与人类标注对齐的准确性。
 
-## 九、复现命令与缓存说明
+## 九、复现命令与缓存说明（三步链：raw → 紧凑件 → bootstrap 表）
 
 ```bash
-# 重跑本轮实验（三臂全跑；缓存已入库 → 0 API 花费，若清掉缓存则会按 ¥0.0777 量级计费）
-python experiments/run_generation_eval.py --judge-samples 3 --out <临时目录>
+# ① 重跑本轮实验，出 **raw**（三臂全跑；缓存已入库 → 0 API 花费，
+#    若清掉缓存则会按 ¥0.0777 量级计费）
+python experiments/run_generation_eval.py --judge-samples 3 --out <临时目录>/api_n3.json
 
-# 复算第五节（C 表，主结论稳健性）与第七节（E 表，强裁判自洽性）
-# 输出与本报告第 5、7 节的数字逐位一致
+# ② 把 raw 打包成 **紧凑件**（只留每格 3 次裁判档位 + 统计量；统计量现场复算）
+#    --elapsed-s 填原始那轮运行的墙钟耗时（raw JSON 里没有这个字段，不传则记 null）
+python experiments/package_variance_json.py \
+  --input <临时目录>/api_n3.json \
+  --out <临时目录>/reference_robustness.json \
+  --elapsed-s 236.5
+
+# ③ 复算第五节（C 表，主结论稳健性）与第七节（E 表，强裁判自洽性）
+#    ③ 直接读 ② 的紧凑件（默认 experiments/results/reference_robustness_2026-10-20.json）
 python experiments/bootstrap_judge_variance_api.py            # 等价于 --seed 7 --boot 4000
 
-# 只想看数字对不对：把落盘的 JSON 与 experiments/results/reference_robustness_2026-10-20.json
-# 的 items 逐单元比对（items 里存的是每格 3 次裁判的原始档位，重算中位数 / 极差 / 标准差
+# 只想看数字对不对：把 ② 的落盘 JSON 与 experiments/results/reference_robustness_2026-10-20.json
+# 逐字段比对（items 里存的是每格 3 次裁判的原始档位，重算中位数 / 极差 / 标准差
 # 应与 summary 完全一致）
 
 # 离线单测（不加载大模型）
 python -m pytest -q tests/test_generation_eval.py
 ```
 
+> **② 为什么以前缺着**：这份紧凑件此前**仓库里没有任何代码能产出它**（`script` 字段自称来自
+> `run_generation_eval.py`，但那个脚本的输出结构是另一套）。`experiments/package_variance_json.py`
+> 补上了这一环：底层数据一直在 raw 的 `samples[].judge.api.sample_scores` /
+> `samples[].judge.local.detail[dim].parsed` 里。用同一份 raw 跑 ②，产出与本仓库归档件
+> **逐字段一致**（810 个字段、差异 0），唯一例外是 `script` 字段：归档件写的是
+> `experiments/run_generation_eval.py …`（不实——那个脚本产不出这个结构），打包脚本改成指向**自己**。
+
 > **缓存已入库**：仓库里现有 **132 条** API 响应缓存（33 条 N=1 + 99 条 N=3，本轮新增 99 条），随仓库一起提交在 `experiments/results/api_judge_cache.json`。
-> **克隆后重跑上面第一条命令，0 API 花费**（缓存 key 含 N / 第几次采样 / temperature，N=3 的条目会直接命中 N=3 那 99 条）。
+> **克隆后重跑上面第 ① 条命令，0 API 花费**——API 侧的 raw 可由这份已入库的 `api_judge_cache.json`
+> **零花费重放**（缓存 key 含 N / 第几次采样 / temperature，N=3 的 99 条会直接命中；本地答案与
+> 本地裁判分由离线臂重算，不花钱）。
 
 > 强裁判的 N=1 参照分不在本文件里重复存储：见 `experiments/results/generation_eval_2026-10-19.json` 的臂 C（`samples[*].judge.api.scores.faithfulness`）。
