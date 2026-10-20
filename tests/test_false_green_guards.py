@@ -137,15 +137,38 @@ def test_benchmark_marks_degraded_rewrite_mode_as_not_measured():
 # ---------------------------------------------------------------- P0-3：重排降级
 
 
-def test_hybrid_comparison_marks_unavailable_rerank_as_not_measured():
-    """CrossEncoder 构造失败 → 该档不是「混合 + Cross-Encoder 重排」，而是「未实测」。"""
+def test_hybrid_comparison_marks_unavailable_rerank_as_not_measured(monkeypatch):
+    """CrossEncoder 构造抛异常 → 该档不是「混合 + Cross-Encoder 重排」，而是「未实测」。"""
     mod = _load_experiment_module("run_hybrid_comparison")
 
-    class _FakeHybrid:
-        reranker = None
-        rerank_load_error = "OSError: 权重文件不完整"
+    # 真的让 CrossEncoder 构造失败（模拟权重缺失 / 半截下载）
+    import sentence_transformers
 
-    pipe = types.SimpleNamespace(hybrid=_FakeHybrid())
+    def boom(*args, **kwargs):
+        raise OSError("权重文件不完整")
+
+    monkeypatch.setattr(sentence_transformers, "CrossEncoder", boom)
+
+    from src.hybrid_retrieval import HybridRetriever
+
+    cfg = {
+        "retrieval": {
+            "rrf_k": 60,
+            "hybrid": {
+                "rerank": {
+                    "enabled": True,
+                    "model": "cross-encoder/fake-model",
+                    "device": "cpu",
+                    "top_n": 20,
+                }
+            },
+        }
+    }
+    hr = HybridRetriever(cfg)
+    assert hr.reranker is None, "CrossEncoder 构造失败后不许有重排器"
+    assert hr.rerank_load_error, "失败原因必须留证（rerank_load_error）"
+
+    pipe = types.SimpleNamespace(hybrid=hr)
     reason = mod.check_rerank_active(pipe)
     assert reason, "重排没生效时必须给出原因"
     assert "重排模型不可用" in reason
