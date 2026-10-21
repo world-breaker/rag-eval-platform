@@ -1,0 +1,2962 @@
+{
+  "f9c07b0adf6902507320dc101743ff948609f61eeffe4c3178d6bcfec34cde83": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 272,
+      "completion_tokens": 22,
+      "total_tokens": 294,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 272
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552855.5848281,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-01"
+  },
+  "8824a61060cf44751c629247e625825feb129bb7775106660f047b58c1772008": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 272,
+      "completion_tokens": 22,
+      "total_tokens": 294,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 144
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552856.3225467,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-01"
+  },
+  "fcbc4a2e9d94dce226d0a79582dcba76062f9b3a66a16aa2f682be176e819899": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 272,
+      "completion_tokens": 22,
+      "total_tokens": 294,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 144
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552857.400455,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-01"
+  },
+  "7ea3068dd1cfe87fd14cc1e7f3be61d1fe1532bc7abb91beb11848d6d94db6ab": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 316,
+      "completion_tokens": 22,
+      "total_tokens": 338,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 316
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552858.4280596,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-02"
+  },
+  "1d94b91ec55589527881416f3e895bd901f073ccb6a386f4809d9a2372c776b9": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 4, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 316,
+      "completion_tokens": 22,
+      "total_tokens": 338,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 188
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552859.0958912,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-02"
+  },
+  "999ebe71b8e7db7253bc95015834147f9158e4a7876b19bdb96ae55a4c3a732e": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 316,
+      "completion_tokens": 22,
+      "total_tokens": 338,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 188
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552859.9844813,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-02"
+  },
+  "6169e1abde78fdbe2ba04221743883d00d32b9666ea30adb00c357d8e378e4b7": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 349,
+      "completion_tokens": 22,
+      "total_tokens": 371,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 349
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552860.887969,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-02"
+  },
+  "a6418870da0f9e862c890ce686907b6e18b66bffa78664c512bb8a216efe4dda": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 349,
+      "completion_tokens": 22,
+      "total_tokens": 371,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 221
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552861.8449793,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-02"
+  },
+  "0aea5ecac73c16af7c23cc2b722e5d96a29172962a08fcb9796e547b2906d989": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 349,
+      "completion_tokens": 22,
+      "total_tokens": 371,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 221
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552862.6017144,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-02"
+  },
+  "f3ac4315e4d49ebc211ed36e5ee36608780bd1aefef7d9f559012c3ee4221c70": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 302,
+      "completion_tokens": 22,
+      "total_tokens": 324,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 302
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552863.3026724,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-03"
+  },
+  "987ffc2f0076d6d3c4f37069c3a7c8c1a4558fccdf353c1ee2951e6392dfdd1d": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 302,
+      "completion_tokens": 22,
+      "total_tokens": 324,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 174
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552864.7665675,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-03"
+  },
+  "d9f34671fa5324dd302bef7eb8e5f20eb0e99e9e4ccab34ed4f7fc10c8778aad": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 302,
+      "completion_tokens": 22,
+      "total_tokens": 324,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 174
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552865.8214564,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-03"
+  },
+  "eb7fa8524fe0c51fcdffdeb2a7e2faea3b34409402e32f2f5c86567c7a63375c": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 389,
+      "completion_tokens": 22,
+      "total_tokens": 411,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 389
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552866.8610363,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-03"
+  },
+  "84ce015c5b3a4532a256f23facf49b649e21a210ca175113157afbb6d8e01978": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 389,
+      "completion_tokens": 22,
+      "total_tokens": 411,
+      "prompt_tokens_details": {
+        "cached_tokens": 255
+      },
+      "prompt_cache_hit_tokens": 255,
+      "prompt_cache_miss_tokens": 134
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552867.914422,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-03"
+  },
+  "8bbe9036e3c93b815fdba0cf983411a1d9a4839aae0ef529ad305f642a3df3a2": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 389,
+      "completion_tokens": 22,
+      "total_tokens": 411,
+      "prompt_tokens_details": {
+        "cached_tokens": 255
+      },
+      "prompt_cache_hit_tokens": 255,
+      "prompt_cache_miss_tokens": 134
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552868.632599,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-03"
+  },
+  "05dd5fa487ea2776f72c1b4ff7f146d1791145716e2ded8755b79fb156d412a9": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 231,
+      "completion_tokens": 22,
+      "total_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 231
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552869.446886,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-04"
+  },
+  "f5ae2ab83b47fa6732cb7be6842a20352bebb02207b88f02331aee58cc23739d": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 231,
+      "completion_tokens": 22,
+      "total_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 231
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552870.342705,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-04"
+  },
+  "f69bfb6bae4b22784239eadf62812409189a887e283e31315088a4b37e69b370": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 231,
+      "completion_tokens": 22,
+      "total_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 231
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552870.934003,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-04"
+  },
+  "adb5d378e89df41eb71d7d0b0a3492decf3c7f790b78987523d02fd700d652bf": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 231,
+      "completion_tokens": 22,
+      "total_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 231
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552871.9117877,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-04"
+  },
+  "2f5a2b41b1b42f77d6ced291df1a4503bfb083845cca4013213681a194c94c7a": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 231,
+      "completion_tokens": 22,
+      "total_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 231
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552872.6892705,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-04"
+  },
+  "e2fc75caa3fe2a9666e8c57eb4d5c21f80c0b5bb7007095fe8950cb95064c888": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 231,
+      "completion_tokens": 22,
+      "total_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 231
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552873.3144894,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-04"
+  },
+  "86953b7e2edd8b347b611298e5637afd0b3b9a131f7dcc669ccd2e5e62fe4feb": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 215,
+      "completion_tokens": 22,
+      "total_tokens": 237,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 215
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552874.0659263,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-05"
+  },
+  "33eddc6f93226a3819653a428d319fececf8ff6e20dddc37d0d2c2071cd36d7a": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 215,
+      "completion_tokens": 22,
+      "total_tokens": 237,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 215
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552874.7879243,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-05"
+  },
+  "9aa1acc91aab2db9ea8d1763d4932525e66aef185fcac63bcbd9dbadc77540c9": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 215,
+      "completion_tokens": 22,
+      "total_tokens": 237,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 215
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552875.8731828,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-05"
+  },
+  "a1d9a91287588a3455b3d916da57d0988c106b028919e94f77c1b50bf2064a93": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 414,
+      "completion_tokens": 22,
+      "total_tokens": 436,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 286
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552876.8722079,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-06"
+  },
+  "337c8cee83e7ef2e4a11160623cb3b91f54e76769113d308135d940f31325466": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 414,
+      "completion_tokens": 22,
+      "total_tokens": 436,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 158
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552877.6085153,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-06"
+  },
+  "ea9f0b991b4c90985a902e9eb1fc901523a73278be4dc86209fca157e6db86e2": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 414,
+      "completion_tokens": 22,
+      "total_tokens": 436,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 158
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552878.5715666,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-06"
+  },
+  "fd01e1f89a180ccfc707573426d5b1c74c01e41efb6da4488aa474dcff42bd82": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 379,
+      "completion_tokens": 22,
+      "total_tokens": 401,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 251
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552879.5231256,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-06"
+  },
+  "5fc4c03781cd6e4aa7542251cc9a3cd2cfaa8757116153686acadff7650414da": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 379,
+      "completion_tokens": 22,
+      "total_tokens": 401,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 251
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552880.3271515,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-06"
+  },
+  "c51c2097821ea681916917e98f9b5edc643a61b10813c223d536de7d251b102c": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 379,
+      "completion_tokens": 22,
+      "total_tokens": 401,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 251
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552881.133447,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-06"
+  },
+  "4ef784acfc1f05f399b8cf6547dd95c9157fff86763602bcf03f45774c911d22": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 424,
+      "completion_tokens": 22,
+      "total_tokens": 446,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 296
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552882.0303228,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-07"
+  },
+  "91986e9fde4b9deaf8d69513765a42c0566ce157900c298ba9e5a5b093cd125e": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 424,
+      "completion_tokens": 22,
+      "total_tokens": 446,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 168
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552883.055478,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-07"
+  },
+  "5b4debdb4b167690f6dcb176c6b35a7f6f3876aa21ad3e3a02e69005d0fef5bb": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 424,
+      "completion_tokens": 22,
+      "total_tokens": 446,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 168
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552883.9168937,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-07"
+  },
+  "460c775220d5f71d68c3ce1a00874e4d35764676099db08799ce385398cdd496": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 396,
+      "completion_tokens": 22,
+      "total_tokens": 418,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 268
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552884.6239355,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-07"
+  },
+  "3449f767849ca812615945f58a2daffe94e94d5da0897e685c58cb11c75d9b02": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 396,
+      "completion_tokens": 22,
+      "total_tokens": 418,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 140
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552885.5580902,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-07"
+  },
+  "b09755d64447c518c1707336f5bdbce2d346d23bf74ea14c963d9591a2b0af74": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 396,
+      "completion_tokens": 22,
+      "total_tokens": 418,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 140
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552886.2959483,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-07"
+  },
+  "4ccfb63a9ff39c8bf0a58e86fd0cd4c8c565dcb5d5958bbb014d094a9494c64b": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 622,
+      "completion_tokens": 22,
+      "total_tokens": 644,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 494
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552887.2669,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-08"
+  },
+  "69cb701d3f3d802736bf7466896329c2c2db94ebb2ea7dc035c4ada4f9dac32f": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 622,
+      "completion_tokens": 22,
+      "total_tokens": 644,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 238
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552888.1472802,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-08"
+  },
+  "f31258b9c964b84b14afa4106e027200b1391c6cc8a81ae91f31fb7cf4f86266": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 622,
+      "completion_tokens": 22,
+      "total_tokens": 644,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 238
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552889.1331823,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-08"
+  },
+  "095d521d9b57de60af35b6da1a4f69fa75bbe1970324f9748cabc02745af1a74": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 537,
+      "completion_tokens": 22,
+      "total_tokens": 559,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 409
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552890.2204866,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-08"
+  },
+  "d19b23d67970cb81ba2788e3b39a9d1b30085443527f940c81ada6a7cddbab8d": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 537,
+      "completion_tokens": 22,
+      "total_tokens": 559,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 153
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552891.27488,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-08"
+  },
+  "a8e7a75cb28019aed298a46b62719ace0edd21d305d9517f4722b49681a9076b": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 537,
+      "completion_tokens": 22,
+      "total_tokens": 559,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 153
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552891.9488666,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-08"
+  },
+  "5437f3396167a19cdde263f8628b8f9dedfa4b252acd7d015f60dc9ca564f7cc": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 210,
+      "completion_tokens": 22,
+      "total_tokens": 232,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 210
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552892.7733817,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-09"
+  },
+  "128ab339f36bb3c1ad21886f061613dc297c227536507c31459647977bc94c15": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 210,
+      "completion_tokens": 22,
+      "total_tokens": 232,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 210
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552893.6656508,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-09"
+  },
+  "3bc48b77d51489e1e9c81d7321a081978483060a0bf783e8899b75e231f32e04": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 210,
+      "completion_tokens": 22,
+      "total_tokens": 232,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 210
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552894.4614584,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-09"
+  },
+  "5af2b72e0fe401317a47ca70126428cedf6f684a0dd79367347ea89b7c2e8e4d": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 507,
+      "completion_tokens": 22,
+      "total_tokens": 529,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 379
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552895.3037994,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-10"
+  },
+  "b0e37963d1a63ac0f9b3ab58b887986512fa3d8dd03336e77090b9ed5b326a1c": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 4, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 507,
+      "completion_tokens": 22,
+      "total_tokens": 529,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 251
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552896.2715194,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-10"
+  },
+  "37e0ff2cb988a2f22eec20ac5f9ec3e573a339eeb1c031c068606b408886d3aa": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 507,
+      "completion_tokens": 22,
+      "total_tokens": 529,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 251
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552897.182694,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-10"
+  },
+  "ee1d5015b654d5ee7b7840f733087a894211e2e6d2309ebbdffb8d19df1af78f": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 4, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 402,
+      "completion_tokens": 22,
+      "total_tokens": 424,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 274
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552898.1258001,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-10"
+  },
+  "28e6036b2fef170dad5b3cd681039b7c58dddc45567a16a85729d892693b201a": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 402,
+      "completion_tokens": 22,
+      "total_tokens": 424,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 146
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552898.8907785,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-10"
+  },
+  "0fce5b22a54ce9feaff874fe1afac877504219b1a67f5cf3058b0da103ba9816": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 402,
+      "completion_tokens": 22,
+      "total_tokens": 424,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 146
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552900.0278218,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-10"
+  },
+  "0e2f53a3ed777ac8dfbe1ac3df002504867dd6b1254374c81cbca3410b27abd8": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 639,
+      "completion_tokens": 22,
+      "total_tokens": 661,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 511
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552900.9374297,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-11"
+  },
+  "808d1cf1c71841fb7da398a12b1d1e4409d81b3b128e824dd79aed4be5a6a138": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 639,
+      "completion_tokens": 22,
+      "total_tokens": 661,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 255
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552901.872967,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-11"
+  },
+  "e24921c8267f63dd07d9337ee7ff6e761820d6399decea599ec866059f311825": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 639,
+      "completion_tokens": 22,
+      "total_tokens": 661,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 255
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552902.8933647,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-11"
+  },
+  "7d30e4c1901121529b2daa62a432e0df733d86bebacfc411d98df61c5e4a7dbd": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 612,
+      "completion_tokens": 22,
+      "total_tokens": 634,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 356
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552903.6929257,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-11"
+  },
+  "44a428ce05545fa01595aacc091bab57fa28add89b9afbf542311c23738f688a": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 612,
+      "completion_tokens": 22,
+      "total_tokens": 634,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 228
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552904.4624207,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-11"
+  },
+  "f90042abe757d49e60aa89578aed3dae9ef60148a2cadb0a1b3d8af4d02a1200": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 612,
+      "completion_tokens": 22,
+      "total_tokens": 634,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 228
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552905.4515507,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-11"
+  },
+  "7a00f4777f26d3f0ade68e2bb839fb95c4fdbead8a943d25e9d99c607226ca21": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 305,
+      "completion_tokens": 22,
+      "total_tokens": 327,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 177
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552906.4723318,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-12"
+  },
+  "2d963399a0098ebe6cc8d5bc4786b34da080783446e95904fab706f2649234f8": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 305,
+      "completion_tokens": 22,
+      "total_tokens": 327,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 177
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552907.4158425,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-12"
+  },
+  "5385416ec80f2cb63dbab575dd2df67f68cd335794a652ab086a4672207a74bb": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 305,
+      "completion_tokens": 22,
+      "total_tokens": 327,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 177
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552908.3870697,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-12"
+  },
+  "abc4fbd818a67a7fdec8d6290491dae868c92ad12e90b4b2bceafed29ed6f81f": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 356,
+      "completion_tokens": 22,
+      "total_tokens": 378,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 228
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552909.4441972,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-12"
+  },
+  "9938eeb816baa485588e1f3edcb6f0683d44f608c1732b87ab2ac74b05cc2048": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 356,
+      "completion_tokens": 22,
+      "total_tokens": 378,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 228
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552910.2952821,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-12"
+  },
+  "4f5db03e2ce9dfa9cce8e1f176e3aeb9de089bf22f643e5f37940a78571be7d4": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 356,
+      "completion_tokens": 22,
+      "total_tokens": 378,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 228
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552911.2370353,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-12"
+  },
+  "90df26ce107ab1ccda54f9daf2619e97667dc7ee62fd4f72bea9de7d8fdfb377": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 520,
+      "completion_tokens": 22,
+      "total_tokens": 542,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 392
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552912.312185,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-13"
+  },
+  "d29139ab83c5ba4ac0ec26fe0cd567d3ccc5f3228e2dab7e02ad1f887e078b9a": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 520,
+      "completion_tokens": 22,
+      "total_tokens": 542,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 136
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552913.3242888,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-13"
+  },
+  "601561b9ff18f9ca8ca725f722a3c9695ffdb6fb16b45b66614691f263fc04d0": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 520,
+      "completion_tokens": 22,
+      "total_tokens": 542,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 136
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552914.4030967,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-13"
+  },
+  "db9c94caeedbffb8edb69910b9e79ba4b8b1449d89fbd4d5c71bcdfa76ad36fe": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 510,
+      "completion_tokens": 22,
+      "total_tokens": 532,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 382
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552915.2815974,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-13"
+  },
+  "61a0f87681f1cb61504f1fa7829658f68d3cc37dcd9834467a7c0847e2ad0a56": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 510,
+      "completion_tokens": 22,
+      "total_tokens": 532,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 254
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552916.1631014,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-13"
+  },
+  "ab6fc9ebb4df53768611f128b290fc4745cd6bb9e58848cee3e2ae3a580be544": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 510,
+      "completion_tokens": 22,
+      "total_tokens": 532,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 254
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552931.7712276,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-13"
+  },
+  "f4e5ddaec8bffd57154ddfca8e5c33deef821522e87e197e6cee19baaf6b9936": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 376,
+      "completion_tokens": 22,
+      "total_tokens": 398,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 248
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552932.830113,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-14"
+  },
+  "cc20f82aa9fe670d3270ae9dcc005d2881825bbdef37a6bc81fcfc4a036fff64": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 376,
+      "completion_tokens": 22,
+      "total_tokens": 398,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 248
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552933.83444,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-14"
+  },
+  "21b125738acaf0cb9bfdf86ca038625be5d8c889fe1741a26290cbc0558e5235": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 376,
+      "completion_tokens": 22,
+      "total_tokens": 398,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 248
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552934.7132845,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-14"
+  },
+  "ceb345f6d15951855fe948e5404f35de9ca3e70333e23ac661259ef2b3c925ae": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 422,
+      "completion_tokens": 22,
+      "total_tokens": 444,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 294
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552935.760501,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-14"
+  },
+  "d136c6dbd52e0b4ce07e8f0416f8f6fe0d3716549fa5175e61f5226772f94488": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 422,
+      "completion_tokens": 22,
+      "total_tokens": 444,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 166
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552936.7432663,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-14"
+  },
+  "5893f685f4247921309a6092f8c29fd39df03486ad7a193769a332e6a983d386": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 422,
+      "completion_tokens": 22,
+      "total_tokens": 444,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 166
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552937.8057015,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-14"
+  },
+  "26ac35aa11eb877498681549e69c22663dbc6a8b46423a5e2fe64afb2f7cc080": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 601,
+      "completion_tokens": 22,
+      "total_tokens": 623,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 473
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552938.6822567,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-15"
+  },
+  "e0d0f302bc71b7ae9b7065dd93673df4cb7c2658df8e86ecd3f0c110492df0f7": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 601,
+      "completion_tokens": 22,
+      "total_tokens": 623,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 217
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552939.505385,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-15"
+  },
+  "1955a9b6cce7a6b4962080279acfa6ee9970d0199e21d46de64d9e59170bb3b8": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 601,
+      "completion_tokens": 22,
+      "total_tokens": 623,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 217
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552940.5633352,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-15"
+  },
+  "47af4166e5dcdc6b357f081f85b9156e13128300cf51cd00325acf284dda9ee4": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 607,
+      "completion_tokens": 22,
+      "total_tokens": 629,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 351
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552941.6086502,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-15"
+  },
+  "f86ea092d84b19dea45fb42a8a96e1a27991ca0826ecb91b882af64d796313ba": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 607,
+      "completion_tokens": 22,
+      "total_tokens": 629,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 223
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552942.5146682,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-15"
+  },
+  "fc5bbfc7a895a28959a7e9f05ff0fdd8f0433de2f213f30f106e9db1e96c1f1b": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 607,
+      "completion_tokens": 22,
+      "total_tokens": 629,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 223
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552943.3113687,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-15"
+  },
+  "aff0b21f7b45efc17350b12dc7018c8cd1c1ba2765bb80b48da288b087f694f1": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 388,
+      "completion_tokens": 22,
+      "total_tokens": 410,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 260
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552944.2746663,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-16"
+  },
+  "fd990e65c24110acc5e5faf6ce5b6805a304fc6c6107c274fcdd6b73daef6fc6": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 388,
+      "completion_tokens": 22,
+      "total_tokens": 410,
+      "prompt_tokens_details": {
+        "cached_tokens": 254
+      },
+      "prompt_cache_hit_tokens": 254,
+      "prompt_cache_miss_tokens": 134
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552945.1430082,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-16"
+  },
+  "2da7bbe351b71e45a3a9fe3401cadd10a6ec40009784027eeaf7f89c923106cf": {
+    "content": "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 388,
+      "completion_tokens": 22,
+      "total_tokens": 410,
+      "prompt_tokens_details": {
+        "cached_tokens": 254
+      },
+      "prompt_cache_hit_tokens": 254,
+      "prompt_cache_miss_tokens": 134
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552946.3366482,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-16"
+  },
+  "25f7f1091fd29dfea7511445fe5d4d7d2bee30aab0046d171b05583888004cc3": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 357,
+      "completion_tokens": 22,
+      "total_tokens": 379,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 229
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552947.354901,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-16"
+  },
+  "770096a2dd74d15dd23a1303e4722c2d50389bf4744e09801677c3a5020541bb": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 357,
+      "completion_tokens": 22,
+      "total_tokens": 379,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 229
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552948.0547996,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-16"
+  },
+  "2b45b31840af08a0dd24067df229034fd024bae23a8b29204db65835e82e1f35": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 357,
+      "completion_tokens": 22,
+      "total_tokens": 379,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 229
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552948.8581996,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-16"
+  },
+  "b8ad8267eb389c0aa6e40f601579104b39f7f3847a3df13a59b90f26076a0daf": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 434,
+      "completion_tokens": 22,
+      "total_tokens": 456,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 306
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552949.8848472,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-17"
+  },
+  "f826c37e4ba98c2bd689cc9764a02e94b4273f6a4cbef7a3e21eb8c105379490": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 434,
+      "completion_tokens": 22,
+      "total_tokens": 456,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 178
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552950.7091174,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-17"
+  },
+  "3ef199f6296f9e1dc62e1746aee2b46d3a22dcf4949f8704b898cb730d4cac23": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 434,
+      "completion_tokens": 22,
+      "total_tokens": 456,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 178
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552951.628601,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-17"
+  },
+  "4db5f682101a3d4c59392a56c552e9024b76cf3e3a4b583f6068e3738b25fef2": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 378,
+      "completion_tokens": 22,
+      "total_tokens": 400,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 250
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552952.4763997,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-17"
+  },
+  "dd602475d5e621030147adf3f5ff060624f805cb49fc132ffe187a56d4712ff1": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+    "usage": {
+      "prompt_tokens": 378,
+      "completion_tokens": 22,
+      "total_tokens": 400,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 250
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552953.4597805,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-17"
+  },
+  "0c777951762b42a96e9f85eccaa69e7c0e6d447ea19b710eb6965adf9a709063": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 378,
+      "completion_tokens": 22,
+      "total_tokens": 400,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 250
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552954.5498874,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-17"
+  },
+  "923330b775d7331cc48e6104ec03c4f28dadb967c34e1b265e4383af5cea0ffb": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 243,
+      "completion_tokens": 22,
+      "total_tokens": 265,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 243
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552955.5499897,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-18"
+  },
+  "a030ba803315ae0e1700d4d41c8d3c5584105a2a4e0c8009ea31cc4ec71eb7d3": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 243,
+      "completion_tokens": 22,
+      "total_tokens": 265,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 243
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552956.562119,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-18"
+  },
+  "ae6eb23629e62749da5d9b7ac5fbe863e263c51eae02b1444e6658f79dfba51d": {
+    "content": "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 243,
+      "completion_tokens": 22,
+      "total_tokens": 265,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 243
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552957.6378064,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-18"
+  },
+  "7d5a806449c51ae20ba136f65380bfffc18ea9d61021ce4aa819ab0fb4b73b0c": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 239,
+      "completion_tokens": 22,
+      "total_tokens": 261,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 239
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552958.6628695,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-18"
+  },
+  "2edd3ad8d2d362be71917ba6ba77a51d215dde2b543c67102f232d1644d1b31b": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+    "usage": {
+      "prompt_tokens": 239,
+      "completion_tokens": 22,
+      "total_tokens": 261,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 239
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552959.6741526,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-18"
+  },
+  "3ea6210979356f0abeb12eb9efb87ea290b7c4ccf7a6f507d6e34f5bde397d2a": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 239,
+      "completion_tokens": 22,
+      "total_tokens": 261,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 239
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552960.5818071,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-18"
+  },
+  "4d2cf4cad7b321862c1380e900b76b4d4417de129b9f8b438479fef2263225c5": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 536,
+      "completion_tokens": 22,
+      "total_tokens": 558,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 408
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552961.663545,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-19"
+  },
+  "a1194694cd2ce1f28137f6590a0e8a4d12479a7cdc7a4d6fe3172a2dc5467498": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 536,
+      "completion_tokens": 22,
+      "total_tokens": 558,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 152
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552962.478432,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-19"
+  },
+  "73a5f50778fddcab72875fb85b94a72e648c55bb3da24fa29d8979c043c8866b": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 536,
+      "completion_tokens": 22,
+      "total_tokens": 558,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 152
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552963.266364,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-19"
+  },
+  "e4d44c46ec771fc7c264eb8353d4f72976b1b64fe6eb4c39178c3616972e3c1f": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 519,
+      "completion_tokens": 22,
+      "total_tokens": 541,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 391
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552964.1800077,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-19"
+  },
+  "3ab18a88a980f89374f6372d668e98ff63c33fe5fdc4edda5092049e750b2950": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 519,
+      "completion_tokens": 22,
+      "total_tokens": 541,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 135
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552965.1760535,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-19"
+  },
+  "22da343445e4767e39463f01166f273b9b7afdc4c14a6078158ea10e3a398194": {
+    "content": "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+    "usage": {
+      "prompt_tokens": 519,
+      "completion_tokens": 22,
+      "total_tokens": 541,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 135
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552966.4021742,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-19"
+  },
+  "ad280f4338f665695eef29f88a2fc7f2d3dea462fae5506db156d8c4efb5ed7c": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 2}",
+    "usage": {
+      "prompt_tokens": 322,
+      "completion_tokens": 22,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 194
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552967.4599311,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-20"
+  },
+  "0044c0deedf5d23a5d750ce2a27d32c4dbfec9c06f1aa45f4662381e694cc4d5": {
+    "content": "{\"faithfulness\": 4, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 322,
+      "completion_tokens": 22,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 194
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552968.5882158,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-20"
+  },
+  "547deeec45e26c23520c157048b4af1ca90b762d72b33f59d72b9830c801e232": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 322,
+      "completion_tokens": 22,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 194
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552969.383311,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/base/heldout-20"
+  },
+  "51291aed165f3dbfb3eb415945589919a70042251d608f4fe9edcd62a7e16be1": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 322,
+      "completion_tokens": 22,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 194
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552970.3835506,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-20"
+  },
+  "3359535af9839d8a642c7c4dee65d60a3efd9e7ea0ab9c8387e28dc9589b774c": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 322,
+      "completion_tokens": 22,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 194
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552971.2389288,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 1,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-20"
+  },
+  "e57e9c6ee0acc246bafbb42e53b846795ec02eaaaf3c891fef09381b8518a7d0": {
+    "content": "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+    "usage": {
+      "prompt_tokens": 322,
+      "completion_tokens": 22,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 194
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552972.158301,
+    "via": "direct",
+    "judge_samples": 3,
+    "sample_index": 2,
+    "temperature": 0.8,
+    "tag": "abs/sft/heldout-20"
+  },
+  "627d5ff2f4142ae1dba0b544b822bbba162b319c79badc24a3ab305c61ffbb6f": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 1, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 355,
+      "completion_tokens": 59,
+      "total_tokens": 414,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 355
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552973.1703029,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-01/base_first"
+  },
+  "e3ddd625893bfc040aa1a3bed8e4c2d5ef843c8aa9054d409d8761b4a7a6e6f6": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 501,
+      "completion_tokens": 59,
+      "total_tokens": 560,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 501
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552974.1667457,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-02/base_first"
+  },
+  "30ee74d5470d45b58f0b9d8d375cf19c2e4059db478b51bdbfb0bc50697fadb4": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 501,
+      "completion_tokens": 59,
+      "total_tokens": 560,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 501
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552974.8704789,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-02/sft_first"
+  },
+  "3c9d567591bf827a80b1831894291c7c50ac5e81cca5904b7b45d035af505e59": {
+    "content": "{\"a_faithfulness\": 3, \"b_faithfulness\": 1, \"a_relevance\": 4, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 1, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 487,
+      "completion_tokens": 58,
+      "total_tokens": 545,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 487
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552975.7889183,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-03/base_first"
+  },
+  "721db4bab3e69a38ec47cb5b38c26191b885081176d79b3c212462cef2a1b656": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 1, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 487,
+      "completion_tokens": 58,
+      "total_tokens": 545,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 487
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552976.9108756,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-03/sft_first"
+  },
+  "a2f524cce12cf5ff87c1f45d8170ca5e36a10e618481f2f2cf06ead1a8ffad41": {
+    "content": "{\"a_faithfulness\": 2, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 326,
+      "completion_tokens": 59,
+      "total_tokens": 385,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 326
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552977.6857486,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-04/base_first"
+  },
+  "fb9f24319713ff081e29e544340fd6113e7f97a6081c620a5cadc530c6aaddf9": {
+    "content": "{\"a_faithfulness\": 2, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 326,
+      "completion_tokens": 59,
+      "total_tokens": 385,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 326
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552978.941437,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-04/sft_first"
+  },
+  "fd89895d785ce5f9f255a8d3522ab809cc64b25193316d6eccd1fecc9a3323b4": {
+    "content": "{\"a_faithfulness\": 3, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 308,
+      "completion_tokens": 59,
+      "total_tokens": 367,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 308
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552979.9835277,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-05/base_first"
+  },
+  "1539474a381edaaf64db6cdda4e2ae9f6496274d06ee5cc1431307095f59a0dc": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 4, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 616,
+      "completion_tokens": 58,
+      "total_tokens": 674,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 616
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552981.223113,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-06/base_first"
+  },
+  "83b9ee3ba84d7f40f107f76c8a7e91c45df24118c4aeadba0027e109d5009de6": {
+    "content": "{\"a_faithfulness\": 3, \"b_faithfulness\": 3, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 3, \"b_completeness\": 4, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 616,
+      "completion_tokens": 58,
+      "total_tokens": 674,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 616
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552982.3535445,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-06/sft_first"
+  },
+  "8211915bd591d7e4bc8606ac64dfde825c2316cc79d9c3637ad246be6acf0ddf": {
+    "content": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 604,
+      "completion_tokens": 59,
+      "total_tokens": 663,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 604
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552983.153811,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-07/base_first"
+  },
+  "b05c3e4ccf08a07c000d9b83fb6dd3b0957c9e6ffd8310b8d092c56dba9684f1": {
+    "content": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 604,
+      "completion_tokens": 59,
+      "total_tokens": 663,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 604
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552984.629025,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-07/sft_first"
+  },
+  "6cc1527550bfc6c45bbe6585068336e0430ca4668c50a5c7dcdbdf258283163c": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 2, \"a_completeness\": 1, \"b_completeness\": 2, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 948,
+      "completion_tokens": 58,
+      "total_tokens": 1006,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 948
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552985.5605295,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-08/base_first"
+  },
+  "b58bd740e1f430c562591a9fac1d2c8f96e03d9c8d27cb45ba7abcae55cc2d90": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 1, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 948,
+      "completion_tokens": 59,
+      "total_tokens": 1007,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 948
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552986.6278224,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-08/sft_first"
+  },
+  "e0faf65f0e77b13ad7abd116d01578b4a5d38a5d4e36780a05dbd01ed361830f": {
+    "content": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 297,
+      "completion_tokens": 59,
+      "total_tokens": 356,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 297
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552987.3405147,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-09/base_first"
+  },
+  "5fb2eb64e818cd8b108df3267ab6e028619c8a8661c83615c03ba04a369b02bf": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 4, \"b_completeness\": 3, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 718,
+      "completion_tokens": 58,
+      "total_tokens": 776,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 718
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552988.369099,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-10/base_first"
+  },
+  "c64745dc63af3d3640137075cc6677bd478de8c8958f2a15b05b66db258c1dc1": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 3, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 718,
+      "completion_tokens": 59,
+      "total_tokens": 777,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 718
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552989.5133667,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-10/sft_first"
+  },
+  "c7b8c3ec0c8af7211766f09ef16d8f006bb386bf5c4a991edecd16ea54aa2dff": {
+    "content": "{\"a_faithfulness\": 2, \"b_faithfulness\": 4, \"a_relevance\": 3, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 3, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 880,
+      "completion_tokens": 58,
+      "total_tokens": 938,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 880
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552990.7068474,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-11/base_first"
+  },
+  "e1d2d04f33ccbec015088b4a8bce342c904e96bf65682ed9c03d49ea9c8d0d8e": {
+    "content": "{\"a_faithfulness\": 2, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 3, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 880,
+      "completion_tokens": 58,
+      "total_tokens": 938,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 624
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552991.6120484,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-11/sft_first"
+  },
+  "12f177db713979da76aed50f3eaf9fa6fedf9106115e9c9a8472268a734bd4d0": {
+    "content": "{\"a_faithfulness\": 5, \"b_faithfulness\": 3, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 2, \"b_completeness\": 4, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 445,
+      "completion_tokens": 58,
+      "total_tokens": 503,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 445
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552992.403342,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-12/base_first"
+  },
+  "32aaf66f60421c77a2454412dd19db6c7e1ef402969b9ab3e747a178424d968b": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 4, \"b_completeness\": 2, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 445,
+      "completion_tokens": 58,
+      "total_tokens": 503,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 445
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552993.5206108,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-12/sft_first"
+  },
+  "fea880c995ba69e54e08571c688a66a5cc366ec02a26af11ca996154ec2503a5": {
+    "content": "{\"a_faithfulness\": 3, \"b_faithfulness\": 2, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 742,
+      "completion_tokens": 58,
+      "total_tokens": 800,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 742
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552994.6467981,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-13/base_first"
+  },
+  "a5588753d21957e8ac3633190e086e4033c81d2556dfbaa03d24b3b3f9c0519a": {
+    "content": "{\"a_faithfulness\": 2, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 2, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 742,
+      "completion_tokens": 58,
+      "total_tokens": 800,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 614
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552995.650185,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-13/sft_first"
+  },
+  "072973bde40dfa9335e2a1a70957e29ba67ed7c0cbd48eab4fc4edc42adc894d": {
+    "content": "{\"a_faithfulness\": 2, \"b_faithfulness\": 3, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 583,
+      "completion_tokens": 58,
+      "total_tokens": 641,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 583
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552996.6820002,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-14/base_first"
+  },
+  "aa8326201b4b9d29e9ff31d81b3c85732ac06fe554c239b8383af031f8e99a99": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 2, \"a_relevance\": 4, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 2, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 583,
+      "completion_tokens": 58,
+      "total_tokens": 641,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 583
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552997.8569849,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-14/sft_first"
+  },
+  "306a3eaefd706318108368dcc72148e3b2832d1dc8b044e15ce487c3b31907e5": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 847,
+      "completion_tokens": 59,
+      "total_tokens": 906,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 847
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552998.813661,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-15/base_first"
+  },
+  "a533b20c6a4c47cbc49c911f359ac58e22bf9e700ab52b9e057e0ab16a39f0ca": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 847,
+      "completion_tokens": 59,
+      "total_tokens": 906,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 591
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792552999.748604,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-15/sft_first"
+  },
+  "e5648ccc0dc204fb752c34ac12c925a326766023dbc130c62c357a106f9fbebd": {
+    "content": "{\"a_faithfulness\": 3, \"b_faithfulness\": 1, \"a_relevance\": 4, \"b_relevance\": 1, \"a_completeness\": 3, \"b_completeness\": 1, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 540,
+      "completion_tokens": 58,
+      "total_tokens": 598,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 540
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553000.6496572,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-16/base_first"
+  },
+  "9d2aaa205e263b4c87cbb15594061df0d2de19864b691f580fef54a7626b9f6d": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 4, \"a_completeness\": 1, \"b_completeness\": 3, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 540,
+      "completion_tokens": 58,
+      "total_tokens": 598,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 540
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553001.7274466,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-16/sft_first"
+  },
+  "1548c1d6c31770ec642ec0e4e5fa9e507f710a46dd629acd4113aad923977c51": {
+    "content": "{\"a_faithfulness\": 5, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 3, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 576,
+      "completion_tokens": 58,
+      "total_tokens": 634,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 576
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553003.2147534,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-17/base_first"
+  },
+  "f23b09190599a1393c662269c64463b1fce8a282cab133a99324ff5c0e2c517c": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 4, \"b_completeness\": 5, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 576,
+      "completion_tokens": 58,
+      "total_tokens": 634,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 448
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553004.3871157,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-17/sft_first"
+  },
+  "c55c2cc939577ad8d6d47c313c02a565a826e76e47b4f7ab3780e53ff370c82a": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 3, \"a_completeness\": 3, \"b_completeness\": 2, \"winner\": \"A\"}",
+    "usage": {
+      "prompt_tokens": 333,
+      "completion_tokens": 58,
+      "total_tokens": 391,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 333
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553005.351577,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-18/base_first"
+  },
+  "f337694b735b8a5d57016e5c07d9db207c30e2cec49815ccc6ff8708463a9853": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 4, \"winner\": \"B\"}",
+    "usage": {
+      "prompt_tokens": 333,
+      "completion_tokens": 58,
+      "total_tokens": 391,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 333
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553006.3550558,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-18/sft_first"
+  },
+  "18cfc2a873bdb5162372bc9f57a16ce6a9f4a901cbf2a6e98a4284a3c733a04c": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 818,
+      "completion_tokens": 59,
+      "total_tokens": 877,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 818
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553007.4552243,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-19/base_first"
+  },
+  "65ac4f1c3c8a9a8e012dac177c5c733260e60e03f5511a5fb05dd9e304871233": {
+    "content": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 818,
+      "completion_tokens": 59,
+      "total_tokens": 877,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 690
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553008.7544656,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-19/sft_first"
+  },
+  "7bfea95819c80c6eb61b9c610013160e9ef0c5983f5343f05f2da28236732193": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 3, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 455,
+      "completion_tokens": 59,
+      "total_tokens": 514,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 455
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553009.5898137,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-20/base_first"
+  },
+  "55852cf219db4cfda36aa55b718376d6b4ac5760332471380316081ea1997c34": {
+    "content": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 3, \"b_completeness\": 3, \"winner\": \"tie\"}",
+    "usage": {
+      "prompt_tokens": 455,
+      "completion_tokens": 59,
+      "total_tokens": 514,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 455
+    },
+    "model_returned": "deepseek-flash",
+    "ts": 1792553010.5578141,
+    "via": "direct",
+    "judge_samples": 1,
+    "sample_index": 0,
+    "temperature": 0.8,
+    "tag": "pair/heldout-20/sft_first"
+  }
+}

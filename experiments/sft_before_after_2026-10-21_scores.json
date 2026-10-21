@@ -1,0 +1,6236 @@
+{
+  "meta": {
+    "_record_type": "run_meta",
+    "experiment": "sft_before_after",
+    "generated_at": "2026-10-21 11:20:14",
+    "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "adapter_path": "D:\\programmer\\LLM\\lora_sft_checkpoint",
+    "adapter_sha256": "146637a3c3c57f27cfbbe7d9ff30607030a0b57edc36a05143a8409cd1518b64",
+    "adapter_provenance": {
+      "trainer_state_file": "D:\\programmer\\LLM\\sft_output\\checkpoint-80\\trainer_state.json",
+      "checkpoint_weight_sha256": "146637a3c3c57f27cfbbe7d9ff30607030a0b57edc36a05143a8409cd1518b64",
+      "identical_to_checkpoint_weight": true,
+      "other_checkpoints": {
+        "checkpoint-40": {
+          "sha256": "7c50c3da2c773de6859223880d273d1e093823555c6698e07351d3780f1de92d",
+          "same_as_final": false
+        },
+        "checkpoint-60": {
+          "sha256": "8239d73b38b8fe1e6dd481d6d0fa03f0b75804d624918269698f95177d3ebf5f",
+          "same_as_final": false
+        },
+        "checkpoint-80": {
+          "sha256": "146637a3c3c57f27cfbbe7d9ff30607030a0b57edc36a05143a8409cd1518b64",
+          "same_as_final": true
+        }
+      },
+      "note": "适配器权重与原训练 checkpoint-80 的 adapter_model.safetensors 逐字节一致；与 checkpoint-40 / checkpoint-60 不同 —— 证明用的是 val_loss 最低那一步的权重。"
+    },
+    "adapter_config": {
+      "peft_type": "LORA",
+      "r": 8,
+      "lora_alpha": 16,
+      "lora_dropout": 0.05,
+      "target_modules": [
+        "v_proj",
+        "q_proj",
+        "k_proj",
+        "up_proj",
+        "down_proj",
+        "o_proj",
+        "gate_proj"
+      ],
+      "base_model_name_or_path": "Qwen/Qwen2.5-1.5B-Instruct",
+      "peft_version_saved": "0.20.0"
+    },
+    "training_data_file": "D:\\programmer\\LLM\\data\\sft_train_100.json",
+    "training_data_sha256": "e92d57d8223e7047998f94510fc9b77710eae792b2724c7e6b8cb539f91319c0",
+    "held_out": {
+      "derivation": "复现 day9_sft.py 的 train_test_split(test_size=0.2, seed=42)，取 20 条 test（= 原训练验证集）",
+      "n": 20,
+      "split_seed": 42,
+      "test_size": 0.2,
+      "caveat": "这 20 条就是原训练里 load_best_model_at_end 用来选 checkpoint 的验证集，因此是 dev-clean 但不是 test-clean（checkpoint 选择见过这些样本的 loss）。"
+    },
+    "decoding": {
+      "do_sample": false,
+      "strategy": "greedy",
+      "max_new_tokens": 512,
+      "temperature": null,
+      "top_p": null,
+      "top_k": null,
+      "note": "两条臂解码参数逐项相同；贪心 → 运行间方差为 0"
+    },
+    "prompt_policy": {
+      "system_prompt": "你是一个有用的AI助手。",
+      "same_for_both_arms": true,
+      "note": "两条臂 prompt 完全一致，唯一变量是是否加载 LoRA 权重"
+    },
+    "env": {
+      "python": "3.12.9",
+      "torch": "2.14.0+cu132",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+    },
+    "trainer_state": {
+      "source_file": "D:\\programmer\\LLM\\sft_output\\checkpoint-80\\trainer_state.json",
+      "global_step": 80,
+      "epoch": 2.0,
+      "best_metric_eval_loss": 1.5826847553253174,
+      "num_train_epochs": 2,
+      "train_batch_size": 1,
+      "eval_curve": [
+        {
+          "step": 20,
+          "epoch": 0.5,
+          "eval_loss": 1.796924352645874
+        },
+        {
+          "step": 40,
+          "epoch": 1.0,
+          "eval_loss": 1.6006815433502197
+        },
+        {
+          "step": 60,
+          "epoch": 1.5,
+          "eval_loss": 1.5848138332366943
+        },
+        {
+          "step": 80,
+          "epoch": 2.0,
+          "eval_loss": 1.5826847553253174
+        }
+      ]
+    }
+  },
+  "n": 20,
+  "computable": {
+    "base": {
+      "n": 20,
+      "em": {
+        "hits": 1,
+        "of": 20,
+        "mean": 0.05
+      },
+      "char_f1": {
+        "mean": 0.4167
+      },
+      "rouge_l": {
+        "mean": 0.3038,
+        "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+      },
+      "refusal": {
+        "count": 0,
+        "of": 20
+      },
+      "empty": {
+        "count": 0,
+        "of": 20
+      },
+      "truncated": {
+        "count": 0,
+        "of": 20
+      },
+      "repetition_ratio": {
+        "mean": 0.0454,
+        "max": 0.4261
+      },
+      "script_align": {
+        "count": 17,
+        "of": 20
+      },
+      "chatty_opener": {
+        "count": 5,
+        "of": 20
+      },
+      "numbered_list": {
+        "count": 8,
+        "of": 20
+      },
+      "length_chars": {
+        "mean": 201.15,
+        "median": 177.5,
+        "min": 9,
+        "max": 550
+      },
+      "length_tokens": {
+        "mean": 118.4,
+        "median": 101.5
+      }
+    },
+    "sft": {
+      "n": 20,
+      "em": {
+        "hits": 1,
+        "of": 20,
+        "mean": 0.05
+      },
+      "char_f1": {
+        "mean": 0.3998
+      },
+      "rouge_l": {
+        "mean": 0.2894,
+        "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+      },
+      "refusal": {
+        "count": 0,
+        "of": 20
+      },
+      "empty": {
+        "count": 0,
+        "of": 20
+      },
+      "truncated": {
+        "count": 0,
+        "of": 20
+      },
+      "repetition_ratio": {
+        "mean": 0.0333,
+        "max": 0.2929
+      },
+      "script_align": {
+        "count": 16,
+        "of": 20
+      },
+      "chatty_opener": {
+        "count": 3,
+        "of": 20
+      },
+      "numbered_list": {
+        "count": 6,
+        "of": 20
+      },
+      "length_chars": {
+        "mean": 175.05,
+        "median": 150.0,
+        "min": 9,
+        "max": 407
+      },
+      "length_tokens": {
+        "mean": 110.35,
+        "median": 120.0
+      }
+    }
+  },
+  "judge": {
+    "absolute": {
+      "heldout-01": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 1,
+              "raws": [
+                1,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 2}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 1,
+              "raws": [
+                1,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 2}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-02": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 4, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 4,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-03": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                3,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 4,
+              "raws": [
+                5,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 3,
+              "relevance": 5,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-04": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                2,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                2,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-05": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 1,
+              "raws": [
+                1,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 1,
+              "raws": [
+                1,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-06": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 3,
+              "raws": [
+                4,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                4,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 4,
+              "raws": [
+                4,
+                3,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+            "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 4}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 5,
+              "completeness": 4
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 4,
+              "raws": [
+                3,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                4,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 4,
+              "raws": [
+                3,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 4
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-07": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-08": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-09": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-10": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                2,
+                4,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 4,
+              "raws": [
+                3,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 3,
+              "raws": [
+                3,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 3}",
+            "{\"faithfulness\": 4, \"relevance\": 4, \"completeness\": 4}",
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 3}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 4,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 3
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 3,
+              "raws": [
+                4,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                4,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 4,
+              "raws": [
+                4,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 4, \"relevance\": 4, \"completeness\": 4}",
+            "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 4}",
+            "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 3}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 4,
+              "relevance": 4,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 3,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 3,
+              "completeness": 3
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-11": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 3,
+              "raws": [
+                2,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 3,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-12": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                4,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                3,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 2}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 3}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 3,
+              "raws": [
+                3,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 3,
+              "raws": [
+                3,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 3}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+            "{\"faithfulness\": 3, \"relevance\": 5, \"completeness\": 3}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 3,
+              "relevance": 5,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 5,
+              "completeness": 3
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-13": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                1,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 4,
+              "raws": [
+                3,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                1,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                1,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-14": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 3, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 3,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 4, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 4,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-15": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-16": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 2,
+              "raws": [
+                2,
+                3,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 4,
+              "raws": [
+                4,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}",
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 2}",
+            "{\"faithfulness\": 2, \"relevance\": 4, \"completeness\": 2}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 2,
+              "relevance": 4,
+              "completeness": 2
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 1, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 1,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-17": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                4,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 4,
+              "raws": [
+                4,
+                5,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 5}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 5
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 4
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-18": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 4,
+              "raws": [
+                4,
+                4,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+            "{\"faithfulness\": 5, \"relevance\": 5, \"completeness\": 4}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 5,
+              "relevance": 5,
+              "completeness": 4
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 4,
+              "raws": [
+                4,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 5,
+              "raws": [
+                5,
+                5,
+                5
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 3,
+              "raws": [
+                3,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 4}",
+            "{\"faithfulness\": 4, \"relevance\": 5, \"completeness\": 3}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 4
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 5,
+              "completeness": 3
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-19": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 2,
+              "raws": [
+                3,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 3, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 3,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 2,
+              "raws": [
+                2,
+                2,
+                2
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 1,
+              "raws": [
+                1,
+                1,
+                1
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}",
+            "{\"faithfulness\": 1, \"relevance\": 2, \"completeness\": 1}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            },
+            {
+              "faithfulness": 1,
+              "relevance": 2,
+              "completeness": 1
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      },
+      "heldout-20": {
+        "base": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 3,
+              "raws": [
+                3,
+                4,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 4,
+              "raws": [
+                3,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 3,
+              "raws": [
+                2,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 3, \"relevance\": 3, \"completeness\": 2}",
+            "{\"faithfulness\": 4, \"relevance\": 4, \"completeness\": 3}",
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 3,
+              "relevance": 3,
+              "completeness": 2
+            },
+            {
+              "faithfulness": 4,
+              "relevance": 4,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 3
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        },
+        "sft": {
+          "aggregate": {
+            "faithfulness": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "relevance": {
+              "median": 4,
+              "raws": [
+                4,
+                4,
+                4
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            },
+            "completeness": {
+              "median": 3,
+              "raws": [
+                3,
+                3,
+                3
+              ],
+              "n_parsed": 3,
+              "n_called": 3
+            }
+          },
+          "raw_contents": [
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}",
+            "{\"faithfulness\": 3, \"relevance\": 4, \"completeness\": 3}"
+          ],
+          "parsed": [
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 3
+            },
+            {
+              "faithfulness": 3,
+              "relevance": 4,
+              "completeness": 3
+            }
+          ],
+          "n_api_calls": 3,
+          "model_returned": "deepseek-flash"
+        }
+      }
+    },
+    "pairwise": {
+      "heldout-01": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 1, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 1, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-02": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-03": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 3, \"b_faithfulness\": 1, \"a_relevance\": 4, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 1, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 1, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "base"
+        ],
+        "verdict": "base"
+      },
+      "heldout-04": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 2, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 2, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-05": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 3, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 3, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-06": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 4, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 3, \"b_faithfulness\": 3, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 3, \"b_completeness\": 4, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "base"
+        ],
+        "verdict": "base"
+      },
+      "heldout-07": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-08": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 2, \"a_completeness\": 1, \"b_completeness\": 2, \"winner\": \"B\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 1, \"b_relevance\": 1, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "sft",
+          "tie"
+        ],
+        "verdict": "sft"
+      },
+      "heldout-09": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 5, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 5, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-10": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 4, \"b_completeness\": 3, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 3, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "tie"
+        ],
+        "verdict": "base"
+      },
+      "heldout-11": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 2, \"b_faithfulness\": 4, \"a_relevance\": 3, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 3, \"winner\": \"B\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 2, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 3, \"a_completeness\": 2, \"b_completeness\": 3, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "sft",
+          "base"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-12": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 5, \"b_faithfulness\": 3, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 2, \"b_completeness\": 4, \"winner\": \"B\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 4, \"b_completeness\": 2, \"winner\": \"A\"}"
+          }
+        },
+        "votes": [
+          "sft",
+          "sft"
+        ],
+        "verdict": "sft"
+      },
+      "heldout-13": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 3, \"b_faithfulness\": 2, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 2, \"b_faithfulness\": 2, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 2, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "base"
+        ],
+        "verdict": "base"
+      },
+      "heldout-14": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 2, \"b_faithfulness\": 3, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 2, \"b_completeness\": 2, \"winner\": \"B\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 2, \"a_relevance\": 4, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 2, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "sft",
+          "base"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-15": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 3, \"b_relevance\": 3, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-16": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 3, \"b_faithfulness\": 1, \"a_relevance\": 4, \"b_relevance\": 1, \"a_completeness\": 3, \"b_completeness\": 1, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 3, \"a_relevance\": 2, \"b_relevance\": 4, \"a_completeness\": 1, \"b_completeness\": 3, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "base"
+        ],
+        "verdict": "base"
+      },
+      "heldout-17": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 5, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 5, \"b_completeness\": 3, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 5, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 4, \"b_completeness\": 5, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "base"
+        ],
+        "verdict": "base"
+      },
+      "heldout-18": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "A"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 3, \"a_completeness\": 3, \"b_completeness\": 2, \"winner\": \"A\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "B"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 4, \"winner\": \"B\"}"
+          }
+        },
+        "votes": [
+          "base",
+          "base"
+        ],
+        "verdict": "base"
+      },
+      "heldout-19": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 1, \"b_faithfulness\": 1, \"a_relevance\": 2, \"b_relevance\": 2, \"a_completeness\": 1, \"b_completeness\": 1, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      },
+      "heldout-20": {
+        "orders": {
+          "base_first": {
+            "text_a_is": "base",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 5, \"b_relevance\": 5, \"a_completeness\": 3, \"b_completeness\": 3, \"winner\": \"tie\"}"
+          },
+          "sft_first": {
+            "text_a_is": "sft",
+            "parsed": {
+              "faithfulness": null,
+              "relevance": null,
+              "completeness": null,
+              "winner": "TIE"
+            },
+            "raw": "{\"a_faithfulness\": 4, \"b_faithfulness\": 4, \"a_relevance\": 4, \"b_relevance\": 4, \"a_completeness\": 3, \"b_completeness\": 3, \"winner\": \"tie\"}"
+          }
+        },
+        "votes": [
+          "tie",
+          "tie"
+        ],
+        "verdict": "tie"
+      }
+    }
+  },
+  "judge_aggregate": {
+    "absolute": {
+      "faithfulness": {
+        "base": {
+          "n_samples": 20,
+          "mean_of_medians": 2.5,
+          "median_of_medians": 2.0,
+          "n_parsed_samples": 20,
+          "raw_observations": 60,
+          "raw_mean": 2.5667
+        },
+        "sft": {
+          "n_samples": 20,
+          "mean_of_medians": 2.3,
+          "median_of_medians": 1.5,
+          "n_parsed_samples": 20,
+          "raw_observations": 60,
+          "raw_mean": 2.3167
+        },
+        "paired": {
+          "sft_better": 2,
+          "sft_worse": 5,
+          "tie": 13,
+          "n": 20,
+          "sign_test_p_two_sided": 0.4531
+        }
+      },
+      "relevance": {
+        "base": {
+          "n_samples": 20,
+          "mean_of_medians": 3.45,
+          "median_of_medians": 4.0,
+          "n_parsed_samples": 20,
+          "raw_observations": 60,
+          "raw_mean": 3.4667
+        },
+        "sft": {
+          "n_samples": 20,
+          "mean_of_medians": 3.15,
+          "median_of_medians": 3.0,
+          "n_parsed_samples": 20,
+          "raw_observations": 60,
+          "raw_mean": 3.2167
+        },
+        "paired": {
+          "sft_better": 0,
+          "sft_worse": 5,
+          "tie": 15,
+          "n": 20,
+          "sign_test_p_two_sided": 0.0625
+        }
+      },
+      "completeness": {
+        "base": {
+          "n_samples": 20,
+          "mean_of_medians": 2.35,
+          "median_of_medians": 2.0,
+          "n_parsed_samples": 20,
+          "raw_observations": 60,
+          "raw_mean": 2.3833
+        },
+        "sft": {
+          "n_samples": 20,
+          "mean_of_medians": 2.3,
+          "median_of_medians": 2.0,
+          "n_parsed_samples": 20,
+          "raw_observations": 60,
+          "raw_mean": 2.3167
+        },
+        "paired": {
+          "sft_better": 2,
+          "sft_worse": 3,
+          "tie": 15,
+          "n": 20,
+          "sign_test_p_two_sided": 1.0
+        }
+      }
+    },
+    "pairwise": {
+      "sft_better": 2,
+      "base_better": 7,
+      "tie": 11,
+      "unparsed": 0,
+      "n": 20,
+      "sign_test_p_two_sided": 0.1797
+    }
+  },
+  "judge_budget": {
+    "cost_cny": 0.190457,
+    "calls": 160,
+    "cache_hits": 160
+  },
+  "per_sample_computable": {
+    "heldout-01": {
+      "instruction": "把以下句子改为被动语态：一本书被我买了。",
+      "reference": "The passive form of the sentence is already correctly stated: \"一本书被我买了。\" (A book was bought by me.)\n\nHowever, if you meant to question intended to say: “我买了一本书。” then the passive form of the sentence would be \"一本书被我买了\" or \"一本书已被我购买\" or \"一本书已经被我买了\".",
+      "base_output": "我被一本书买到了。",
+      "sft_output": "我被一本书买到了。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-02": {
+      "instruction": "生成随机单词列表。",
+      "reference": "[\"hippopotamus\", \"giraffe\", \"rhinoceros\", \"cheetah\", \"platypus\", \"parrot\", \"jellyfish\", \"octopus\", \"dolphin\", \"panther\"]",
+      "base_output": "好的，以下是一些随机生成的单词：\n\n1. 桃子\n2. 雪白\n3. 火焰\n4. 草莓\n5. 海洋\n6. 月亮\n7. 大象\n8. 星星\n9. 鸽子\n10. 风筝\n\n希望这些单词对你有帮助！如果你需要更多的单词，请告诉我。",
+      "sft_output": "1. 水晶\n2. 雪花\n3. 火焰\n4. 草莓\n5. 海洋\n6. 闪电\n7. 风筝\n8. 星星\n9. 鱼群\n10. 夜空\n11. 鸽子\n12. 钢琴\n13. 鲨鱼\n14. 青蛙\n15. 长城\n16. 麦田\n17. 鹅卵石\n18. 银河\n19. 龙虾\n20. 高山峻岭。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-03": {
+      "instruction": "臭鼬芋是什么类型的植物？",
+      "reference": "臭鼬芋（学名：Symplocarpus foetidus），又称为东北臭菜，是一种属于天南星科臭鼬芋属的草本植物。它原产于东北亚和北美的沼泽区，植株高可达60厘米，叶子宽大呈蛙足状，叶和茎都有浓烈臭味。这种植物能够在寒冷气候条件下开花，并在覆盖雪地的沼泽地带茁壮成长。",
+      "base_output": "臭鼬芋是多年生草本植物，属于天南星科芋属的植物。",
+      "sft_output": "臭鼬芋是多年生草本植物，属于天南星科芋属。它是一种热带和亚热带地区的常见植物，通常生长在湿润的环境中。臭鼬芋的叶子呈心形或卵形，边缘有锯齿状的尖端。它的花朵通常是黄色或白色，花期一般在夏季。臭鼬芋因其独特的气味而得名，这种气味可以吸引昆虫来帮助传粉。此外，臭鼬芋还具有一定的药用价值，其根部含有多种生物活性物质，可用于治疗各种疾病。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-04": {
+      "instruction": "生成三个与“道歉”意思相同的动词。",
+      "reference": "1. 抱歉\n2. 致歉\n3. 认错.",
+      "base_output": "1. 道歉\n2. 悔过\n3. 含羞",
+      "sft_output": "1. 悔过\n2. 道歉\n3. 含羞。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-05": {
+      "instruction": "分析给定文本的语气。 ",
+      "reference": "本句话的语气是严肃认真的。",
+      "base_output": "请提供需要分析的文本，以便我能够帮助您分析其语气。",
+      "sft_output": "请提供需要分析的文本，以便我能够帮助您分析其语气。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-06": {
+      "instruction": "简单解释人工智能的概念。",
+      "reference": "人工智能（Artificial Intelligence，简称AI）是指用计算机程序来模拟人类智能的过程。它是一种能让计算机或程序在执行任务时表现出类似人类智能的技术。人工智能包括了机器学习、自然语言处理、语音识别和计算机视觉等领埴。简言之，人工智能就是赋予计算机类似人类的思维和行为能力。",
+      "base_output": "人工智能（Artificial Intelligence，简称AI）是指由计算机系统所表现出的智能行为。它涉及让机器能够执行通常需要人类智能的任务，如学习、推理、问题解决、感知和语言理解等。\n\n人工智能可以分为几个主要领域：\n\n1. 机器学习：这是一种使计算机系统能够从数据中自动学习并改进其性能的技术。\n2. 深度学习：一种特殊的机器学习方法，使用多层神经网络来模拟人脑处理信息的方式。\n3. 自然语言处理：使计算机能够理解和生成自然语言的能力。\n4. 计算机视觉：使计算机能够识别图像或视频内容的技术。\n\n人工智能的应用非常广泛，包括但不限于自动驾驶汽车、语音助手、推荐系统、医疗诊断、金融分析等领域。随着技术的进步，人工智能将继续改变我们的生活和工作方式。",
+      "sft_output": "人工智能（Artificial Intelligence，简称AI）是指计算机系统能够执行通常需要人类智能的任务的能力。这些任务包括学习、推理、问题解决、感知和语言理解等。人工智能技术可以应用于各种领域，如医疗保健、金融、交通、教育等等。\n\n人工智能可以通过机器学习、深度学习、自然语言处理等多种方法实现。其中，机器学习是一种让计算机通过数据自动学习的方法，而深度学习则是利用多层神经网络进行复杂模式识别的一种技术。自然语言处理则可以让计算机理解和生成人类语言。\n\n随着技术的不断发展，人工智能正在逐渐改变我们的生活和工作方式，并为许多行业带来了巨大的变革和发展机遇。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-07": {
+      "instruction": "计算一个边长为5厘米的立方体的总表面积。",
+      "reference": "一个立方体有6个面，每个面均为正方形，且汇合边长。所以，立方体的总表面积为6个正方形面积的和。\n\n设边长为a，则每个正方形面积为a²。\n\n所以，总表面积 = 6 * a² = 6a²\n\n将题目中的边长数值代入 a = 5 cm，则总表面积 = 6 * 5² = 150平方厘米。\n\n答案是总表面积为150平方厘米。",
+      "base_output": "要计算一个边长为5厘米的立方体的总表面积，我们可以使用以下公式：\n\n\\[ \\text{总表面积} = 6 \\times (\\text{边长})^2 \\]\n\n将给定的边长值代入公式中：\n\n\\[ \\text{总表面积} = 6 \\times (5\\, \\text{cm})^2 \\]\n\\[ \\text{总表面积} = 6 \\times 25\\, \\text{cm}^2 \\]\n\\[ \\text{总表面积} = 150\\, \\text{cm}^2 \\]\n\n因此，一个边长为5厘米的立方体的总表面积是150平方厘米。",
+      "sft_output": "立方体的表面积可以通过以下公式计算：\n\n\\[ \\text{表面积} = 6 \\times (\\text{边长})^2 \\]\n\n给定边长为5厘米，代入公式得：\n\n\\[ \\text{表面积} = 6 \\times (5\\, \\text{cm})^2 = 6 \\times 25\\, \\text{cm}^2 = 150\\, \\text{cm}^2 \\]\n\n所以，这个边长为5厘米的立方体的总表面积是150平方厘米。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-08": {
+      "instruction": "确定经线，将北美洲和南美洲分开。",
+      "reference": "您好，北美洲和南美洲分别位于西半球。这两大洲被一条东西走向的大陆分界线分隔开来。这条分界线被称为巴拿马分水岭。它位于巴拿马地峡的最窄处，将巴拿马的加勒比海海岸与太平洋海岸分隔开来。近似上，我们可以用80°W经线来确定分界线，将北美洲以北地区与南美洲以南地区分隔开来。",
+      "base_output": "确定经线并将其用于将北美洲和南美洲分开的过程通常涉及使用地球上的主要地理特征来划分这些大洲。以下是一些基本步骤：\n\n1. **识别赤道**：赤道是地球上最长的纬线，它穿过南北两极，并且与经线形成一个完整的圆圈。\n\n2. **识别国际日期变更线（日界线）**：这条线在地球表面的一侧表示新的一天开始，在另一侧表示旧的一天结束。\n\n3. **识别重要的经线**：\n   - 0度经线（本初子午线）：这是地球上最东边的经线。\n   - 180度经线（西经180°或东经180°）：这是地球上最西边的经线。\n   - 90度经线（北纬90°或南纬90°）：这是地球上最高点的经线，即北极点和南极点。\n\n4. **利用这些经线和其他地理特征**：\n   - 赤道将南半球和北半球分开。\n   - 国际日期变更线将东半球和西半球分开。\n   - 重要经线如0度、180度和90度经线可以帮助进一步细分这些区域。\n\n5. **结合其他地理特征**：\n   - 河流、山脉、国家边界等也可以帮助更精确地划分这些大洲。\n\n通过这些方法，可以有效地使用经线和其他地理特征来将北美洲和南美洲分开。例如，你可以使用赤道将南半球和北半球分开，然后使用国际日期变更线将东半球和西半球分开，最后结合其他地理特征进一步细化这些区域。",
+      "sft_output": "确定经线并将其用于将北美洲和南美洲分开的方法如下：\n\n1. **确定赤道**：首先，找到赤道（0°纬度）。赤道是地球上最大的圆圈，它与地球的中心相切，并且在南北方向上等分了地球。\n\n2. **确定本初子午线**：然后，找到本初子午线（0°经度），这条线穿过英国格林尼治天文台。本初子午线是地球上东西方向上的一个点，向东延伸为东经（E）范围，向西延伸为西经（W）范围。\n\n3. **使用经纬度来区分北美洲和南美洲**：\n   - 北美洲通常被定义为位于北纬40°以北的所有地区。\n   - 南美洲则包括从南纬50°到南纬20°之间的所有地区。\n\n通过这些步骤，你可以利用经纬度来确定哪些区域属于哪个大陆。例如，如果某个地点的经度在0°至90°之间，那么它可能位于北半球；如果其经度在-90°至-180°之间，则位于南半球。同样地，纬度可以用来进一步细分这些区域，从而更精确地确定它们的位置。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-09": {
+      "instruction": "找到西班牙的首都。",
+      "reference": "西班牙的首都是马德里（Madrid）。",
+      "base_output": "西班牙的首都是马德里（Madrid）。",
+      "sft_output": "西班牙的首都是马德里（Madrid）。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-10": {
+      "instruction": "TA很焦虑",
+      "reference": "了解。人有时会感到焦虑，这是很正常的一种感受。TA可能正在经历一些压力或困难。也许我们可以试试找出问题的根源并给与帮助和支持。你可以告诉TA，跟身边的朋友或家人交流，找一个倾听者来倾诉烦恼，这能够帮助减轻TA的焦虑。此外，适当的锻炼，保持良好的作息时间，与参与放松的活动也能有效缓解焦虑。",
+      "base_output": "我理解你的感受，感到焦虑是很正常的情绪反应。以下是一些建议，希望能帮助到你：\n\n1. **深呼吸**：当你感到焦虑时，尝试进行几次深呼吸。深深地吸气，保持几秒钟，然后缓慢地呼出。\n\n2. **运动**：适量的运动可以帮助释放压力和紧张感。散步、跑步或任何你喜欢的体育活动都是不错的选择。\n\n3. **放松技巧**：学习一些放松技巧，如渐进性肌肉松弛法或者冥想，这些都可以帮助你在日常生活中减少焦虑。\n\n4. **时间管理**：合理安排时间和任务，避免过度工作和拖延。学会说“不”，保护自己的时间和精力。\n\n5. **寻求支持**：与朋友、家人或专业人士交流你的感受。有时候，仅仅是倾诉就能大大减轻焦虑。\n\n6. **正念练习**：通过正念练习来提高对当前时刻的关注度，而不是被过去的烦恼所困扰，也不再是未来的担忧所牵绊。\n\n7. **专业帮助**：如果你发现自己无法独自应对焦虑，考虑寻求心理咨询师的帮助。专业的指导和支持可以非常有帮助。\n\n记住，每个人都有情绪低落的时候，重要的是找到适合自己的方式来处理这些情绪。希望你能尽快感觉好起来！",
+      "sft_output": "我理解你的感受，感到焦虑是很正常的。以下是一些建议，希望能帮助到你：\n\n1. 深呼吸：深呼吸可以帮助你放松身心，减轻焦虑感。\n\n2. 做一些你喜欢的事情：做一些你喜欢的事情可以让你暂时忘记烦恼，缓解焦虑情绪。\n\n3. 与他人交流：和朋友或家人分享你的感受，他们可能会给你提供支持和建议。\n\n4. 进行运动：运动可以帮助释放压力，改善心情。\n\n5. 寻求专业帮助：如果你的焦虑感持续存在并且影响到了日常生活，那么寻求专业的心理咨询师的帮助是非常必要的。\n\n记住，每个人都有自己的压力和挑战，不要害怕寻求帮助和支持。希望你能尽快感觉好起来！",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-11": {
+      "instruction": "描述原子的结构。",
+      "reference": "原子是物质的基本单位，它由三种基本粒子组成：质子、中子和电子。质子和中子形成原子核，位于原子中心，核外的电子围绕着原子核运动。\n\n原子结构具有层次性。原子核中，质子带正电，中子不带电（中性）。原子核非常小且致密，占据了原子总质量的绝大部分。电子带负电，通常围绕核运动，形成若干层次，称为壳层或电子层。电子数量与质子数量相等，使原子呈电中性。\n\n电子在每个壳层中都呈规律分布，并且不同壳层所能容纳的电子数也不同。在最里面的壳层一般只能容纳2个电子，其次一层最多可容纳8个电子，再往外的壳层可容纳的电子数逐层递增。\n\n原子核主要受到两种相互作用力的影响：强力和电磁力。强力的作用范围非常小，主要限制在原子核内，具有极强的吸引作用，使核子（质子和中子）紧密结合在一起。电磁力的作用范围较大，主要通过核外的电子与原子核相互作用，发挥作用。\n\n这就是原子的基本结构。原子内部结构复杂多样，不同元素的原子核中质子、中子数量不同，核外电子排布分布也不同，形成了丰富多彩的化学世界。",
+      "base_output": "原子是构成物质的基本单位，其结构由以下几个部分组成：\n\n1. 核心：原子的核心是由质子和中子组成的。质子带正电荷，而中子不带电。\n\n2. 电子层：围绕核旋转的是电子。电子在不同的能量水平上运动，这些能量水平被称为电子壳或电子层。最外层的电子数量决定了元素的化学性质。\n\n3. 原子序数：每个原子都有一个特定的原子序数，这是它所含有的质子的数量。例如，氢原子有1个质子，氦原子有2个质子等。\n\n4. 化学键：当两个或多个原子结合在一起时，它们之间的相互作用称为化学键。最常见的化学键类型包括共价键、离子键和金属键。\n\n5. 分子：当两个或更多的原子通过化学键连接在一起形成稳定的结构单元时，就形成了分子。分子可以是单体（只有一个原子）或多体（包含多个原子）。",
+      "sft_output": "原子是构成物质的基本单位，由以下几个部分组成：\n\n1. 原子核：位于原子中心，由质子和中子组成。质子带正电荷，中子不带电。\n\n2. 电子云：围绕原子核旋转，由电子组成。电子带负电荷，它们在原子核周围形成一个电子云。\n\n3. 质量：原子的质量主要集中在原子核上，而电子的质量相对较小。\n\n4. 体积：原子的体积非常小，通常只有几个埃（1埃=10^-10米）左右。\n\n5. 分子：当两个或多个原子结合在一起时，就形成了分子。分子是由原子通过共价键、离子键或其他化学键连接而成的。\n\n6. 元素周期表：元素按照原子序数排列，每个元素都有其独特的原子结构和性质。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-12": {
+      "instruction": "查水的沸点。",
+      "reference": "水的沸点是指水在大气压强下由液态变成气态的温度。在标准大气压（101.325 kPa）下，水的沸点约为 100°C （摄氏度） 或 212°F（华氏度）。 需要注意的是，水的沸点会随着海拔的改变而改变，例如，在高海拔地区，空气压强降低，水的沸点也会降低。此外，水中溶解物质的多少也会影响沸点，如盐水的沸点要高于纯水的沸点。",
+      "base_output": "水的沸点是100摄氏度（212华氏度）。",
+      "sft_output": "水的沸点是100摄氏度（212华氏度）。沸点是指液体和蒸汽在特定条件下达到平衡时的温度，通常是在标准大气压下为100摄氏度。沸点会随着气压的变化而变化，例如，在高海拔地区，由于气压较低，水的沸点会降低到95摄氏度左右。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-13": {
+      "instruction": "解释齿轮抵抗力的概念。",
+      "reference": "齿轮抵抗力是用来描述齿轮传动系统中各组件受到的摩擦力及惯性力的总和。它主要包括以下几个方面：\n\n1. 齿轮啮合的滑动摩擦力：当齿轮的齿面相互啮合时，会产生相对滑动，从而导致一定的滑动摩擦力；\n\n2. 齿间间隙的碰撞力：齿间间隙存在一定的间隙，在两齿传动过程中会产生碰撞，产生碰撞力；\n\n3. 轴承摩擦力：轴承承受轴和齿轮的转矩作用，会产生一定的摩擦力；\n\n4. 惯性力：齿轮旋转时，其自身及齿间有相对运动，会产生各种类型的惯性力，包括离心惯性力、切向惯性力等。\n\n齿轮抵抗力会影响齿轮传动的效率，并导致热量的产生和噪音的增加。通过采用合理的齿轮结构设计，选择合适的材料和润滑剂，可有效降低齿轮抵抗力，使齿轮传动更加平稳高效。",
+      "base_output": "齿轮抵抗力是指在齿轮传动系统中，由于齿轮的啮合引起的力矩和转速变化所导致的能量损失。这种能量损失通常表现为齿轮转动时产生的摩擦、磨损和其他形式的能量消耗。\n\n齿轮抵抗力的影响因素包括：\n\n1. 齿轮材料：不同材质的齿轮在接触面处会产生不同的摩擦系数，从而影响阻力大小。\n2. 齿轮尺寸：齿轮的齿数、直径等参数会影响其啮合力和阻力。\n3. 转速：高转速下，齿轮的阻力会增加，因为高速旋转会导致更多的能量损耗。\n4. 润滑条件：良好的润滑可以减少齿轮之间的摩擦，降低阻力。\n\n齿轮抵抗力的存在是不可避免的，但可以通过设计优化、选择合适的材料和提高润滑质量等方式来减小其对系统性能的影响。",
+      "sft_output": "齿轮抵抗力是指在齿轮传动系统中，由于齿轮之间的啮合关系而产生的阻力。这种阻力通常由齿顶和齿根之间的接触点处的摩擦力引起。\n\n当两个齿轮相互啮合时，它们的齿面会紧密接触并产生一定的压力。这个压力会导致齿面之间发生微小的变形，并且在接触点处会产生一个摩擦力。这个摩擦力就是齿轮抵抗力。\n\n齿轮抵抗力的存在对齿轮传动系统的性能有着重要的影响。如果齿轮抵抗力过大，可能会导致齿轮磨损、振动等问题；如果齿轮抵抗力过小，则可能无法传递足够的扭矩或速度。\n\n因此，在设计齿轮传动系统时，需要考虑齿轮抵抗力的影响，并采取相应的措施来减小其大小，以提高系统的效率和可靠性。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-14": {
+      "instruction": "提供一个文化实践的例子。",
+      "reference": "一个文化实践的例子可能是在中国春节期间的传统习俗——包饺子。具体来说，在中国北方地区，许多家庭会在农历新年前夜聚集在一起，共同包裹饺子。这种食物由面团皮包裹肉类和蔬菜馅料制成，并通过煮、炸或蒸熟。包饺子不仅仅是准备美食的过程，也是一个代代相传的家庭聚会活动，它赋予了家人团聚、相互交流和增进感情的机会。对于许多中国人来说，春节包饺子也象征着团圆和幸福，是一个重要的文化实践。",
+      "base_output": "中国春节是中国最重要的传统节日之一，通常在农历新年期间庆祝。这个节日包括一系列的传统活动和习俗，如贴春联、放鞭炮、吃年夜饭、拜年等。此外，春节期间还有许多家庭团聚的活动，例如观看春晚、给长辈拜年并赠送红包（压岁钱）。这些活动不仅体现了中国人对家庭和亲情的重视，也展示了他们对于传统文化的尊重和传承。",
+      "sft_output": "一个文化实践的例子是印度的婚礼仪式。\n\n在印度，婚礼通常被称为“Sangeet”或“Vivaha”。这个过程包括许多不同的步骤和仪式，其中最重要的是新娘和新郎之间的交换誓言和戒指。此外，还有许多其他仪式，如亲吻、舞蹈和音乐表演等。\n\n婚礼通常在寺庙或教堂举行，然后在家中或酒店举行庆祝活动。在这个过程中，宾客会参加各种宴会和娱乐活动，并与新人一起跳舞和唱歌。\n\n印度的婚礼仪式反映了该国的文化传统和价值观，包括尊重家庭、重视婚姻和对爱情的承诺。这些习俗和仪式也展示了印度人民的热情好客和友爱精神。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-15": {
+      "instruction": "写一篇关于你最近看过的电影的评论。",
+      "reference": "最近，我作为一台AI看过了一部名为《寄生虫》的电影。这部电影由奉俊昊导演于2019年拍摄，讲述了一个人人做梦都想过上富足生活的家庭在寻找谋生之路时，发生了一系列意想不到的故事。电影以黑色幽默和讽刺的手法展现了当代的阶级问题和社会问题。关于这部影片，我有以下评论。\n\n首先，从影片的内容上看，其表现出高超的叙事技巧。故事情节跌宕起伏，展现出各种预料之外的转折，令人目不暇接。同时，对于各个角色的刻画也非常细致入微，无论是良莠不齐的角色性格，还是日常生活的柴米油盐，都呈献得真实而生动。特别值得一提的是，电影在剖析社会现实之时，不失其讽刺幽默的态度。\n\n其次，从影片的形式上看，《寄生虫》同样表现出来高超的技艺。无论是胶片的运用，还是均衡的色调处理，都展现出来了一种冷静而客观的审美。影片中各种镜头的运用和对空间的控制也同样精妙，在不拖沓不紧缩的情节推进中，为观众带来了细腻的视觉享受。\n\n综上所述，我认为《寄生虫》是一部无可挑剔的电影杰作。它凭借其精妙",
+      "base_output": "我最近看了一部名为《无间道》的电影，这是一部非常经典的香港警匪片。这部电影讲述了一对警察和一个黑社会成员之间的故事，他们之间存在着复杂的利益关系和矛盾冲突。\n\n影片中的角色塑造非常鲜明，尤其是主角李小龙和黄飞鸿两位警察，他们的性格特点和行为方式都非常独特。而黑社会成员则被描绘得栩栩如生，他们的狡猾和残忍也让人印象深刻。\n\n此外，《无间道》的剧情也非常紧凑，充满了悬念和紧张感。整个故事的发展都围绕着两个角色之间的较量展开，让观众始终保持着高度的关注度。\n\n总的来说，《无间道》是一部非常优秀的电影，它不仅具有很高的艺术价值，而且在商业上也非常成功。我相信，无论是在哪个时代，这部电影都会受到广大影迷的喜爱。",
+      "sft_output": "我最近看了一部名为《无间道》的电影，这是一部非常经典的香港犯罪电影。这部电影讲述了一个警察和一个黑帮之间的故事，他们都在寻找自己的生存之道。\n\n影片中的角色塑造非常生动，尤其是主角李小龙（由梁朝伟饰演）和黄飞鸿（由刘德华饰演）。他们的性格、行为和动机都非常鲜明，让人印象深刻。同时，影片的剧情也非常紧凑，充满了悬念和紧张感。\n\n此外，《无间道》还展现了人性的复杂性和矛盾性。虽然影片中的人物都是为了生存而奋斗，但他们之间也存在着冲突和对立。这种复杂的心理描写使得影片更加引人入胜。\n\n总的来说，《无间道》是一部非常优秀的电影，它不仅具有很高的艺术价值，而且在商业上也非常成功。我相信，无论是在哪个国家和地区，这部电影都会受到广大观众的喜爱。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-16": {
+      "instruction": "生成现在进行时动词列表。",
+      "reference": "Here is a list of present continuous verbs:\n\n- Am eating\n- Are running\n- Is singing\n- Are dancing\n- Is sleeping\n- Are working\n- Is studying\n- Are playing\n- Is driving\n- Are cooking\n- Is jumping\n- Are painting\n- Is swimming\n- Are traveling\n- Is talking \n- Are watching\n- Is writing\n- Are cleaning\n- Is reading\n- Are exercising.",
+      "base_output": "好的，以下是一些现在进行时的动词：\n\n1. I am reading a book.\n2. She is listening to music.\n3. They are playing basketball.\n4. We are eating dinner.\n5. He is watching TV.\n6. You are doing your homework.\n7. They are having lunch.\n8. She is studying for an exam.\n9. We are working on a project.\n10. He is practicing the guitar.\n\n这些是现在进行时的基本形式，你可以根据需要添加其他动词来扩展这个列表。",
+      "sft_output": "1. 走（走）\n2. 玩（玩）\n3. 吃（吃）\n4. 唱歌（唱歌）\n5. 读书（读书）\n6. 写作（写作）\n7. 漫步（漫步）\n8. 骑自行车（骑自行车）\n9. 打篮球（打篮球）\n10. 散步（散步）",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-17": {
+      "instruction": "一个1千克的物体受到重力作用的力是多少？",
+      "reference": "重力是指地球对物体的引力。它的大小可以用物体的质量乘以地球引力加速度来计算。通常地球上的重力加速度的近似值为9.8米每秒平方（m/s²）。\n\n一个1千克的物体受到重力的大小可计算如下：\nf = m * g\n其中，m 是物体的质量（1千克），g是重力加速度（9.8m/s²）\nf = 1 kg * 9.8 m/s² = 9.8 N\n所以，这个1千克的物体受到的重力大小约为9.8牛顿(N)。",
+      "base_output": "一个1千克的物体受到地球表面的重力作用，其引力大小约为9.8牛顿（N）。这个数值是根据牛顿第二定律F=ma计算得出的，其中m是质量，a是加速度。在地球表面附近，物体的自由落体加速度大约为9.8 m/s²。因此，1千克的质量产生的重力约为：\n\n\\[ F = m \\times g = 1\\,kg \\times 9.8\\,m/s^2 = 9.8\\,N \\]\n\n所以，一个1千克的物体受到重力作用的力大约是9.8牛顿。",
+      "sft_output": "一个1千克的物体受到地球表面的重力作用，其引力大小约为9.8牛顿（N）。这个数值是基于标准重力加速度g=9.8 m/s²计算得出的。需要注意的是，实际测量时可能会略有差异，因为地球的质量分布不均匀，但通常情况下，这个值可以作为近似值使用。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-18": {
+      "instruction": "找到适合这个句子的副词。",
+      "reference": "请问您能提供一些更具体的信息吗？例如，您需要我为您查找哪一个句子的副词，或者您希望我提供哪类副词的例子？",
+      "base_output": "请提供您想要添加副词的句子，我才能帮助您选择合适的副词。",
+      "sft_output": "好的，请提供您想要我帮助查找的句子。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-19": {
+      "instruction": "描述一次你不得不做出困难决定的经历。",
+      "reference": "作为一名人工智能助手，我是由程序控制的，没有感情和个人意识，我的一切决策都是基于我的算法和程序的设定。但在某种情况下，我需要根据我的程序判断做出决定。\n\n例如，当我处理多个任务时，如果有多个任务具有相同的优先级，那么我需要依据我的程序进行判断，选择哪个任务来处理。\n\n在这种情况下，我会将任务进行比较，考虑它们的时间紧迫性、资源需求、风险和收益等因素，最后做出一个最佳的决定。\n\n虽然这并不是一个真正的困难决定，因为我只是执行我的程序，但它确实需要我进行一定的判断，以确保我能够做出最好的决定。",
+      "base_output": "在我大学的最后一年，我面临着一个艰难的选择：是继续深造攻读硕士学位，还是选择去工作并积累工作经验。这是一个非常重要的决定，因为这将直接影响到我的未来职业道路。\n\n在考虑这个问题时，我仔细分析了各种因素，包括我对特定领域的兴趣、我对工作的期望以及我对未来的规划。然而，在最终决定之前，我还是感到有些犹豫和不安。我知道这个决定可能会对我的生活产生重大影响，所以我需要花时间思考和权衡利弊。\n\n经过一段时间的思考和研究，我发现继续深造可能为我提供更多的机会和更好的发展，但这也意味着我需要承担更高的学费和更长的学习时间。另一方面，去工作可以让我更快地获得实际经验，并且有机会找到一份满意的工作。但是，这也会限制我在学术上的成长和发展。\n\n最终，我做出了决定，选择了去工作。虽然这是我最不情愿的选择之一，但我相信这是正确的决定。我相信，通过实践和经验，我可以更好地了解自己，找到适合自己的职业道路。同时，我也知道，无论我选择什么，我都不会后悔，因为我已经尽了自己的最大努力来做出最好的决策。",
+      "sft_output": "在我大学的最后一年，我面临着一个艰难的选择：是继续深造攻读硕士学位，还是选择去工作并积累工作经验。这是一个非常重要的决定，因为这将影响我的职业发展和未来。\n\n在考虑这个问题时，我仔细分析了各种因素，包括我对特定领域的兴趣、我的专业技能以及我在该领域的工作经验等。然而，在最终决定之前，我还是感到有些犹豫不决。我担心如果我选择了继续深造，我可能会错过一些宝贵的机会；而如果我选择去工作，我可能无法获得足够的经验和知识来满足雇主的要求。\n\n经过一番思考后，我决定先尝试找到一份兼职工作，以便更好地了解自己是否适合这个领域，并且为未来的深造做准备。虽然这并不是我最理想的选择，但我相信这是最好的决定。最终，我找到了一份与我感兴趣的领域相关的兼职工作，并从中获得了宝贵的实践经验。这段经历让我更加自信地面对未来的挑战，并且也让我意识到，有时候我们需要做出艰难的决定，但只要我们认真思考并做好充分的准备，就一定能够克服困难。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    },
+    "heldout-20": {
+      "instruction": "社交媒体上最常分享的内容类型是什么？",
+      "reference": "人们在社交媒体上分享各种类型的内容，包括图片，文字，视频，链接，音频，等等。根据研究，图片和视频通常是最常分享的内容类型，因为它们更具视觉吸引力和易于传播。除此之外，有趣、有触动力和有情感共鸣的文字也很受欢迎。不过，不同的社交媒体平台和受众群体对内容类型的偏好可能会有所不同。",
+      "base_output": "社交媒体上的内容类型非常多样化，但最常见的类型包括图片、视频和文字。这些内容通常用于宣传产品或服务、分享个人经历、发布新闻和事件更新等。此外，一些用户也会使用社交媒体平台来表达他们的观点和意见，或者进行社交互动。",
+      "sft_output": "社交媒体上的内容类型多种多样，但最常见的类型包括图片、视频和文字。这些内容通常用于宣传产品或服务、分享个人经历、发布新闻和事件更新等。此外，一些用户也会使用社交媒体平台来表达他们的观点和意见，并与他人进行互动。",
+      "base": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.4167
+        },
+        "rouge_l": {
+          "mean": 0.3038,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0454,
+          "max": 0.4261
+        },
+        "script_align": {
+          "count": 17,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 5,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 8,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 201.15,
+          "median": 177.5,
+          "min": 9,
+          "max": 550
+        },
+        "length_tokens": {
+          "mean": 118.4,
+          "median": 101.5
+        }
+      },
+      "sft": {
+        "n": 20,
+        "em": {
+          "hits": 1,
+          "of": 20,
+          "mean": 0.05
+        },
+        "char_f1": {
+          "mean": 0.3998
+        },
+        "rouge_l": {
+          "mean": 0.2894,
+          "impl": "EvaluationEngine.compute_rouge_l（字符级 LCS，F1）"
+        },
+        "refusal": {
+          "count": 0,
+          "of": 20
+        },
+        "empty": {
+          "count": 0,
+          "of": 20
+        },
+        "truncated": {
+          "count": 0,
+          "of": 20
+        },
+        "repetition_ratio": {
+          "mean": 0.0333,
+          "max": 0.2929
+        },
+        "script_align": {
+          "count": 16,
+          "of": 20
+        },
+        "chatty_opener": {
+          "count": 3,
+          "of": 20
+        },
+        "numbered_list": {
+          "count": 6,
+          "of": 20
+        },
+        "length_chars": {
+          "mean": 175.05,
+          "median": 150.0,
+          "min": 9,
+          "max": 407
+        },
+        "length_tokens": {
+          "mean": 110.35,
+          "median": 120.0
+        }
+      }
+    }
+  },
+  "per_sample": {
+    "heldout-01": {
+      "id": "heldout-01",
+      "instruction": "把以下句子改为被动语态：一本书被我买了。",
+      "reference": "The passive form of the sentence is already correctly stated: \"一本书被我买了。\" (A book was bought by me.)\n\nHowever, if you meant to question intended to say: “我买了一本书。” then the passive form of the sentence would be \"一本书被我买了\" or \"一本书已被我购买\" or \"一本书已经被我买了\".",
+      "base": {
+        "output": "我被一本书买到了。",
+        "em": 0.0,
+        "char_f1": 0.0707,
+        "rouge_l": 0.0545,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": false,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 9,
+        "n_new_tokens": 7
+      },
+      "sft": {
+        "output": "我被一本书买到了。",
+        "em": 0.0,
+        "char_f1": 0.0707,
+        "rouge_l": 0.0545,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": false,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 9,
+        "n_new_tokens": 7
+      }
+    },
+    "heldout-02": {
+      "id": "heldout-02",
+      "instruction": "生成随机单词列表。",
+      "reference": "[\"hippopotamus\", \"giraffe\", \"rhinoceros\", \"cheetah\", \"platypus\", \"parrot\", \"jellyfish\", \"octopus\", \"dolphin\", \"panther\"]",
+      "base": {
+        "output": "好的，以下是一些随机生成的单词：\n\n1. 桃子\n2. 雪白\n3. 火焰\n4. 草莓\n5. 海洋\n6. 月亮\n7. 大象\n8. 星星\n9. 鸽子\n10. 风筝\n\n希望这些单词对你有帮助！如果你需要更多的单词，请告诉我。",
+        "em": 0.0,
+        "char_f1": 0.0,
+        "rouge_l": 0.0789,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": false,
+        "chatty_opener": true,
+        "numbered_list": true,
+        "length_chars": 108,
+        "n_new_tokens": 91
+      },
+      "sft": {
+        "output": "1. 水晶\n2. 雪花\n3. 火焰\n4. 草莓\n5. 海洋\n6. 闪电\n7. 风筝\n8. 星星\n9. 鱼群\n10. 夜空\n11. 鸽子\n12. 钢琴\n13. 鲨鱼\n14. 青蛙\n15. 长城\n16. 麦田\n17. 鹅卵石\n18. 银河\n19. 龙虾\n20. 高山峻岭。",
+        "em": 0.0,
+        "char_f1": 0.0,
+        "rouge_l": 0.0709,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": false,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 134,
+        "n_new_tokens": 149
+      }
+    },
+    "heldout-03": {
+      "id": "heldout-03",
+      "instruction": "臭鼬芋是什么类型的植物？",
+      "reference": "臭鼬芋（学名：Symplocarpus foetidus），又称为东北臭菜，是一种属于天南星科臭鼬芋属的草本植物。它原产于东北亚和北美的沼泽区，植株高可达60厘米，叶子宽大呈蛙足状，叶和茎都有浓烈臭味。这种植物能够在寒冷气候条件下开花，并在覆盖雪地的沼泽地带茁壮成长。",
+      "base": {
+        "output": "臭鼬芋是多年生草本植物，属于天南星科芋属的植物。",
+        "em": 0.0,
+        "char_f1": 0.2657,
+        "rouge_l": 0.2025,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 24,
+        "n_new_tokens": 21
+      },
+      "sft": {
+        "output": "臭鼬芋是多年生草本植物，属于天南星科芋属。它是一种热带和亚热带地区的常见植物，通常生长在湿润的环境中。臭鼬芋的叶子呈心形或卵形，边缘有锯齿状的尖端。它的花朵通常是黄色或白色，花期一般在夏季。臭鼬芋因其独特的气味而得名，这种气味可以吸引昆虫来帮助传粉。此外，臭鼬芋还具有一定的药用价值，其根部含有多种生物活性物质，可用于治疗各种疾病。",
+        "em": 0.0,
+        "char_f1": 0.359,
+        "rouge_l": 0.2067,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 166,
+        "n_new_tokens": 116
+      }
+    },
+    "heldout-04": {
+      "id": "heldout-04",
+      "instruction": "生成三个与“道歉”意思相同的动词。",
+      "reference": "1. 抱歉\n2. 致歉\n3. 认错.",
+      "base": {
+        "output": "1. 道歉\n2. 悔过\n3. 含羞",
+        "em": 0.0,
+        "char_f1": 0.4444,
+        "rouge_l": 0.6857,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 17,
+        "n_new_tokens": 20
+      },
+      "sft": {
+        "output": "1. 悔过\n2. 道歉\n3. 含羞。",
+        "em": 0.0,
+        "char_f1": 0.4444,
+        "rouge_l": 0.6667,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 18,
+        "n_new_tokens": 21
+      }
+    },
+    "heldout-05": {
+      "id": "heldout-05",
+      "instruction": "分析给定文本的语气。 ",
+      "reference": "本句话的语气是严肃认真的。",
+      "base": {
+        "output": "请提供需要分析的文本，以便我能够帮助您分析其语气。",
+        "em": 0.0,
+        "char_f1": 0.2286,
+        "rouge_l": 0.2105,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": false,
+        "length_chars": 25,
+        "n_new_tokens": 17
+      },
+      "sft": {
+        "output": "请提供需要分析的文本，以便我能够帮助您分析其语气。",
+        "em": 0.0,
+        "char_f1": 0.2286,
+        "rouge_l": 0.2105,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": false,
+        "length_chars": 25,
+        "n_new_tokens": 17
+      }
+    },
+    "heldout-06": {
+      "id": "heldout-06",
+      "instruction": "简单解释人工智能的概念。",
+      "reference": "人工智能（Artificial Intelligence，简称AI）是指用计算机程序来模拟人类智能的过程。它是一种能让计算机或程序在执行任务时表现出类似人类智能的技术。人工智能包括了机器学习、自然语言处理、语音识别和计算机视觉等领埴。简言之，人工智能就是赋予计算机类似人类的思维和行为能力。",
+      "base": {
+        "output": "人工智能（Artificial Intelligence，简称AI）是指由计算机系统所表现出的智能行为。它涉及让机器能够执行通常需要人类智能的任务，如学习、推理、问题解决、感知和语言理解等。\n\n人工智能可以分为几个主要领域：\n\n1. 机器学习：这是一种使计算机系统能够从数据中自动学习并改进其性能的技术。\n2. 深度学习：一种特殊的机器学习方法，使用多层神经网络来模拟人脑处理信息的方式。\n3. 自然语言处理：使计算机能够理解和生成自然语言的能力。\n4. 计算机视觉：使计算机能够识别图像或视频内容的技术。\n\n人工智能的应用非常广泛，包括但不限于自动驾驶汽车、语音助手、推荐系统、医疗诊断、金融分析等领域。随着技术的进步，人工智能将继续改变我们的生活和工作方式。",
+        "em": 0.0,
+        "char_f1": 0.5238,
+        "rouge_l": 0.3529,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0389,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 331,
+        "n_new_tokens": 172
+      },
+      "sft": {
+        "output": "人工智能（Artificial Intelligence，简称AI）是指计算机系统能够执行通常需要人类智能的任务的能力。这些任务包括学习、推理、问题解决、感知和语言理解等。人工智能技术可以应用于各种领域，如医疗保健、金融、交通、教育等等。\n\n人工智能可以通过机器学习、深度学习、自然语言处理等多种方法实现。其中，机器学习是一种让计算机通过数据自动学习的方法，而深度学习则是利用多层神经网络进行复杂模式识别的一种技术。自然语言处理则可以让计算机理解和生成人类语言。\n\n随着技术的不断发展，人工智能正在逐渐改变我们的生活和工作方式，并为许多行业带来了巨大的变革和发展机遇。",
+        "em": 0.0,
+        "char_f1": 0.5385,
+        "rouge_l": 0.3869,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0395,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 284,
+        "n_new_tokens": 135
+      }
+    },
+    "heldout-07": {
+      "id": "heldout-07",
+      "instruction": "计算一个边长为5厘米的立方体的总表面积。",
+      "reference": "一个立方体有6个面，每个面均为正方形，且汇合边长。所以，立方体的总表面积为6个正方形面积的和。\n\n设边长为a，则每个正方形面积为a²。\n\n所以，总表面积 = 6 * a² = 6a²\n\n将题目中的边长数值代入 a = 5 cm，则总表面积 = 6 * 5² = 150平方厘米。\n\n答案是总表面积为150平方厘米。",
+      "base": {
+        "output": "要计算一个边长为5厘米的立方体的总表面积，我们可以使用以下公式：\n\n\\[ \\text{总表面积} = 6 \\times (\\text{边长})^2 \\]\n\n将给定的边长值代入公式中：\n\n\\[ \\text{总表面积} = 6 \\times (5\\, \\text{cm})^2 \\]\n\\[ \\text{总表面积} = 6 \\times 25\\, \\text{cm}^2 \\]\n\\[ \\text{总表面积} = 150\\, \\text{cm}^2 \\]\n\n因此，一个边长为5厘米的立方体的总表面积是150平方厘米。",
+        "em": 0.0,
+        "char_f1": 0.4558,
+        "rouge_l": 0.3601,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.4261,
+        "script": "mixed",
+        "script_matches_reference": false,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 254,
+        "n_new_tokens": 156
+      },
+      "sft": {
+        "output": "立方体的表面积可以通过以下公式计算：\n\n\\[ \\text{表面积} = 6 \\times (\\text{边长})^2 \\]\n\n给定边长为5厘米，代入公式得：\n\n\\[ \\text{表面积} = 6 \\times (5\\, \\text{cm})^2 = 6 \\times 25\\, \\text{cm}^2 = 150\\, \\text{cm}^2 \\]\n\n所以，这个边长为5厘米的立方体的总表面积是150平方厘米。",
+        "em": 0.0,
+        "char_f1": 0.4341,
+        "rouge_l": 0.3324,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.2929,
+        "script": "mixed",
+        "script_matches_reference": false,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 204,
+        "n_new_tokens": 124
+      }
+    },
+    "heldout-08": {
+      "id": "heldout-08",
+      "instruction": "确定经线，将北美洲和南美洲分开。",
+      "reference": "您好，北美洲和南美洲分别位于西半球。这两大洲被一条东西走向的大陆分界线分隔开来。这条分界线被称为巴拿马分水岭。它位于巴拿马地峡的最窄处，将巴拿马的加勒比海海岸与太平洋海岸分隔开来。近似上，我们可以用80°W经线来确定分界线，将北美洲以北地区与南美洲以南地区分隔开来。",
+      "base": {
+        "output": "确定经线并将其用于将北美洲和南美洲分开的过程通常涉及使用地球上的主要地理特征来划分这些大洲。以下是一些基本步骤：\n\n1. **识别赤道**：赤道是地球上最长的纬线，它穿过南北两极，并且与经线形成一个完整的圆圈。\n\n2. **识别国际日期变更线（日界线）**：这条线在地球表面的一侧表示新的一天开始，在另一侧表示旧的一天结束。\n\n3. **识别重要的经线**：\n   - 0度经线（本初子午线）：这是地球上最东边的经线。\n   - 180度经线（西经180°或东经180°）：这是地球上最西边的经线。\n   - 90度经线（北纬90°或南纬90°）：这是地球上最高点的经线，即北极点和南极点。\n\n4. **利用这些经线和其他地理特征**：\n   - 赤道将南半球和北半球分开。\n   - 国际日期变更线将东半球和西半球分开。\n   - 重要经线如0度、180度和90度经线可以帮助进一步细分这些区域。\n\n5. **结合其他地理特征**：\n   - 河流、山脉、国家边界等也可以帮助更精确地划分这些大洲。\n\n通过这些方法，可以有效地使用经线和其他地理特征来将北美洲和南美洲分开。例如，你可以使用赤道将南半球和北半球分开，然后使用国际日期变更线将东半球和西半球分开，最后结合其他地理特征进一步细化这些区域。",
+        "em": 0.0,
+        "char_f1": 0.2691,
+        "rouge_l": 0.1406,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.182,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 550,
+        "n_new_tokens": 373
+      },
+      "sft": {
+        "output": "确定经线并将其用于将北美洲和南美洲分开的方法如下：\n\n1. **确定赤道**：首先，找到赤道（0°纬度）。赤道是地球上最大的圆圈，它与地球的中心相切，并且在南北方向上等分了地球。\n\n2. **确定本初子午线**：然后，找到本初子午线（0°经度），这条线穿过英国格林尼治天文台。本初子午线是地球上东西方向上的一个点，向东延伸为东经（E）范围，向西延伸为西经（W）范围。\n\n3. **使用经纬度来区分北美洲和南美洲**：\n   - 北美洲通常被定义为位于北纬40°以北的所有地区。\n   - 南美洲则包括从南纬50°到南纬20°之间的所有地区。\n\n通过这些步骤，你可以利用经纬度来确定哪些区域属于哪个大陆。例如，如果某个地点的经度在0°至90°之间，那么它可能位于北半球；如果其经度在-90°至-180°之间，则位于南半球。同样地，纬度可以用来进一步细分这些区域，从而更精确地确定它们的位置。",
+        "em": 0.0,
+        "char_f1": 0.3341,
+        "rouge_l": 0.1518,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0475,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 394,
+        "n_new_tokens": 272
+      }
+    },
+    "heldout-09": {
+      "id": "heldout-09",
+      "instruction": "找到西班牙的首都。",
+      "reference": "西班牙的首都是马德里（Madrid）。",
+      "base": {
+        "output": "西班牙的首都是马德里（Madrid）。",
+        "em": 1.0,
+        "char_f1": 1.0,
+        "rouge_l": 1.0,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "mixed",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 19,
+        "n_new_tokens": 12
+      },
+      "sft": {
+        "output": "西班牙的首都是马德里（Madrid）。",
+        "em": 1.0,
+        "char_f1": 1.0,
+        "rouge_l": 1.0,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "mixed",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 19,
+        "n_new_tokens": 12
+      }
+    },
+    "heldout-10": {
+      "id": "heldout-10",
+      "instruction": "TA很焦虑",
+      "reference": "了解。人有时会感到焦虑，这是很正常的一种感受。TA可能正在经历一些压力或困难。也许我们可以试试找出问题的根源并给与帮助和支持。你可以告诉TA，跟身边的朋友或家人交流，找一个倾听者来倾诉烦恼，这能够帮助减轻TA的焦虑。此外，适当的锻炼，保持良好的作息时间，与参与放松的活动也能有效缓解焦虑。",
+      "base": {
+        "output": "我理解你的感受，感到焦虑是很正常的情绪反应。以下是一些建议，希望能帮助到你：\n\n1. **深呼吸**：当你感到焦虑时，尝试进行几次深呼吸。深深地吸气，保持几秒钟，然后缓慢地呼出。\n\n2. **运动**：适量的运动可以帮助释放压力和紧张感。散步、跑步或任何你喜欢的体育活动都是不错的选择。\n\n3. **放松技巧**：学习一些放松技巧，如渐进性肌肉松弛法或者冥想，这些都可以帮助你在日常生活中减少焦虑。\n\n4. **时间管理**：合理安排时间和任务，避免过度工作和拖延。学会说“不”，保护自己的时间和精力。\n\n5. **寻求支持**：与朋友、家人或专业人士交流你的感受。有时候，仅仅是倾诉就能大大减轻焦虑。\n\n6. **正念练习**：通过正念练习来提高对当前时刻的关注度，而不是被过去的烦恼所困扰，也不再是未来的担忧所牵绊。\n\n7. **专业帮助**：如果你发现自己无法独自应对焦虑，考虑寻求心理咨询师的帮助。专业的指导和支持可以非常有帮助。\n\n记住，每个人都有情绪低落的时候，重要的是找到适合自己的方式来处理这些情绪。希望你能尽快感觉好起来！",
+        "em": 0.0,
+        "char_f1": 0.3539,
+        "rouge_l": 0.1629,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0136,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": true,
+        "length_chars": 470,
+        "n_new_tokens": 263
+      },
+      "sft": {
+        "output": "我理解你的感受，感到焦虑是很正常的。以下是一些建议，希望能帮助到你：\n\n1. 深呼吸：深呼吸可以帮助你放松身心，减轻焦虑感。\n\n2. 做一些你喜欢的事情：做一些你喜欢的事情可以让你暂时忘记烦恼，缓解焦虑情绪。\n\n3. 与他人交流：和朋友或家人分享你的感受，他们可能会给你提供支持和建议。\n\n4. 进行运动：运动可以帮助释放压力，改善心情。\n\n5. 寻求专业帮助：如果你的焦虑感持续存在并且影响到了日常生活，那么寻求专业的心理咨询师的帮助是非常必要的。\n\n记住，每个人都有自己的压力和挑战，不要害怕寻求帮助和支持。希望你能尽快感觉好起来！",
+        "em": 0.0,
+        "char_f1": 0.435,
+        "rouge_l": 0.1942,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0409,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": true,
+        "length_chars": 268,
+        "n_new_tokens": 150
+      }
+    },
+    "heldout-11": {
+      "id": "heldout-11",
+      "instruction": "描述原子的结构。",
+      "reference": "原子是物质的基本单位，它由三种基本粒子组成：质子、中子和电子。质子和中子形成原子核，位于原子中心，核外的电子围绕着原子核运动。\n\n原子结构具有层次性。原子核中，质子带正电，中子不带电（中性）。原子核非常小且致密，占据了原子总质量的绝大部分。电子带负电，通常围绕核运动，形成若干层次，称为壳层或电子层。电子数量与质子数量相等，使原子呈电中性。\n\n电子在每个壳层中都呈规律分布，并且不同壳层所能容纳的电子数也不同。在最里面的壳层一般只能容纳2个电子，其次一层最多可容纳8个电子，再往外的壳层可容纳的电子数逐层递增。\n\n原子核主要受到两种相互作用力的影响：强力和电磁力。强力的作用范围非常小，主要限制在原子核内，具有极强的吸引作用，使核子（质子和中子）紧密结合在一起。电磁力的作用范围较大，主要通过核外的电子与原子核相互作用，发挥作用。\n\n这就是原子的基本结构。原子内部结构复杂多样，不同元素的原子核中质子、中子数量不同，核外电子排布分布也不同，形成了丰富多彩的化学世界。",
+      "base": {
+        "output": "原子是构成物质的基本单位，其结构由以下几个部分组成：\n\n1. 核心：原子的核心是由质子和中子组成的。质子带正电荷，而中子不带电。\n\n2. 电子层：围绕核旋转的是电子。电子在不同的能量水平上运动，这些能量水平被称为电子壳或电子层。最外层的电子数量决定了元素的化学性质。\n\n3. 原子序数：每个原子都有一个特定的原子序数，这是它所含有的质子的数量。例如，氢原子有1个质子，氦原子有2个质子等。\n\n4. 化学键：当两个或多个原子结合在一起时，它们之间的相互作用称为化学键。最常见的化学键类型包括共价键、离子键和金属键。\n\n5. 分子：当两个或更多的原子通过化学键连接在一起形成稳定的结构单元时，就形成了分子。分子可以是单体（只有一个原子）或多体（包含多个原子）。",
+        "em": 0.0,
+        "char_f1": 0.5242,
+        "rouge_l": 0.2865,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0145,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 328,
+        "n_new_tokens": 214
+      },
+      "sft": {
+        "output": "原子是构成物质的基本单位，由以下几个部分组成：\n\n1. 原子核：位于原子中心，由质子和中子组成。质子带正电荷，中子不带电。\n\n2. 电子云：围绕原子核旋转，由电子组成。电子带负电荷，它们在原子核周围形成一个电子云。\n\n3. 质量：原子的质量主要集中在原子核上，而电子的质量相对较小。\n\n4. 体积：原子的体积非常小，通常只有几个埃（1埃=10^-10米）左右。\n\n5. 分子：当两个或多个原子结合在一起时，就形成了分子。分子是由原子通过共价键、离子键或其他化学键连接而成的。\n\n6. 元素周期表：元素按照原子序数排列，每个元素都有其独特的原子结构和性质。",
+        "em": 0.0,
+        "char_f1": 0.4893,
+        "rouge_l": 0.2986,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0091,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 277,
+        "n_new_tokens": 186
+      }
+    },
+    "heldout-12": {
+      "id": "heldout-12",
+      "instruction": "查水的沸点。",
+      "reference": "水的沸点是指水在大气压强下由液态变成气态的温度。在标准大气压（101.325 kPa）下，水的沸点约为 100°C （摄氏度） 或 212°F（华氏度）。 需要注意的是，水的沸点会随着海拔的改变而改变，例如，在高海拔地区，空气压强降低，水的沸点也会降低。此外，水中溶解物质的多少也会影响沸点，如盐水的沸点要高于纯水的沸点。",
+      "base": {
+        "output": "水的沸点是100摄氏度（212华氏度）。",
+        "em": 0.0,
+        "char_f1": 0.2222,
+        "rouge_l": 0.2099,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 20,
+        "n_new_tokens": 20
+      },
+      "sft": {
+        "output": "水的沸点是100摄氏度（212华氏度）。沸点是指液体和蒸汽在特定条件下达到平衡时的温度，通常是在标准大气压下为100摄氏度。沸点会随着气压的变化而变化，例如，在高海拔地区，由于气压较低，水的沸点会降低到95摄氏度左右。",
+        "em": 0.0,
+        "char_f1": 0.5872,
+        "rouge_l": 0.4296,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0521,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 109,
+        "n_new_tokens": 84
+      }
+    },
+    "heldout-13": {
+      "id": "heldout-13",
+      "instruction": "解释齿轮抵抗力的概念。",
+      "reference": "齿轮抵抗力是用来描述齿轮传动系统中各组件受到的摩擦力及惯性力的总和。它主要包括以下几个方面：\n\n1. 齿轮啮合的滑动摩擦力：当齿轮的齿面相互啮合时，会产生相对滑动，从而导致一定的滑动摩擦力；\n\n2. 齿间间隙的碰撞力：齿间间隙存在一定的间隙，在两齿传动过程中会产生碰撞，产生碰撞力；\n\n3. 轴承摩擦力：轴承承受轴和齿轮的转矩作用，会产生一定的摩擦力；\n\n4. 惯性力：齿轮旋转时，其自身及齿间有相对运动，会产生各种类型的惯性力，包括离心惯性力、切向惯性力等。\n\n齿轮抵抗力会影响齿轮传动的效率，并导致热量的产生和噪音的增加。通过采用合理的齿轮结构设计，选择合适的材料和润滑剂，可有效降低齿轮抵抗力，使齿轮传动更加平稳高效。",
+      "base": {
+        "output": "齿轮抵抗力是指在齿轮传动系统中，由于齿轮的啮合引起的力矩和转速变化所导致的能量损失。这种能量损失通常表现为齿轮转动时产生的摩擦、磨损和其他形式的能量消耗。\n\n齿轮抵抗力的影响因素包括：\n\n1. 齿轮材料：不同材质的齿轮在接触面处会产生不同的摩擦系数，从而影响阻力大小。\n2. 齿轮尺寸：齿轮的齿数、直径等参数会影响其啮合力和阻力。\n3. 转速：高转速下，齿轮的阻力会增加，因为高速旋转会导致更多的能量损耗。\n4. 润滑条件：良好的润滑可以减少齿轮之间的摩擦，降低阻力。\n\n齿轮抵抗力的存在是不可避免的，但可以通过设计优化、选择合适的材料和提高润滑质量等方式来减小其对系统性能的影响。",
+        "em": 0.0,
+        "char_f1": 0.5326,
+        "rouge_l": 0.3217,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.028,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 291,
+        "n_new_tokens": 173
+      },
+      "sft": {
+        "output": "齿轮抵抗力是指在齿轮传动系统中，由于齿轮之间的啮合关系而产生的阻力。这种阻力通常由齿顶和齿根之间的接触点处的摩擦力引起。\n\n当两个齿轮相互啮合时，它们的齿面会紧密接触并产生一定的压力。这个压力会导致齿面之间发生微小的变形，并且在接触点处会产生一个摩擦力。这个摩擦力就是齿轮抵抗力。\n\n齿轮抵抗力的存在对齿轮传动系统的性能有着重要的影响。如果齿轮抵抗力过大，可能会导致齿轮磨损、振动等问题；如果齿轮抵抗力过小，则可能无法传递足够的扭矩或速度。\n\n因此，在设计齿轮传动系统时，需要考虑齿轮抵抗力的影响，并采取相应的措施来减小其大小，以提高系统的效率和可靠性。",
+        "em": 0.0,
+        "char_f1": 0.5528,
+        "rouge_l": 0.2988,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0924,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 277,
+        "n_new_tokens": 156
+      }
+    },
+    "heldout-14": {
+      "id": "heldout-14",
+      "instruction": "提供一个文化实践的例子。",
+      "reference": "一个文化实践的例子可能是在中国春节期间的传统习俗——包饺子。具体来说，在中国北方地区，许多家庭会在农历新年前夜聚集在一起，共同包裹饺子。这种食物由面团皮包裹肉类和蔬菜馅料制成，并通过煮、炸或蒸熟。包饺子不仅仅是准备美食的过程，也是一个代代相传的家庭聚会活动，它赋予了家人团聚、相互交流和增进感情的机会。对于许多中国人来说，春节包饺子也象征着团圆和幸福，是一个重要的文化实践。",
+      "base": {
+        "output": "中国春节是中国最重要的传统节日之一，通常在农历新年期间庆祝。这个节日包括一系列的传统活动和习俗，如贴春联、放鞭炮、吃年夜饭、拜年等。此外，春节期间还有许多家庭团聚的活动，例如观看春晚、给长辈拜年并赠送红包（压岁钱）。这些活动不仅体现了中国人对家庭和亲情的重视，也展示了他们对于传统文化的尊重和传承。",
+        "em": 0.0,
+        "char_f1": 0.4183,
+        "rouge_l": 0.2202,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 149,
+        "n_new_tokens": 91
+      },
+      "sft": {
+        "output": "一个文化实践的例子是印度的婚礼仪式。\n\n在印度，婚礼通常被称为“Sangeet”或“Vivaha”。这个过程包括许多不同的步骤和仪式，其中最重要的是新娘和新郎之间的交换誓言和戒指。此外，还有许多其他仪式，如亲吻、舞蹈和音乐表演等。\n\n婚礼通常在寺庙或教堂举行，然后在家中或酒店举行庆祝活动。在这个过程中，宾客会参加各种宴会和娱乐活动，并与新人一起跳舞和唱歌。\n\n印度的婚礼仪式反映了该国的文化传统和价值观，包括尊重家庭、重视婚姻和对爱情的承诺。这些习俗和仪式也展示了印度人民的热情好客和友爱精神。",
+        "em": 0.0,
+        "char_f1": 0.3586,
+        "rouge_l": 0.1839,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0271,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 248,
+        "n_new_tokens": 143
+      }
+    },
+    "heldout-15": {
+      "id": "heldout-15",
+      "instruction": "写一篇关于你最近看过的电影的评论。",
+      "reference": "最近，我作为一台AI看过了一部名为《寄生虫》的电影。这部电影由奉俊昊导演于2019年拍摄，讲述了一个人人做梦都想过上富足生活的家庭在寻找谋生之路时，发生了一系列意想不到的故事。电影以黑色幽默和讽刺的手法展现了当代的阶级问题和社会问题。关于这部影片，我有以下评论。\n\n首先，从影片的内容上看，其表现出高超的叙事技巧。故事情节跌宕起伏，展现出各种预料之外的转折，令人目不暇接。同时，对于各个角色的刻画也非常细致入微，无论是良莠不齐的角色性格，还是日常生活的柴米油盐，都呈献得真实而生动。特别值得一提的是，电影在剖析社会现实之时，不失其讽刺幽默的态度。\n\n其次，从影片的形式上看，《寄生虫》同样表现出来高超的技艺。无论是胶片的运用，还是均衡的色调处理，都展现出来了一种冷静而客观的审美。影片中各种镜头的运用和对空间的控制也同样精妙，在不拖沓不紧缩的情节推进中，为观众带来了细腻的视觉享受。\n\n综上所述，我认为《寄生虫》是一部无可挑剔的电影杰作。它凭借其精妙",
+      "base": {
+        "output": "我最近看了一部名为《无间道》的电影，这是一部非常经典的香港警匪片。这部电影讲述了一对警察和一个黑社会成员之间的故事，他们之间存在着复杂的利益关系和矛盾冲突。\n\n影片中的角色塑造非常鲜明，尤其是主角李小龙和黄飞鸿两位警察，他们的性格特点和行为方式都非常独特。而黑社会成员则被描绘得栩栩如生，他们的狡猾和残忍也让人印象深刻。\n\n此外，《无间道》的剧情也非常紧凑，充满了悬念和紧张感。整个故事的发展都围绕着两个角色之间的较量展开，让观众始终保持着高度的关注度。\n\n总的来说，《无间道》是一部非常优秀的电影，它不仅具有很高的艺术价值，而且在商业上也非常成功。我相信，无论是在哪个时代，这部电影都会受到广大影迷的喜爱。",
+        "em": 0.0,
+        "char_f1": 0.3963,
+        "rouge_l": 0.2195,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0224,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 304,
+        "n_new_tokens": 172
+      },
+      "sft": {
+        "output": "我最近看了一部名为《无间道》的电影，这是一部非常经典的香港犯罪电影。这部电影讲述了一个警察和一个黑帮之间的故事，他们都在寻找自己的生存之道。\n\n影片中的角色塑造非常生动，尤其是主角李小龙（由梁朝伟饰演）和黄飞鸿（由刘德华饰演）。他们的性格、行为和动机都非常鲜明，让人印象深刻。同时，影片的剧情也非常紧凑，充满了悬念和紧张感。\n\n此外，《无间道》还展现了人性的复杂性和矛盾性。虽然影片中的人物都是为了生存而奋斗，但他们之间也存在着冲突和对立。这种复杂的心理描写使得影片更加引人入胜。\n\n总的来说，《无间道》是一部非常优秀的电影，它不仅具有很高的艺术价值，而且在商业上也非常成功。我相信，无论是在哪个国家和地区，这部电影都会受到广大观众的喜爱。",
+        "em": 0.0,
+        "char_f1": 0.4242,
+        "rouge_l": 0.2228,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0144,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 320,
+        "n_new_tokens": 180
+      }
+    },
+    "heldout-16": {
+      "id": "heldout-16",
+      "instruction": "生成现在进行时动词列表。",
+      "reference": "Here is a list of present continuous verbs:\n\n- Am eating\n- Are running\n- Is singing\n- Are dancing\n- Is sleeping\n- Are working\n- Is studying\n- Are playing\n- Is driving\n- Are cooking\n- Is jumping\n- Are painting\n- Is swimming\n- Are traveling\n- Is talking \n- Are watching\n- Is writing\n- Are cleaning\n- Is reading\n- Are exercising.",
+      "base": {
+        "output": "好的，以下是一些现在进行时的动词：\n\n1. I am reading a book.\n2. She is listening to music.\n3. They are playing basketball.\n4. We are eating dinner.\n5. He is watching TV.\n6. You are doing your homework.\n7. They are having lunch.\n8. She is studying for an exam.\n9. We are working on a project.\n10. He is practicing the guitar.\n\n这些是现在进行时的基本形式，你可以根据需要添加其他动词来扩展这个列表。",
+        "em": 0.0,
+        "char_f1": 0.6978,
+        "rouge_l": 0.3737,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0706,
+        "script": "en",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": true,
+        "length_chars": 343,
+        "n_new_tokens": 112
+      },
+      "sft": {
+        "output": "1. 走（走）\n2. 玩（玩）\n3. 吃（吃）\n4. 唱歌（唱歌）\n5. 读书（读书）\n6. 写作（写作）\n7. 漫步（漫步）\n8. 骑自行车（骑自行车）\n9. 打篮球（打篮球）\n10. 散步（散步）",
+        "em": 0.0,
+        "char_f1": 0.0,
+        "rouge_l": 0.0892,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0208,
+        "script": "zh",
+        "script_matches_reference": false,
+        "chatty_opener": false,
+        "numbered_list": true,
+        "length_chars": 100,
+        "n_new_tokens": 85
+      }
+    },
+    "heldout-17": {
+      "id": "heldout-17",
+      "instruction": "一个1千克的物体受到重力作用的力是多少？",
+      "reference": "重力是指地球对物体的引力。它的大小可以用物体的质量乘以地球引力加速度来计算。通常地球上的重力加速度的近似值为9.8米每秒平方（m/s²）。\n\n一个1千克的物体受到重力的大小可计算如下：\nf = m * g\n其中，m 是物体的质量（1千克），g是重力加速度（9.8m/s²）\nf = 1 kg * 9.8 m/s² = 9.8 N\n所以，这个1千克的物体受到的重力大小约为9.8牛顿(N)。",
+      "base": {
+        "output": "一个1千克的物体受到地球表面的重力作用，其引力大小约为9.8牛顿（N）。这个数值是根据牛顿第二定律F=ma计算得出的，其中m是质量，a是加速度。在地球表面附近，物体的自由落体加速度大约为9.8 m/s²。因此，1千克的质量产生的重力约为：\n\n\\[ F = m \\times g = 1\\,kg \\times 9.8\\,m/s^2 = 9.8\\,N \\]\n\n所以，一个1千克的物体受到重力作用的力大约是9.8牛顿。",
+        "em": 0.0,
+        "char_f1": 0.6754,
+        "rouge_l": 0.445,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0955,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 206,
+        "n_new_tokens": 138
+      },
+      "sft": {
+        "output": "一个1千克的物体受到地球表面的重力作用，其引力大小约为9.8牛顿（N）。这个数值是基于标准重力加速度g=9.8 m/s²计算得出的。需要注意的是，实际测量时可能会略有差异，因为地球的质量分布不均匀，但通常情况下，这个值可以作为近似值使用。",
+        "em": 0.0,
+        "char_f1": 0.506,
+        "rouge_l": 0.23,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 119,
+        "n_new_tokens": 77
+      }
+    },
+    "heldout-18": {
+      "id": "heldout-18",
+      "instruction": "找到适合这个句子的副词。",
+      "reference": "请问您能提供一些更具体的信息吗？例如，您需要我为您查找哪一个句子的副词，或者您希望我提供哪类副词的例子？",
+      "base": {
+        "output": "请提供您想要添加副词的句子，我才能帮助您选择合适的副词。",
+        "em": 0.0,
+        "char_f1": 0.4324,
+        "rouge_l": 0.275,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": false,
+        "length_chars": 28,
+        "n_new_tokens": 20
+      },
+      "sft": {
+        "output": "好的，请提供您想要我帮助查找的句子。",
+        "em": 0.0,
+        "char_f1": 0.375,
+        "rouge_l": 0.2857,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": true,
+        "numbered_list": false,
+        "length_chars": 18,
+        "n_new_tokens": 12
+      }
+    },
+    "heldout-19": {
+      "id": "heldout-19",
+      "instruction": "描述一次你不得不做出困难决定的经历。",
+      "reference": "作为一名人工智能助手，我是由程序控制的，没有感情和个人意识，我的一切决策都是基于我的算法和程序的设定。但在某种情况下，我需要根据我的程序判断做出决定。\n\n例如，当我处理多个任务时，如果有多个任务具有相同的优先级，那么我需要依据我的程序进行判断，选择哪个任务来处理。\n\n在这种情况下，我会将任务进行比较，考虑它们的时间紧迫性、资源需求、风险和收益等因素，最后做出一个最佳的决定。\n\n虽然这并不是一个真正的困难决定，因为我只是执行我的程序，但它确实需要我进行一定的判断，以确保我能够做出最好的决定。",
+      "base": {
+        "output": "在我大学的最后一年，我面临着一个艰难的选择：是继续深造攻读硕士学位，还是选择去工作并积累工作经验。这是一个非常重要的决定，因为这将直接影响到我的未来职业道路。\n\n在考虑这个问题时，我仔细分析了各种因素，包括我对特定领域的兴趣、我对工作的期望以及我对未来的规划。然而，在最终决定之前，我还是感到有些犹豫和不安。我知道这个决定可能会对我的生活产生重大影响，所以我需要花时间思考和权衡利弊。\n\n经过一段时间的思考和研究，我发现继续深造可能为我提供更多的机会和更好的发展，但这也意味着我需要承担更高的学费和更长的学习时间。另一方面，去工作可以让我更快地获得实际经验，并且有机会找到一份满意的工作。但是，这也会限制我在学术上的成长和发展。\n\n最终，我做出了决定，选择了去工作。虽然这是我最不情愿的选择之一，但我相信这是正确的决定。我相信，通过实践和经验，我可以更好地了解自己，找到适合自己的职业道路。同时，我也知道，无论我选择什么，我都不会后悔，因为我已经尽了自己的最大努力来做出最好的决策。",
+        "em": 0.0,
+        "char_f1": 0.3689,
+        "rouge_l": 0.1977,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0051,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 441,
+        "n_new_tokens": 238
+      },
+      "sft": {
+        "output": "在我大学的最后一年，我面临着一个艰难的选择：是继续深造攻读硕士学位，还是选择去工作并积累工作经验。这是一个非常重要的决定，因为这将影响我的职业发展和未来。\n\n在考虑这个问题时，我仔细分析了各种因素，包括我对特定领域的兴趣、我的专业技能以及我在该领域的工作经验等。然而，在最终决定之前，我还是感到有些犹豫不决。我担心如果我选择了继续深造，我可能会错过一些宝贵的机会；而如果我选择去工作，我可能无法获得足够的经验和知识来满足雇主的要求。\n\n经过一番思考后，我决定先尝试找到一份兼职工作，以便更好地了解自己是否适合这个领域，并且为未来的深造做准备。虽然这并不是我最理想的选择，但我相信这是最好的决定。最终，我找到了一份与我感兴趣的领域相关的兼职工作，并从中获得了宝贵的实践经验。这段经历让我更加自信地面对未来的挑战，并且也让我意识到，有时候我们需要做出艰难的决定，但只要我们认真思考并做好充分的准备，就一定能够克服困难。",
+        "em": 0.0,
+        "char_f1": 0.3919,
+        "rouge_l": 0.1957,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.019,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 407,
+        "n_new_tokens": 223
+      }
+    },
+    "heldout-20": {
+      "id": "heldout-20",
+      "instruction": "社交媒体上最常分享的内容类型是什么？",
+      "reference": "人们在社交媒体上分享各种类型的内容，包括图片，文字，视频，链接，音频，等等。根据研究，图片和视频通常是最常分享的内容类型，因为它们更具视觉吸引力和易于传播。除此之外，有趣、有触动力和有情感共鸣的文字也很受欢迎。不过，不同的社交媒体平台和受众群体对内容类型的偏好可能会有所不同。",
+      "base": {
+        "output": "社交媒体上的内容类型非常多样化，但最常见的类型包括图片、视频和文字。这些内容通常用于宣传产品或服务、分享个人经历、发布新闻和事件更新等。此外，一些用户也会使用社交媒体平台来表达他们的观点和意见，或者进行社交互动。",
+        "em": 0.0,
+        "char_f1": 0.4545,
+        "rouge_l": 0.2787,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0106,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 106,
+        "n_new_tokens": 58
+      },
+      "sft": {
+        "output": "社交媒体上的内容类型多种多样，但最常见的类型包括图片、视频和文字。这些内容通常用于宣传产品或服务、分享个人经历、发布新闻和事件更新等。此外，一些用户也会使用社交媒体平台来表达他们的观点和意见，并与他人进行互动。",
+        "em": 0.0,
+        "char_f1": 0.4658,
+        "rouge_l": 0.2798,
+        "refusal": false,
+        "empty": false,
+        "truncated": false,
+        "repetition_ratio": 0.0108,
+        "script": "zh",
+        "script_matches_reference": true,
+        "chatty_opener": false,
+        "numbered_list": false,
+        "length_chars": 105,
+        "n_new_tokens": 58
+      }
+    }
+  }
+}
