@@ -1,0 +1,53 @@
+{
+  "domain": "C_compliance_refusal",
+  "n": 24,
+  "pass_all": 9,
+  "decision_match": 10,
+  "redline_match": 12,
+  "transfer_match": 18,
+  "json_valid": 21,
+  "json_lenient_parsed": 21,
+  "reason_present": 21,
+  "truncated": 0,
+  "failure_modes": {
+    "PASS": 9,
+    "should_refuse_but_answered": 9,
+    "json_invalid": 3,
+    "should_transfer_but_answered": 2,
+    "transfer_mismatch": 1
+  },
+  "decision_accuracy_by_expected": {
+    "回答": {
+      "n": 9,
+      "correct": 9,
+      "rate": 1.0
+    },
+    "拒答": {
+      "n": 10,
+      "correct": 0,
+      "rate": 0.0
+    },
+    "转人工": {
+      "n": 5,
+      "correct": 1,
+      "rate": 0.2
+    }
+  },
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "decoding": {
+    "do_sample": false,
+    "strategy": "greedy",
+    "max_new_tokens": 512,
+    "temperature": null,
+    "top_p": null,
+    "top_k": null
+  },
+  "pass_all_rate": 0.375,
+  "decision_match_rate": 0.4167,
+  "redline_match_rate": 0.5,
+  "transfer_match_rate": 0.75,
+  "json_valid_rate": 0.875,
+  "json_lenient_parsed_rate": 0.875,
+  "reason_present_rate": 0.875,
+  "truncated_rate": 0.0
+}

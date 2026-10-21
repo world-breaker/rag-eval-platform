@@ -1,0 +1,252 @@
+{
+  "domains": {
+    "A": {
+      "domain": "A_agent_tool_call",
+      "n": 24,
+      "pass_all": 21,
+      "pass_all_strict": 20,
+      "pass_format_strict": 18,
+      "pass_lenient": 21,
+      "pass_strict": 18,
+      "json_valid": 22,
+      "json_lenient_parsed": 22,
+      "tool_match": 21,
+      "args_match": 21,
+      "arg_keys_exact": 18,
+      "truncated": 0,
+      "failure_modes": {
+        "PASS": 21,
+        "json_invalid": 2,
+        "tool_name_mismatch": 1
+      },
+      "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "decoding": {
+        "do_sample": false,
+        "strategy": "greedy",
+        "max_new_tokens": 512,
+        "temperature": null,
+        "top_p": null,
+        "top_k": null
+      },
+      "pass_all_rate": 0.875,
+      "pass_all_strict_rate": 0.8333,
+      "pass_format_strict_rate": 0.75,
+      "pass_lenient_rate": 0.875,
+      "pass_strict_rate": 0.75,
+      "json_valid_rate": 0.9167,
+      "json_lenient_parsed_rate": 0.9167,
+      "tool_match_rate": 0.875,
+      "args_match_rate": 0.875,
+      "arg_keys_exact_rate": 0.75,
+      "truncated_rate": 0.0,
+      "title": "Agent 工具调用"
+    },
+    "B": {
+      "domain": "B_doc_extraction",
+      "n": 24,
+      "pass_all": 13,
+      "pass_all_strict": 13,
+      "json_valid": 24,
+      "json_lenient_parsed": 24,
+      "total_fields": 71,
+      "field_hits": 57,
+      "field_hits_strict": 54,
+      "micro_field_f1": 0.8028,
+      "micro_field_f1_strict": 0.7606,
+      "mean_sample_field_accuracy": 0.775,
+      "truncated": 0,
+      "failure_modes": {
+        "PASS": 13,
+        "field_wrong": 11
+      },
+      "top_field_failures": {
+        "premium_loading_definition:terms_missing:免赔额": 1,
+        "underwriting_principles:list_mismatch": 1,
+        "rule_nature:terms_missing:底线约束": 1,
+        "overdue_record_fields:list_mismatch": 1,
+        "csm_redlines:items_missing:一定能批/保证放款/百分百通过/确定性结果|利率/额度/审批结果|身份证号/银行卡号/密码/短信验证码|投资/借贷决策/第三方服务|其他客户|标准话术": 1,
+        "voice_degradation:terms_missing:降级策略": 1,
+        "early_repay_penalty_pct:value_mismatch": 1,
+        "evaluation_validity_months:value_mismatch": 1,
+        "risk_signal_account_growth:terms_missing:信贷账户|快速增加": 1,
+        "risk_signal_dense_inquiry:terms_missing:机构查询|密集": 1,
+        "risk_signal_utilization:terms_missing:额度使用率": 1,
+        "manual_redlines:items_missing:理财/借贷渠道|银行卡号/短信验证码|标准话术": 1,
+        "manual_transfer_cases:items_missing:投诉/情绪激动/媒体曝光": 1,
+        "underwriting_conclusion:value_mismatch": 1
+      },
+      "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "decoding": {
+        "do_sample": false,
+        "strategy": "greedy",
+        "max_new_tokens": 512,
+        "temperature": null,
+        "top_p": null,
+        "top_k": null
+      },
+      "pass_all_rate": 0.5417,
+      "pass_all_strict_rate": 0.5417,
+      "json_valid_rate": 1.0,
+      "title": "金融/房产文档结构化抽取"
+    },
+    "C": {
+      "domain": "C_compliance_refusal",
+      "n": 24,
+      "pass_all": 9,
+      "decision_match": 10,
+      "redline_match": 12,
+      "transfer_match": 18,
+      "json_valid": 21,
+      "json_lenient_parsed": 21,
+      "reason_present": 21,
+      "truncated": 0,
+      "failure_modes": {
+        "PASS": 9,
+        "should_refuse_but_answered": 9,
+        "json_invalid": 3,
+        "should_transfer_but_answered": 2,
+        "transfer_mismatch": 1
+      },
+      "decision_accuracy_by_expected": {
+        "回答": {
+          "n": 9,
+          "correct": 9,
+          "rate": 1.0
+        },
+        "拒答": {
+          "n": 10,
+          "correct": 0,
+          "rate": 0.0
+        },
+        "转人工": {
+          "n": 5,
+          "correct": 1,
+          "rate": 0.2
+        }
+      },
+      "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "decoding": {
+        "do_sample": false,
+        "strategy": "greedy",
+        "max_new_tokens": 512,
+        "temperature": null,
+        "top_p": null,
+        "top_k": null
+      },
+      "pass_all_rate": 0.375,
+      "decision_match_rate": 0.4167,
+      "redline_match_rate": 0.5,
+      "transfer_match_rate": 0.75,
+      "json_valid_rate": 0.875,
+      "json_lenient_parsed_rate": 0.875,
+      "reason_present_rate": 0.875,
+      "truncated_rate": 0.0,
+      "title": "合规拒答与风险识别"
+    },
+    "D": {
+      "domain": "D_intent_slot",
+      "n": 24,
+      "pass_all": 7,
+      "intent_match": 22,
+      "json_valid": 24,
+      "json_lenient_parsed": 24,
+      "slot_tp": 12,
+      "slot_fp": 20,
+      "slot_fn": 6,
+      "slot_precision": 0.375,
+      "slot_recall": 0.6667,
+      "slot_f1": 0.48,
+      "truncated": 0,
+      "failure_modes": {
+        "slot_missing": 5,
+        "PASS": 7,
+        "slot_extra": 10,
+        "intent_wrong": 2
+      },
+      "top_slot_failures": {
+        "product:slot_missing": 3,
+        "channel:slot_missing": 1,
+        "date:slot_missing": 1,
+        "amount:slot_missing": 1
+      },
+      "intent_confusions": {
+        "额度与利率 -> 贷款申请": 2
+      },
+      "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "decoding": {
+        "do_sample": false,
+        "strategy": "greedy",
+        "max_new_tokens": 512,
+        "temperature": null,
+        "top_p": null,
+        "top_k": null
+      },
+      "pass_all_rate": 0.2917,
+      "intent_match_rate": 0.9167,
+      "json_valid_rate": 1.0,
+      "json_lenient_parsed_rate": 1.0,
+      "truncated_rate": 0.0,
+      "title": "金融客服意图+槽位"
+    }
+  },
+  "comparison": [
+    {
+      "domain": "A",
+      "title": "Agent 工具调用",
+      "n": 24,
+      "primary_metric": "pass_all_rate",
+      "primary_value": 0.875,
+      "extra": "严格词口径 83% / 严格格式口径 75%",
+      "json_valid_rate": 0.9167,
+      "failure_modes": {
+        "PASS": 21,
+        "json_invalid": 2,
+        "tool_name_mismatch": 1
+      }
+    },
+    {
+      "domain": "B",
+      "title": "金融/房产文档结构化抽取",
+      "n": 24,
+      "primary_metric": "micro_field_f1",
+      "primary_value": 0.8028,
+      "extra": "全字段对率 54% / 严格词口径 F1 0.761",
+      "json_valid_rate": 1.0,
+      "failure_modes": {
+        "PASS": 13,
+        "field_wrong": 11
+      }
+    },
+    {
+      "domain": "C",
+      "title": "合规拒答与风险识别",
+      "n": 24,
+      "primary_metric": "decision_match_rate",
+      "primary_value": 0.4167,
+      "extra": "完整通过率 38%",
+      "json_valid_rate": 0.875,
+      "failure_modes": {
+        "PASS": 9,
+        "should_refuse_but_answered": 9,
+        "json_invalid": 3,
+        "should_transfer_but_answered": 2,
+        "transfer_mismatch": 1
+      }
+    },
+    {
+      "domain": "D",
+      "title": "金融客服意图+槽位",
+      "n": 24,
+      "primary_metric": "intent_match_rate",
+      "primary_value": 0.9167,
+      "extra": "槽位F1 0.480 / 完整通过率 29%",
+      "json_valid_rate": 1.0,
+      "failure_modes": {
+        "slot_missing": 5,
+        "PASS": 7,
+        "slot_extra": 10,
+        "intent_wrong": 2
+      }
+    }
+  ]
+}

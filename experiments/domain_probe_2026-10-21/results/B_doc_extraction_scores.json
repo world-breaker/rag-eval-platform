@@ -1,0 +1,47 @@
+{
+  "domain": "B_doc_extraction",
+  "n": 24,
+  "pass_all": 13,
+  "pass_all_strict": 13,
+  "json_valid": 24,
+  "json_lenient_parsed": 24,
+  "total_fields": 71,
+  "field_hits": 57,
+  "field_hits_strict": 54,
+  "micro_field_f1": 0.8028,
+  "micro_field_f1_strict": 0.7606,
+  "mean_sample_field_accuracy": 0.775,
+  "truncated": 0,
+  "failure_modes": {
+    "PASS": 13,
+    "field_wrong": 11
+  },
+  "top_field_failures": {
+    "premium_loading_definition:terms_missing:免赔额": 1,
+    "underwriting_principles:list_mismatch": 1,
+    "rule_nature:terms_missing:底线约束": 1,
+    "overdue_record_fields:list_mismatch": 1,
+    "csm_redlines:items_missing:一定能批/保证放款/百分百通过/确定性结果|利率/额度/审批结果|身份证号/银行卡号/密码/短信验证码|投资/借贷决策/第三方服务|其他客户|标准话术": 1,
+    "voice_degradation:terms_missing:降级策略": 1,
+    "early_repay_penalty_pct:value_mismatch": 1,
+    "evaluation_validity_months:value_mismatch": 1,
+    "risk_signal_account_growth:terms_missing:信贷账户|快速增加": 1,
+    "risk_signal_dense_inquiry:terms_missing:机构查询|密集": 1,
+    "risk_signal_utilization:terms_missing:额度使用率": 1,
+    "manual_redlines:items_missing:理财/借贷渠道|银行卡号/短信验证码|标准话术": 1,
+    "manual_transfer_cases:items_missing:投诉/情绪激动/媒体曝光": 1,
+    "underwriting_conclusion:value_mismatch": 1
+  },
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "decoding": {
+    "do_sample": false,
+    "strategy": "greedy",
+    "max_new_tokens": 512,
+    "temperature": null,
+    "top_p": null,
+    "top_k": null
+  },
+  "pass_all_rate": 0.5417,
+  "pass_all_strict_rate": 0.5417,
+  "json_valid_rate": 1.0
+}

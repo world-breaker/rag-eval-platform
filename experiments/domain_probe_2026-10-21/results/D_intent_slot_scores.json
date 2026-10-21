@@ -1,0 +1,44 @@
+{
+  "domain": "D_intent_slot",
+  "n": 24,
+  "pass_all": 7,
+  "intent_match": 22,
+  "json_valid": 24,
+  "json_lenient_parsed": 24,
+  "slot_tp": 12,
+  "slot_fp": 20,
+  "slot_fn": 6,
+  "slot_precision": 0.375,
+  "slot_recall": 0.6667,
+  "slot_f1": 0.48,
+  "truncated": 0,
+  "failure_modes": {
+    "slot_missing": 5,
+    "PASS": 7,
+    "slot_extra": 10,
+    "intent_wrong": 2
+  },
+  "top_slot_failures": {
+    "product:slot_missing": 3,
+    "channel:slot_missing": 1,
+    "date:slot_missing": 1,
+    "amount:slot_missing": 1
+  },
+  "intent_confusions": {
+    "额度与利率 -> 贷款申请": 2
+  },
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "decoding": {
+    "do_sample": false,
+    "strategy": "greedy",
+    "max_new_tokens": 512,
+    "temperature": null,
+    "top_p": null,
+    "top_k": null
+  },
+  "pass_all_rate": 0.2917,
+  "intent_match_rate": 0.9167,
+  "json_valid_rate": 1.0,
+  "json_lenient_parsed_rate": 1.0,
+  "truncated_rate": 0.0
+}
