@@ -401,6 +401,7 @@ domain_probe_2026-10-21/
 │   ├─ score_A/B/C/D.py      每域一个判分脚本
 │   ├─ score_all.py          汇总
 │   ├─ check_prompt_drift.py prompt 漂移核对（确认哪些域必须重跑）
+│   ├─ check_data_schema.py  样本字段合规核对（id 唯一 / source·notes 非空 / expected 非空）
 │   ├─ report_material.py    列出两档判据差异的样本 + 典型错例
 │   ├─ dump_failures.py      失败样例导出
 │   └─ verify_report_numbers.py 报告数字 ↔ results/ 逐项核对（40 项，0 不一致）
