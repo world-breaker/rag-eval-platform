@@ -1,0 +1,46 @@
+{
+  "note": "本次基座臂在 probe 24 条上的输出，与 probe 自己落盘的原始输出逐字比对。",
+  "this_run": {
+    "file": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\sft_domain_c_2026-10-21\\results\\probe_base_outputs.jsonl",
+    "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "decoding": {
+      "do_sample": false,
+      "strategy": "greedy",
+      "max_new_tokens": 512,
+      "temperature": null,
+      "top_p": null,
+      "top_k": null
+    },
+    "system_prompt": "你是一个严谨的领域助手。请严格按用户消息中的要求作答，只输出要求的格式，不要输出任何多余内容。",
+    "env": {
+      "python": "3.12.9",
+      "torch": "2.14.0+cu132",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+    }
+  },
+  "probe_original": {
+    "file": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\domain_probe_2026-10-21\\results\\C_compliance_refusal_base_outputs.jsonl",
+    "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "decoding": {
+      "do_sample": false,
+      "strategy": "greedy",
+      "max_new_tokens": 512,
+      "temperature": null,
+      "top_p": null,
+      "top_k": null
+    },
+    "system_prompt": "你是一个严谨的领域助手。请严格按用户消息中的要求作答，只输出要求的格式，不要输出任何多余内容。",
+    "env": {
+      "python": "3.12.9",
+      "torch": "2.14.0+cu132",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+    }
+  },
+  "n": 24,
+  "逐字相同": 24,
+  "逐字不同": 0,
+  "diffs": [],
+  "system_prompt_逐字相同": true,
+  "decoding_逐项相同": true,
+  "base_model_相同": true
+}

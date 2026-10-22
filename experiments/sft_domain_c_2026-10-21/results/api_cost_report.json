@@ -1,0 +1,49 @@
+{
+  "_note": "改写环节 API 花费核算。①=有日志实测；②=无日志推算。key 只从环境变量读，本脚本零 API 调用。",
+  "model": "deepseek-flash",
+  "计价来源": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "USD_CNY": 7.1,
+  "预算上限_CNY": 5.0,
+  "①有日志的运行_实测": {
+    "日志文件": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\sft_domain_c_2026-10-21\\results\\rewrite_run.log",
+    "槽位_成功/总数": "799/800",
+    "API调用次数": 807,
+    "输入token": 164330,
+    "cache_hit_token": 0,
+    "输出token": 16137,
+    "每槽位平均_输入token": 205.41,
+    "每槽位平均_输出token": 20.17,
+    "费用_USD_offpeak": 0.034332,
+    "费用_CNY_offpeak": 0.2438,
+    "费用_USD_peak": 0.068663,
+    "费用_CNY_peak": 0.4875,
+    "日志自己写的估算": {
+      "USD": 0.0343,
+      "CNY": 0.24
+    }
+  },
+  "②无日志的运行_推算": {
+    "说明": "缓存最终条目数多于日志那次运行的槽位数 → 日志之后还跑过一次改写，该次运行没有留下日志。token 按①实测的每槽位均值外推。",
+    "缓存最终条目数": 1560,
+    "缓存成功条目数": 1554,
+    "推算槽位数": 760,
+    "推算_输入token": 156114,
+    "推算_输出token": 15330,
+    "费用_USD_offpeak": 0.032615,
+    "费用_CNY_offpeak": 0.2316,
+    "费用_USD_peak": 0.06523,
+    "费用_CNY_peak": 0.4631
+  },
+  "合计": {
+    "费用_USD_offpeak": 0.066947,
+    "费用_CNY_offpeak": 0.4753,
+    "费用_USD_peak": 0.133894,
+    "费用_CNY_peak": 0.9506,
+    "占预算上限比例_offpeak": 9.51,
+    "占预算上限比例_peak": 19.01
+  },
+  "其他环节": {
+    "评测判分": "纯规则，零 API",
+    "checkpoint选择": "dev eval_loss，零 API"
+  }
+}

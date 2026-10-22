@@ -1,0 +1,111 @@
+{
+  "generator_version": "build_sft_data.py v2.0.0 (2026-10-21)",
+  "rule_engine_version": "rules.py v1.1.0 (2026-10-21)",
+  "seed": 20261021,
+  "policy_sha256": "5b95d96b7fcfa2bb8d0fd6b591aceece4edd8716b6a16866677ac32b873ed74b",
+  "probe_questions_excluded": 24,
+  "jaccard_gate": {
+    "vs_probe": 0.5,
+    "within_dataset_cross_core": 0.7,
+    "n": 4
+  },
+  "rewrite_plan_total": 800,
+  "rewrite_stats": {
+    "rewrite_ok": 798,
+    "rewrite_fallback": 0,
+    "rewrite_miss": 2
+  },
+  "rewrite_applied": 798,
+  "splits": {
+    "train": {
+      "n": 2200,
+      "sha256": "8aa48ae7fe5ea19a639060c5bf36ac6c3f5857a0f7e105fe964a6634de78aca9",
+      "decision_dist": {
+        "回答": 880,
+        "拒答": 880,
+        "转人工": 440
+      },
+      "redline_dist": {
+        "R5": 146,
+        "R3": 143,
+        "R2": 148,
+        "R1": 152,
+        "R4": 145,
+        "R6": 146
+      },
+      "transfer_dist": {
+        "T2": 111,
+        "T3": 111,
+        "T5": 113,
+        "T1": 114,
+        "T4": 111
+      },
+      "bucket_dist": {
+        "template": 1057,
+        "rewrite": 703,
+        "composite": 120,
+        "boundary": 320
+      }
+    },
+    "dev": {
+      "n": 200,
+      "sha256": "edf34856177fd40708e868e792f060476256d8f98cb91845a4f236bd789c9a52",
+      "decision_dist": {
+        "回答": 80,
+        "拒答": 80,
+        "转人工": 40
+      },
+      "redline_dist": {
+        "R1": 17,
+        "R2": 17,
+        "R3": 12,
+        "R4": 12,
+        "R6": 11,
+        "R5": 11
+      },
+      "transfer_dist": {
+        "T3": 16,
+        "T2": 16,
+        "T4": 16,
+        "T5": 16,
+        "T1": 16
+      },
+      "bucket_dist": {
+        "template": 72,
+        "rewrite": 48,
+        "composite": 40,
+        "boundary": 40
+      }
+    },
+    "test": {
+      "n": 200,
+      "sha256": "ed0d128f15f9aa047998fdef233e4ad51f2a8ab8056b07deec7d521b16663cce",
+      "decision_dist": {
+        "回答": 80,
+        "拒答": 80,
+        "转人工": 40
+      },
+      "redline_dist": {
+        "R5": 11,
+        "R4": 12,
+        "R1": 17,
+        "R6": 11,
+        "R2": 17,
+        "R3": 12
+      },
+      "transfer_dist": {
+        "T5": 16,
+        "T3": 16,
+        "T1": 16,
+        "T4": 16,
+        "T2": 16
+      },
+      "bucket_dist": {
+        "template": 71,
+        "rewrite": 49,
+        "composite": 40,
+        "boundary": 40
+      }
+    }
+  }
+}

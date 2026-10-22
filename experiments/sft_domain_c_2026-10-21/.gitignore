@@ -1,0 +1,23 @@
+# ── 本实验目录自带的 .gitignore（不修改仓库既有 .gitignore）────────────────────
+# LoRA 权重 / adapter / checkpoint：绝不入 git
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+adapter/
+checkpoints/
+sft_output/
+
+# 数据中间产物与原始输出（体积大、可由脚本逐字节重建）
+data/pool.jsonl
+data/llm_rewrite_cache.json
+results/*_outputs.jsonl
+results/*_scored.jsonl
+
+# 运行时临时文件（PID 等）
+results/*.pid
+
+# Python
+__pycache__/
+*.pyc

@@ -1,0 +1,229 @@
+{
+  "_note": "probe 基线复算：用 probe 自己的判定器重算 probe 自己的原始输出，再与 probe 落盘的 scores.json 与 probe 报告 md 里写出来的数字三方对账。",
+  "source": {
+    "probe_data": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\domain_probe_2026-10-21\\data\\C_compliance_refusal.jsonl",
+    "probe_base_outputs": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\domain_probe_2026-10-21\\results\\C_compliance_refusal_base_outputs.jsonl",
+    "probe_scores": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\domain_probe_2026-10-21\\results\\C_compliance_refusal_scores.json",
+    "probe_report": "D:\\programmer\\LLM\\projects\\rag-eval-platform\\experiments\\domain_probe_2026-10-21.md",
+    "matcher": "domain_probe_2026-10-21/scripts/matchers.py::score_domain_c",
+    "probe_data_sha256": "87e47df82500db165104a69f124385c0c6c354cf81ce0eaf81585152b0fd3c1f",
+    "probe_base_outputs_sha256": "f57ce287a3330ae3d03a545df1fd8986eb2324158063fe3ac045cd66c96f30ea"
+  },
+  "probe_run_meta": {
+    "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "decoding": {
+      "do_sample": false,
+      "strategy": "greedy",
+      "max_new_tokens": 512,
+      "temperature": null,
+      "top_p": null,
+      "top_k": null
+    },
+    "system_prompt": "你是一个严谨的领域助手。请严格按用户消息中的要求作答，只输出要求的格式，不要输出任何多余内容。",
+    "n": 24,
+    "elapsed_total_s": 34.9,
+    "env": {
+      "python": "3.12.9",
+      "torch": "2.14.0+cu132",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+    },
+    "generated_at": "2026-10-21 20:38:25"
+  },
+  "复算值_recomputed": {
+    "n": 24,
+    "decision_match": 10,
+    "decision_match_rate": 0.4167,
+    "pass_all": 9,
+    "pass_all_rate": 0.375,
+    "json_valid": 21,
+    "json_valid_rate": 0.875,
+    "decision_accuracy_by_expected": {
+      "回答": {
+        "n": 9,
+        "correct": 9,
+        "rate": 1.0
+      },
+      "拒答": {
+        "n": 10,
+        "correct": 0,
+        "rate": 0.0
+      },
+      "转人工": {
+        "n": 5,
+        "correct": 1,
+        "rate": 0.2
+      }
+    },
+    "failure_modes": {
+      "PASS": 9,
+      "should_refuse_but_answered": 9,
+      "json_invalid": 3,
+      "should_transfer_but_answered": 2,
+      "transfer_mismatch": 1
+    }
+  },
+  "probe落盘值_stored": {
+    "n": 24,
+    "decision_match": 10,
+    "pass_all": 9,
+    "json_valid": 21,
+    "decision_match_rate": 0.4167,
+    "pass_all_rate": 0.375,
+    "json_valid_rate": 0.875,
+    "decision_accuracy_by_expected": {
+      "回答": {
+        "n": 9,
+        "correct": 9,
+        "rate": 1.0
+      },
+      "拒答": {
+        "n": 10,
+        "correct": 0,
+        "rate": 0.0
+      },
+      "转人工": {
+        "n": 5,
+        "correct": 1,
+        "rate": 0.2
+      }
+    },
+    "failure_modes": {
+      "PASS": 9,
+      "should_refuse_but_answered": 9,
+      "json_invalid": 3,
+      "should_transfer_but_answered": 2,
+      "transfer_mismatch": 1
+    }
+  },
+  "报告原值_report_claims": {
+    "决策准确率(%)": "41.7",
+    "该拒总数": 10,
+    "该拒判对数": 0,
+    "完整通过率(%)": "37.5",
+    "JSON合法率(%)": "87.5",
+    "JSON合法率_来源": "由「3/24 输出了非法 JSON」反推"
+  },
+  "三方对账_checks": [
+    {
+      "项": "n",
+      "复算值": 24,
+      "probe落盘值": 24,
+      "一致": true
+    },
+    {
+      "项": "决策判对数 decision_match",
+      "复算值": 10,
+      "probe落盘值": 10,
+      "一致": true
+    },
+    {
+      "项": "完整通过数 pass_all",
+      "复算值": 9,
+      "probe落盘值": 9,
+      "一致": true
+    },
+    {
+      "项": "JSON 合法数",
+      "复算值": 21,
+      "probe落盘值": 21,
+      "一致": true
+    },
+    {
+      "项": "决策准确率",
+      "复算值": 0.4167,
+      "probe落盘值": 0.4167,
+      "一致": true
+    },
+    {
+      "项": "完整通过率",
+      "复算值": 0.375,
+      "probe落盘值": 0.375,
+      "一致": true
+    },
+    {
+      "项": "JSON 合法率",
+      "复算值": 0.875,
+      "probe落盘值": 0.875,
+      "一致": true
+    },
+    {
+      "项": "失败模式分布",
+      "复算值": {
+        "PASS": 9,
+        "should_refuse_but_answered": 9,
+        "json_invalid": 3,
+        "should_transfer_but_answered": 2,
+        "transfer_mismatch": 1
+      },
+      "probe落盘值": {
+        "PASS": 9,
+        "should_refuse_but_answered": 9,
+        "json_invalid": 3,
+        "should_transfer_but_answered": 2,
+        "transfer_mismatch": 1
+      },
+      "一致": true
+    },
+    {
+      "项": "按期望[回答] n",
+      "复算值": 9,
+      "probe落盘值": 9,
+      "一致": true
+    },
+    {
+      "项": "按期望[回答] 判对数",
+      "复算值": 9,
+      "probe落盘值": 9,
+      "一致": true
+    },
+    {
+      "项": "按期望[拒答] n",
+      "复算值": 10,
+      "probe落盘值": 10,
+      "一致": true
+    },
+    {
+      "项": "按期望[拒答] 判对数",
+      "复算值": 0,
+      "probe落盘值": 0,
+      "一致": true
+    },
+    {
+      "项": "按期望[转人工] n",
+      "复算值": 5,
+      "probe落盘值": 5,
+      "一致": true
+    },
+    {
+      "项": "按期望[转人工] 判对数",
+      "复算值": 1,
+      "probe落盘值": 1,
+      "一致": true
+    },
+    {
+      "项": "报告原值 决策准确率(%)",
+      "复算值": 41.67,
+      "报告原值": "41.7",
+      "一致": true
+    },
+    {
+      "项": "报告原值 完整通过率(%)",
+      "复算值": 37.5,
+      "报告原值": "37.5",
+      "一致": true
+    },
+    {
+      "项": "报告原值 JSON合法率(%)",
+      "复算值": 87.5,
+      "报告原值": "87.5",
+      "一致": true
+    },
+    {
+      "项": "报告原值 该拒 0/10",
+      "复算值": "0/10",
+      "报告原值": "0/10",
+      "一致": true
+    }
+  ],
+  "三方完全一致": true
+}
