@@ -3,7 +3,7 @@
 为什么要有这个脚本：
 - `src/evaluation.py::evaluate_generation`（LLM-as-Judge）此前**有实现、零实测**：
   experiments/ 里没有任何生成层结果，README 却宣称了三层指标（含 faithfulness）。
-  面试被追问「faithfulness 多少分」会答不上来。
+  一旦被问「faithfulness 多少分」就会答不上来。
 - 只有把「本地 1.5B 当裁判」的分数与「强裁判（DeepSeek）」在同一批样本上对齐，
   才能把「本地小模型够不够用」从感觉变成**可复现的实测结论**。
 
